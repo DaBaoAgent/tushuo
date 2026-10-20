@@ -24,7 +24,6 @@ research/reference-*.jpg
 
 # 大体积素材 / 模型权重：不入库，渲染时本机自备
 vendor/
-三国人物/
 参考视频和logo/
 assets/_stage-portraits/
 assets/banner-cards/
