@@ -1,0 +1,13 @@
+{
+  "enabledPlugins": {
+    "hyperframes@hyperframes": true
+  },
+  "extraKnownMarketplaces": {
+    "hyperframes": {
+      "source": {
+        "source": "directory",
+        "path": "D:\\@kaifa\\tushuo\\.hyperframes-src"
+      }
+    }
+  }
+}

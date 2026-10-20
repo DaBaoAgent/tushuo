@@ -1,0 +1,440 @@
+<svg id="map-svg" viewBox="0 0 1080 1920" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0e5cf"/>
+      <stop offset="45%" stop-color="#e8dcc3"/>
+      <stop offset="100%" stop-color="#d6c4a2"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="42%" cy="38%" r="72%">
+      <stop offset="0%" stop-color="#77948c"/>
+      <stop offset="55%" stop-color="#587770"/>
+      <stop offset="100%" stop-color="#3d5c57"/>
+    </radialGradient>
+    <linearGradient id="deepSea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#385752" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#24433f" stop-opacity=".55"/>
+    </linearGradient>
+    <linearGradient id="sandGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e0c18c"/>
+      <stop offset="100%" stop-color="#c9a66b"/>
+    </linearGradient>
+    <radialGradient id="oasisGrad" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#9bb276"/>
+      <stop offset="55%" stop-color="#7d9a62"/>
+      <stop offset="100%" stop-color="#6a8656" stop-opacity=".55"/>
+    </radialGradient>
+    <linearGradient id="steppeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b9b985"/>
+      <stop offset="100%" stop-color="#a8a874" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="mountainBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a9916b"/>
+      <stop offset="100%" stop-color="#8b7453"/>
+    </linearGradient>
+    <linearGradient id="mountainMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#907a56"/>
+      <stop offset="100%" stop-color="#6f5c40"/>
+    </linearGradient>
+    <linearGradient id="mountainFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7d6848"/>
+      <stop offset="100%" stop-color="#5c4b35"/>
+    </linearGradient>
+    <pattern id="grid" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#8c7655" stroke-width="1" opacity=".20"/>
+      <path d="M 60 0 L 60 120 M 0 60 L 120 60" fill="none" stroke="#8c7655" stroke-width=".6" opacity=".08"/>
+    </pattern>
+    <pattern id="sandDots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="7" r="1.4" fill="#8e6f45" opacity=".45"/>
+      <circle cx="18" cy="19" r="1.1" fill="#8e6f45" opacity=".35"/>
+      <circle cx="24" cy="5" r=".8" fill="#8e6f45" opacity=".3"/>
+    </pattern>
+    <pattern id="grassPat" width="70" height="46" patternUnits="userSpaceOnUse">
+      <path d="M 12 34 l 3 -11 M 15 34 l 1 -8 M 18 34 l 4 -12" fill="none" stroke="#6f7a4d" stroke-width="1.4" opacity=".5"/>
+      <path d="M 48 20 l 3 -10 M 51 20 l 1 -7 M 54 20 l 4 -11" fill="none" stroke="#6f7a4d" stroke-width="1.2" opacity=".4"/>
+    </pattern>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#3b2b1a" flood-opacity=".28"/>
+    </filter>
+    <filter id="blurSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <marker id="arrow-red" viewBox="0 0 14 12" refX="12" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 14 6 L 0 12 L 3 6 Z" fill="#a63a2b"/>
+    </marker>
+    <marker id="arrow-brown" viewBox="0 0 14 12" refX="12" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 14 6 L 0 12 L 3 6 Z" fill="#7a5a35"/>
+    </marker>
+    <mask id="mask-main">
+      <path id="mask-main-path" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-adv-1">
+      <path id="mask-adv-1-path" d="M 560 800 C 545 860 525 925 505 985" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-adv-2">
+      <path id="mask-adv-2-path" d="M 520 1000 C 560 1000 600 995 625 980" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-flight">
+      <path id="mask-flight-path" d="M 640 988 C 540 1025 440 1055 340 1080 C 280 1095 230 1108 190 1120" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+
+    <g id="tree-pine">
+      <rect x="-1.5" y="-4" width="3" height="10" fill="#5a4630"/>
+      <path d="M 0 -30 L -12 -8 L 12 -8 Z" fill="#4d6848" stroke="#354c35" stroke-width="1.2"/>
+      <path d="M 0 -38 L -10 -18 L 10 -18 Z" fill="#557351" stroke="#354c35" stroke-width="1.1"/>
+      <path d="M 0 -44 L -7 -28 L 7 -28 Z" fill="#617f59" stroke="#354c35" stroke-width="1"/>
+    </g>
+    <g id="tree-round">
+      <rect x="-1.5" y="-3" width="3" height="10" fill="#5a4630"/>
+      <circle cx="-6" cy="-13" r="8" fill="#6f8c58" stroke="#4b633c" stroke-width="1"/>
+      <circle cx="6" cy="-14" r="8.5" fill="#7c9962" stroke="#4b633c" stroke-width="1"/>
+      <circle cx="0" cy="-21" r="9" fill="#86a168" stroke="#4b633c" stroke-width="1"/>
+    </g>
+    <g id="palm">
+      <path d="M 0 0 C -2 -14 -4 -25 -2 -36" fill="none" stroke="#6b5335" stroke-width="4" stroke-linecap="round"/>
+      <path d="M -2 -36 C -16 -44 -22 -42 -25 -38" fill="none" stroke="#4f6f42" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C -12 -50 -10 -56 -4 -58" fill="none" stroke="#55784a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 4 -54 12 -58 18 -55" fill="none" stroke="#5c804f" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 12 -46 20 -44 24 -38" fill="none" stroke="#4f6f42" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 0 -22 5 -16 10 -12" fill="none" stroke="#4c6b3f" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+    </g>
+    <g id="yurt">
+      <path d="M -16 0 C -18 -8 -10 -14 0 -14 C 10 -14 18 -8 16 0 Z" fill="#d9c7a3" stroke="#6b5335" stroke-width="1.6"/>
+      <path d="M -6 0 L -6 -8 C -6 -11 6 -11 6 -8 L 6 0" fill="#8c5a3a" stroke="#5a3f2a" stroke-width="1"/>
+      <line x1="0" y1="-14" x2="0" y2="-19" stroke="#6b5335" stroke-width="1.4"/>
+      <path d="M 0 -19 l 9 3 l -9 3 Z" fill="#a63a2b"/>
+    </g>
+    <g id="camel">
+      <path d="M -10 0 l 1 -10 l 5 -4 l 1 -8 l 3 -2 l 2 9 l 5 4 l 1 10 l 3 0 l -1 -14 l -5 -7 l -6 -4 l -1 -8 l -4 0 l -1 8 l -6 4 l -4 7 l -1 15 Z" fill="#6b4e33" stroke="#3f2d1d" stroke-width=".8"/>
+    </g>
+    <g id="grass-tuft">
+      <path d="M 0 0 l 2 -10 M 0 0 l 0 -7 M 0 0 l -2 -9" fill="none" stroke="#6f7a4d" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#landGrad)"/>
+  <rect width="1080" height="1920" fill="url(#grid)"/>
+
+  <g opacity=".14" filter="url(#blurSoft)">
+    <ellipse cx="220" cy="1420" rx="330" ry="230" fill="#b49a6b"/>
+    <ellipse cx="880" cy="520" rx="270" ry="190" fill="#b49a6b"/>
+    <ellipse cx="760" cy="1330" rx="240" ry="180" fill="#9f875f"/>
+    <ellipse cx="420" cy="260" rx="260" ry="150" fill="#c6ad80"/>
+  </g>
+
+  <!-- Khwarazmian reach -->
+  <path id="empire-fill" d="M 356 806 C 426 784 508 808 578 856 C 648 904 704 976 698 1056 C 692 1138 614 1186 536 1170 C 458 1154 380 1114 332 1048 C 294 996 290 872 356 806 Z" fill="#a98245" opacity="0"/>
+
+  <!-- steppe / forest belt -->
+  <path d="M 300 500 C 450 450 650 470 800 520 C 880 560 900 640 860 700 C 760 740 600 700 480 680 C 360 660 300 600 300 500 Z" fill="url(#steppeGrad)" opacity=".55"/>
+  <path d="M 300 500 C 450 450 650 470 800 520 C 880 560 900 640 860 700 C 760 740 600 700 480 680 C 360 660 300 600 300 500 Z" fill="url(#grassPat)" opacity=".55"/>
+
+  <!-- Mongolian plateau -->
+  <g opacity=".9">
+    <path d="M 820 330 C 860 300 950 300 990 340 C 1014 372 1010 430 980 462 C 940 500 860 494 830 458 C 806 426 806 360 820 330 Z" fill="#c6bc8a" opacity=".55"/>
+    <path d="M 840 350 C 876 330 946 330 976 362 C 996 386 994 430 970 452 C 938 478 874 474 848 446 C 830 420 830 372 840 350 Z" fill="none" stroke="#8c7655" stroke-width="1.5" stroke-dasharray="7 8" opacity=".5"/>
+    <path d="M 860 372 C 888 356 936 356 958 380 C 972 398 970 426 952 442 C 928 460 882 456 864 434 C 850 416 852 386 860 372 Z" fill="none" stroke="#8c7655" stroke-width="1" stroke-dasharray="5 7" opacity=".45"/>
+    <use href="#yurt" transform="translate(900 402) scale(1.15)"/>
+    <use href="#yurt" transform="translate(944 424) scale(.9)"/>
+    <use href="#grass-tuft" transform="translate(872 440) scale(1.2)"/>
+    <use href="#grass-tuft" transform="translate(964 394) scale(1.1)"/>
+    <path d="M 850 414 C 890 406 930 410 970 430" fill="none" stroke="#6e8a7f" stroke-width="2.5" opacity=".7"/>
+  </g>
+
+  <!-- Kyzylkum and Karakum -->
+  <path d="M 380 850 C 480 820 620 850 720 900 C 760 950 720 1010 640 1040 C 540 1070 440 1050 390 990 C 360 950 355 890 380 850 Z" fill="url(#sandGrad)" opacity=".8"/>
+  <path d="M 380 850 C 480 820 620 850 720 900 C 760 950 720 1010 640 1040 C 540 1070 440 1050 390 990 C 360 950 355 890 380 850 Z" fill="url(#sandDots)" opacity=".8"/>
+  <path d="M 300 1080 C 380 1040 480 1060 540 1110 C 580 1160 540 1210 460 1230 C 380 1250 310 1200 290 1140 Z" fill="url(#sandGrad)" opacity=".8"/>
+  <path d="M 300 1080 C 380 1040 480 1060 540 1110 C 580 1160 540 1210 460 1230 C 380 1250 310 1200 290 1140 Z" fill="url(#sandDots)" opacity=".8"/>
+  <g fill="none" stroke="#9b794a" stroke-width="1.6" opacity=".55" stroke-linecap="round">
+    <path d="M 410 900 C 460 878 520 884 570 906 C 610 924 650 930 690 922"/>
+    <path d="M 390 940 C 450 918 510 924 566 948 C 606 966 646 970 686 960"/>
+    <path d="M 370 980 C 430 958 490 964 544 986 C 584 1002 622 1006 660 998"/>
+    <path d="M 330 1140 C 380 1120 430 1126 476 1146 C 510 1160 542 1162 574 1154"/>
+    <path d="M 320 1180 C 372 1160 420 1166 464 1184 C 498 1198 528 1200 558 1192"/>
+  </g>
+  <g fill="#7e6a45" opacity=".55">
+    <circle cx="430" cy="920" r="2.2"/><circle cx="470" cy="946" r="1.6"/><circle cx="514" cy="918" r="1.8"/>
+    <circle cx="612" cy="950" r="1.8"/><circle cx="650" cy="976" r="1.5"/><circle cx="688" cy="996" r="1.6"/>
+    <circle cx="360" cy="1160" r="1.8"/><circle cx="402" cy="1190" r="1.5"/><circle cx="446" cy="1166" r="1.7"/>
+  </g>
+  <g transform="translate(590 955) scale(1.15)" opacity=".9"><use href="#camel"/></g>
+  <g transform="translate(620 966) scale(1.0)" opacity=".8"><use href="#camel"/></g>
+  <g transform="translate(648 956) scale(.85)" opacity=".7"><use href="#camel"/></g>
+
+  <!-- oasis patches -->
+  <g>
+    <ellipse cx="505" cy="1018" rx="52" ry="22" fill="url(#oasisGrad)" opacity=".8"/>
+    <ellipse cx="646" cy="1000" rx="62" ry="24" fill="url(#oasisGrad)" opacity=".8"/>
+    <ellipse cx="392" cy="874" rx="38" ry="18" fill="url(#oasisGrad)" opacity=".65"/>
+    <ellipse cx="452" cy="1120" rx="30" ry="14" fill="url(#oasisGrad)" opacity=".55"/>
+    <ellipse cx="492" cy="1024" rx="12" ry="5" fill="#6f9d9a" stroke="#4d7773" stroke-width="1"/>
+    <ellipse cx="632" cy="1006" rx="14" ry="5" fill="#6f9d9a" stroke="#4d7773" stroke-width="1"/>
+    <use href="#palm" transform="translate(466 1026) scale(1.05)"/>
+    <use href="#palm" transform="translate(536 1022) scale(.9)"/>
+    <use href="#palm" transform="translate(610 1010) scale(1.1)"/>
+    <use href="#palm" transform="translate(674 1004) scale(.95)"/>
+    <use href="#palm" transform="translate(416 884) scale(.8)"/>
+    <path d="M 458 1030 l 5 -8 M 466 1030 l 0 -10 M 474 1030 l -4 -8" fill="none" stroke="#5f7a49" stroke-width="1.2" opacity=".8"/>
+    <path d="M 600 1016 l 5 -8 M 608 1016 l 0 -10 M 616 1016 l -4 -8" fill="none" stroke="#5f7a49" stroke-width="1.2" opacity=".8"/>
+  </g>
+
+  <!-- forest clusters -->
+  <g filter="url(#softShadow)">
+    <use href="#tree-pine" transform="translate(600 610) scale(1.3)"/>
+    <use href="#tree-pine" transform="translate(632 590) scale(1.0)"/>
+    <use href="#tree-pine" transform="translate(660 618) scale(1.15)"/>
+    <use href="#tree-pine" transform="translate(690 586) scale(.9)"/>
+    <use href="#tree-round" transform="translate(560 650) scale(1.1)"/>
+    <use href="#tree-round" transform="translate(590 670) scale(1.25)"/>
+    <use href="#tree-round" transform="translate(520 630) scale(.9)"/>
+    <use href="#tree-round" transform="translate(720 640) scale(1.1)"/>
+    <use href="#tree-round" transform="translate(750 610) scale(.85)"/>
+    <use href="#tree-pine" transform="translate(420 610) scale(1.0)"/>
+    <use href="#tree-pine" transform="translate(450 590) scale(.85)"/>
+    <use href="#tree-round" transform="translate(390 640) scale(.9)"/>
+    <use href="#tree-round" transform="translate(470 650) scale(1.0)"/>
+    <use href="#tree-round" transform="translate(340 680) scale(.85)"/>
+    <use href="#tree-pine" transform="translate(790 560) scale(.9)"/>
+    <use href="#tree-pine" transform="translate(820 590) scale(.8)"/>
+  </g>
+  <g opacity=".55">
+    <use href="#grass-tuft" transform="translate(500 570) scale(1.1)"/>
+    <use href="#grass-tuft" transform="translate(540 600) scale(.9)"/>
+    <use href="#grass-tuft" transform="translate(680 550) scale(1.0)"/>
+    <use href="#grass-tuft" transform="translate(740 680) scale(1.2)"/>
+    <use href="#grass-tuft" transform="translate(400 700) scale(.9)"/>
+  </g>
+
+  <!-- mountains: Tian Shan -->
+  <g filter="url(#softShadow)">
+    <path d="M 680 720 L 720 640 L 752 676 L 790 600 L 824 650 L 862 588 L 900 640 L 938 600 L 980 660 L 1010 630 L 1030 720 Z" fill="url(#mountainBack)" opacity=".7"/>
+    <path d="M 700 740 L 742 660 L 772 694 L 812 622 L 846 668 L 884 612 L 922 664 L 960 626 L 994 692 L 1020 740 Z" fill="url(#mountainMid)"/>
+    <path d="M 718 760 L 760 694 L 790 724 L 830 654 L 864 704 L 902 646 L 940 704 L 978 668 L 1010 742 L 1028 770 Z" fill="url(#mountainFront)"/>
+    <g fill="#e8e1cf" opacity=".9">
+      <path d="M 812 622 L 826 646 L 818 654 L 804 638 Z"/>
+      <path d="M 884 612 L 898 638 L 890 646 L 876 630 Z"/>
+      <path d="M 902 646 L 914 668 L 906 674 L 894 658 Z"/>
+      <path d="M 960 626 L 972 650 L 964 657 L 952 642 Z"/>
+      <path d="M 790 600 L 802 624 L 794 631 L 782 614 Z" opacity=".75"/>
+    </g>
+    <g fill="none" stroke="#4f3f2c" stroke-width="1.1" opacity=".28">
+      <path d="M 760 740 L 810 690 L 850 728"/>
+      <path d="M 840 742 L 884 690 L 930 736"/>
+      <path d="M 920 754 L 960 710 L 1000 754"/>
+    </g>
+    <text data-layout-ignore x="782" y="578" font-family="MongolSans" font-size="20" letter-spacing="5" fill="#5a4630" opacity=".72">天山</text>
+  </g>
+
+  <!-- Pamir foothills -->
+  <g filter="url(#softShadow)" opacity=".9">
+    <path d="M 720 1120 L 752 1062 L 780 1092 L 816 1042 L 848 1090 L 878 1060 L 906 1120 Z" fill="url(#mountainBack)" opacity=".8"/>
+    <path d="M 736 1132 L 766 1080 L 792 1106 L 824 1060 L 852 1104 L 882 1078 L 906 1132 Z" fill="url(#mountainFront)"/>
+    <g fill="#e8e1cf" opacity=".8">
+      <path d="M 816 1042 L 828 1064 L 820 1070 L 808 1054 Z"/>
+      <path d="M 848 1090 L 858 1108 L 850 1113 L 840 1098 Z"/>
+    </g>
+    <text data-layout-ignore x="790" y="1026" font-family="MongolSans" font-size="18" letter-spacing="4" fill="#5a4630" opacity=".66">帕米尔</text>
+  </g>
+
+  <!-- water: Caspian -->
+  <g>
+    <path d="M 152 784 C 128 854 118 944 126 1024 C 134 1114 170 1204 214 1268 C 250 1320 286 1304 294 1254 C 304 1184 274 1104 270 1024 C 266 944 286 864 278 816 C 270 774 232 758 196 766 C 170 772 158 776 152 784 Z" fill="url(#seaGrad)" stroke="#3f5a55" stroke-width="3"/>
+    <path d="M 170 850 C 150 920 148 990 158 1060 C 168 1130 194 1196 226 1248" fill="none" stroke="#a9c2b8" stroke-width="2" opacity=".35"/>
+    <path d="M 190 920 C 178 980 180 1040 192 1098 C 202 1148 222 1198 248 1238" fill="none" stroke="url(#deepSea)" stroke-width="18" opacity=".5"/>
+    <g fill="none" stroke="#c9d8cf" stroke-width="2" stroke-linecap="round" opacity=".45">
+      <path d="M 176 930 c 8 -5 16 -5 24 0"/>
+      <path d="M 190 960 c 8 -5 16 -5 24 0"/>
+      <path d="M 160 1000 c 8 -5 16 -5 24 0"/>
+      <path d="M 186 1040 c 8 -5 16 -5 24 0"/>
+      <path d="M 214 1090 c 8 -5 16 -5 24 0"/>
+      <path d="M 226 1130 c 8 -5 16 -5 24 0"/>
+      <path d="M 240 1170 c 8 -5 16 -5 24 0"/>
+    </g>
+    <text data-layout-ignore x="118" y="1040" font-family="MongolSans" font-size="19" letter-spacing="4" fill="#3f5a55" opacity=".8" transform="rotate(-90 118 1040)">里海</text>
+  </g>
+
+  <!-- water: Aral -->
+  <g>
+    <path d="M 330 746 C 312 774 306 814 320 844 C 334 874 366 874 382 848 C 398 822 396 784 378 762 C 362 742 342 734 330 746 Z" fill="url(#seaGrad)" stroke="#3f5a55" stroke-width="2.5"/>
+    <path d="M 342 770 C 332 792 330 820 340 840 C 350 858 366 858 374 842 C 384 822 382 792 370 776" fill="none" stroke="url(#deepSea)" stroke-width="10" opacity=".45"/>
+    <g fill="none" stroke="#c9d8cf" stroke-width="1.6" stroke-linecap="round" opacity=".42">
+      <path d="M 342 790 c 5 -3 10 -3 15 0"/>
+      <path d="M 350 812 c 5 -3 10 -3 15 0"/>
+      <path d="M 358 834 c 5 -3 10 -3 15 0"/>
+    </g>
+    <text data-layout-ignore x="336" y="724" font-family="MongolSans" font-size="16" letter-spacing="3" fill="#3f5a55" opacity=".72">咸海</text>
+  </g>
+
+  <!-- rivers -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 912 602 C 856 628 800 660 744 696 C 688 732 630 766 568 798 C 508 828 442 844 386 834 C 362 830 340 820 326 810" stroke="#34524e" stroke-width="10" opacity=".65"/>
+    <path d="M 912 602 C 856 628 800 660 744 696 C 688 732 630 766 568 798 C 508 828 442 844 386 834 C 362 830 340 820 326 810" stroke="#4e6e68" stroke-width="5.5"/>
+    <path d="M 912 600 C 856 626 800 658 744 694 C 688 730 630 764 568 796 C 508 826 442 842 386 832" stroke="#a9c2b8" stroke-width="1.6" opacity=".75"/>
+    <path d="M 806 1002 C 744 988 686 998 640 1020 C 594 1042 548 1048 506 1028 C 464 1008 424 976 396 938 C 382 920 370 900 360 880" stroke="#34524e" stroke-width="10" opacity=".65"/>
+    <path d="M 806 1002 C 744 988 686 998 640 1020 C 594 1042 548 1048 506 1028 C 464 1008 424 976 396 938 C 382 920 370 900 360 880" stroke="#4e6e68" stroke-width="5.5"/>
+    <path d="M 806 1000 C 744 986 686 996 640 1018 C 594 1040 548 1046 506 1026 C 464 1006 424 974 396 936" stroke="#a9c2b8" stroke-width="1.6" opacity=".7"/>
+    <!-- tributaries -->
+    <path d="M 846 660 C 820 690 790 710 760 724" stroke="#4e6e68" stroke-width="2.2" opacity=".7"/>
+    <path d="M 780 660 C 760 690 740 710 720 730" stroke="#4e6e68" stroke-width="1.8" opacity=".6"/>
+    <path d="M 730 1030 C 700 1040 680 1058 660 1078" stroke="#4e6e68" stroke-width="2" opacity=".6"/>
+    <path d="M 760 1010 C 740 1030 720 1040 700 1050" stroke="#4e6e68" stroke-width="1.6" opacity=".55"/>
+    <!-- deltas -->
+    <path d="M 380 820 C 370 800 360 786 350 772 M 380 820 C 386 800 390 786 392 770 M 380 820 C 396 812 408 806 420 800" stroke="#4e6e68" stroke-width="2.2" opacity=".75"/>
+    <path d="M 392 900 C 382 888 374 876 368 862 M 392 900 C 400 888 408 878 418 868" stroke="#4e6e68" stroke-width="2" opacity=".7"/>
+  </g>
+
+  <!-- settlements: Otrar -->
+  <g transform="translate(560 800)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="26" rx="62" ry="10" fill="#3b2b1a" opacity=".2"/>
+    <path d="M -54 18 L -48 -18 L 42 -26 L 54 8 L 46 26 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -48 -18 L 42 -26 L 46 -18 L -46 -10 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-44" y="-24" width="9" height="9"/><rect x="-31" y="-26" width="9" height="9"/>
+      <rect x="-18" y="-28" width="9" height="9"/><rect x="-5" y="-29" width="9" height="9"/>
+      <rect x="8" y="-30" width="9" height="9"/><rect x="21" y="-31" width="9" height="9"/>
+      <rect x="34" y="-32" width="9" height="9"/>
+    </g>
+    <path d="M -48 -10 L -48 -34 L -38 -38 L -38 -10 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 36 -12 L 36 -38 L 46 -42 L 46 -8 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 0 26 L 0 2 C -8 -4 -12 -10 -12 -18 L 12 -18 C 12 -10 8 -4 0 2 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.5"/>
+    <path d="M -8 22 L -8 4 C -11 0 -11 -6 -9 -10 L 9 -10 C 11 -6 11 0 8 4 L 8 22 Z" fill="#33261a"/>
+    <g>
+      <rect x="-36" y="-4" width="18" height="14" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+      <path d="M -38 -4 L -27 -12 L -16 -4 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+      <rect x="16" y="-2" width="18" height="14" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+      <path d="M 14 -2 L 25 -10 L 36 -2 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    </g>
+    <path d="M -22 -34 L -22 -46 L -16 -49 L -10 -46 L -10 -32 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M -16 -49 L -16 -62" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M -16 -62 l 12 4 l -12 5 Z" fill="#a63a2b" stroke="#7a2a1e" stroke-width=".8"/>
+    <path d="M -58 22 C -40 30 40 30 58 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+  </g>
+
+  <!-- settlements: Bukhara -->
+  <g transform="translate(500 1008)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="28" rx="60" ry="10" fill="#3b2b1a" opacity=".2"/>
+    <path d="M -52 20 L -48 -14 L 44 -22 L 54 12 L 46 28 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -48 -14 L 44 -22 L 48 -15 L -46 -7 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-42" y="-20" width="8" height="8"/><rect x="-30" y="-22" width="8" height="8"/>
+      <rect x="-18" y="-23" width="8" height="8"/><rect x="-6" y="-24" width="8" height="8"/>
+      <rect x="6" y="-25" width="8" height="8"/><rect x="18" y="-26" width="8" height="8"/>
+      <rect x="30" y="-27" width="8" height="8"/>
+    </g>
+    <path d="M -8 20 L -8 -6 C -18 -12 -20 -22 -12 -28 C -4 -34 8 -34 16 -28 C 24 -22 22 -12 12 -6 L 12 20 Z" fill="#5f8f8a" stroke="#3f5a55" stroke-width="1.6"/>
+    <path d="M -10 -10 C -16 -18 -12 -26 0 -30" fill="none" stroke="#a9c2b8" stroke-width="1.5" opacity=".7"/>
+    <path d="M 0 -34 L 0 -44 L 4 -48 L 8 -44 L 8 -34 Z" fill="#c6a468" stroke="#7a5a35" stroke-width=".9"/>
+    <path d="M 28 -2 L 28 -48 C 28 -54 34 -56 38 -52 L 38 -4 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 25 -34 L 41 -34 L 39 -27 L 27 -27 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 16 20 L 16 0 C 10 -4 8 -10 8 -16 L 24 -16 C 24 -10 22 -4 16 0 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.4"/>
+    <path d="M -48 22 C -30 30 34 30 54 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+  </g>
+
+  <!-- settlements: Samarkand -->
+  <g transform="translate(640 988)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="30" rx="72" ry="12" fill="#3b2b1a" opacity=".22"/>
+    <path d="M -62 20 L -56 -20 L 50 -30 L 64 10 L 54 30 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -56 -20 L 50 -30 L 54 -22 L -54 -12 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-50" y="-26" width="9" height="9"/><rect x="-36" y="-28" width="9" height="9"/>
+      <rect x="-22" y="-29" width="9" height="9"/><rect x="-8" y="-30" width="9" height="9"/>
+      <rect x="6" y="-31" width="9" height="9"/><rect x="20" y="-32" width="9" height="9"/>
+      <rect x="34" y="-33" width="9" height="9"/>
+    </g>
+    <path d="M -16 22 L -16 -8 C -28 -16 -28 -30 -16 -36 C -4 -42 12 -42 22 -36 C 34 -30 30 -16 18 -8 L 18 22 Z" fill="#5f8f8a" stroke="#3f5a55" stroke-width="1.6"/>
+    <path d="M -20 -12 C -28 -22 -22 -32 0 -38" fill="none" stroke="#a9c2b8" stroke-width="1.5" opacity=".7"/>
+    <path d="M 0 -42 L 0 -54 L 5 -58 L 10 -54 L 10 -42 Z" fill="#c6a468" stroke="#7a5a35" stroke-width=".9"/>
+    <path d="M 38 18 L 38 -52 C 38 -60 46 -62 50 -56 L 50 20 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 34 -36 L 54 -36 L 51 -29 L 37 -29 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 48 -54 L 48 -66" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M 48 -66 l 12 4 l -12 5 Z" fill="#a63a2b" stroke="#7a2a1e" stroke-width=".8"/>
+    <path d="M -46 -2 L -46 -28 C -46 -34 -38 -36 -34 -32 L -34 0 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M -48 -28 L -32 -28 L -35 -22 L -45 -22 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -12 20 L -12 -2 C -18 -6 -20 -12 -20 -18 L -4 -18 C -4 -12 -6 -6 -12 -2 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.3"/>
+    <path d="M -58 22 C -40 32 40 32 60 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+    <g fill="#7c9962" opacity=".8">
+      <circle cx="-70" cy="4" r="10"/><circle cx="-78" cy="10" r="8"/><circle cx="72" cy="2" r="9"/><circle cx="80" cy="8" r="7"/>
+    </g>
+  </g>
+
+  <!-- caravanserai / towns -->
+  <g transform="translate(716 716)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="16" rx="36" ry="7" fill="#3b2b1a" opacity=".18"/>
+    <path d="M -34 12 L -30 -12 L 28 -16 L 36 8 L 28 16 Z" fill="#cbb083" stroke="#5a4630" stroke-width="1.6"/>
+    <path d="M -30 -12 L 28 -16 L 30 -10 L -28 -6 Z" fill="#ddc9a4" stroke="#5a4630" stroke-width="1"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width=".9">
+      <rect x="-24" y="-14" width="7" height="7"/><rect x="-12" y="-15" width="7" height="7"/>
+      <rect x="0" y="-16" width="7" height="7"/><rect x="12" y="-17" width="7" height="7"/>
+    </g>
+    <path d="M -6 14 L -6 -2 C -10 -4 -10 -8 -8 -10 L 8 -10 C 10 -8 10 -4 6 -2 L 6 14 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.2"/>
+    <path d="M 24 -16 L 24 -30" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M 24 -30 l 10 3 l -10 4 Z" fill="#a63a2b"/>
+  </g>
+  <g transform="translate(430 900)" filter="url(#softShadow)" opacity=".92">
+    <ellipse cx="0" cy="12" rx="24" ry="5" fill="#3b2b1a" opacity=".16"/>
+    <rect x="-24" y="-2" width="18" height="12" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -26 -2 L -15 -9 L -4 -2 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <rect x="2" y="0" width="16" height="10" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 0 0 L 10 -7 L 20 0 Z" fill="#9d5a3d" stroke="#5a4630" stroke-width="1"/>
+    <rect x="-8" y="-12" width="12" height="8" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -10 -12 L -2 -18 L 6 -12 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+  </g>
+  <g transform="translate(370 790)" filter="url(#softShadow)" opacity=".88">
+    <ellipse cx="0" cy="10" rx="20" ry="4" fill="#3b2b1a" opacity=".15"/>
+    <rect x="-18" y="0" width="14" height="10" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -20 0 L -11 -6 L -2 0 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <rect x="4" y="2" width="12" height="8" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 2 2 L 10 -4 L 18 2 Z" fill="#9d5a3d" stroke="#5a4630" stroke-width="1"/>
+  </g>
+
+  <!-- silver stream near Otrar -->
+  <path id="silver-stream" d="M 512 736 C 530 758 546 780 560 800" fill="none" stroke="#d8d8d2" stroke-width="9" stroke-linecap="round" opacity="0"/>
+  <g id="ingot" opacity="0">
+    <rect x="470" y="700" width="54" height="32" rx="7" fill="#b9b7ae" stroke="#7c7a72" stroke-width="2"/>
+    <text data-layout-ignore x="497" y="723" text-anchor="middle" font-family="MongolSans" font-size="18" fill="#3b3a36">银</text>
+  </g>
+
+  <!-- routes -->
+  <path id="route-msg" d="M 560 800 C 620 740 700 660 780 590 C 840 536 900 480 950 410" fill="none" stroke="#7a5a35" stroke-width="3" stroke-dasharray="6 14" stroke-linecap="round" marker-end="url(#arrow-brown)" opacity="0"/>
+  <path id="route-main-glow" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="#a63a2b" stroke-width="22" stroke-linecap="round" opacity=".12" mask="url(#mask-main)"/>
+  <path id="route-main" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="#a63a2b" stroke-width="5.5" stroke-dasharray="18 12" stroke-linecap="round" marker-end="url(#arrow-red)" mask="url(#mask-main)"/>
+  <path id="route-adv-1" d="M 560 800 C 545 860 525 925 505 985" fill="none" stroke="#a63a2b" stroke-width="5" stroke-dasharray="16 11" stroke-linecap="round" marker-end="url(#arrow-red)" mask="url(#mask-adv-1)"/>
+  <path id="route-adv-2" d="M 520 1000 C 560 1000 600 995 625 980" fill="none" stroke="#a63a2b" stroke-width="5" stroke-dasharray="16 11" stroke-linecap="round" marker-end="url(#arrow-red)" mask="url(#mask-adv-2)"/>
+  <path id="route-flight" d="M 640 988 C 540 1025 440 1055 340 1080 C 280 1095 230 1108 190 1120" fill="none" stroke="#a63a2b" stroke-width="3.2" stroke-dasharray="7 12" stroke-linecap="round" marker-end="url(#arrow-red)" opacity=".9" mask="url(#mask-flight)"/>
+
+  <!-- labels -->
+  <g font-family="MongolSans" fill="#5a4630" data-layout-ignore>
+    <text x="842" y="342" font-size="24" letter-spacing="7" opacity=".72">蒙古高原</text>
+    <text x="292" y="548" font-size="22" letter-spacing="6" opacity=".62">钦察草原</text>
+    <text x="430" y="1122" font-size="23" letter-spacing="7" opacity=".72">花剌子模</text>
+    <text x="700" y="1128" font-size="22" letter-spacing="6" opacity=".65">河中地区</text>
+    <text x="512" y="884" font-size="17" letter-spacing="4" opacity=".55" transform="rotate(-10 512 884)">克孜勒库姆沙漠</text>
+    <text x="356" y="1188" font-size="16" letter-spacing="3" opacity=".5" transform="rotate(-8 356 1188)">卡拉库姆沙漠</text>
+    <text x="700" y="756" font-size="16" letter-spacing="2" opacity=".55" transform="rotate(-22 700 756)">锡尔河</text>
+    <text x="536" y="950" font-size="16" letter-spacing="2" opacity=".55" transform="rotate(20 536 950)">阿姆河</text>
+    <text x="664" y="742" font-size="14" letter-spacing="3" opacity=".5">商镇</text>
+  </g>
+
+  <!-- compass and scale -->
+  <g opacity=".62" stroke="#5a4630" fill="#5a4630" font-family="MongolSans" data-layout-ignore>
+    <circle cx="930" cy="250" r="40" fill="none" stroke-width="1.5"/>
+    <circle cx="930" cy="250" r="30" fill="none" stroke-width="1" opacity=".5"/>
+    <path d="M 930 206 L 938 246 L 930 238 L 922 246 Z" stroke="none"/>
+    <path d="M 930 294 L 924 262 L 930 268 L 936 262 Z" stroke="none" opacity=".5"/>
+    <path d="M 886 250 L 918 244 L 912 250 L 918 256 Z" stroke="none" opacity=".5"/>
+    <path d="M 974 250 L 942 256 L 948 250 L 942 244 Z" stroke="none" opacity=".5"/>
+    <text x="930" y="310" font-size="15" text-anchor="middle" letter-spacing="2">N</text>
+    <line x1="110" y1="220" x2="230" y2="220" stroke-width="2"/>
+    <line x1="110" y1="214" x2="110" y2="226" stroke-width="2"/>
+    <line x1="230" y1="214" x2="230" y2="226" stroke-width="2"/>
+    <text x="110" y="204" font-size="14" letter-spacing="2">500 km · 示意</text>
+  </g>
+
+  <!-- corner ticks -->
+  <g stroke="#6b5a42" stroke-width="1.2" opacity=".35" fill="none">
+    <path d="M 82 190 L 82 220 M 82 190 L 112 190"/>
+    <path d="M 998 190 L 998 220 M 998 190 L 968 190"/>
+    <path d="M 82 1710 L 82 1680 M 82 1710 L 112 1710"/>
+    <path d="M 998 1710 L 998 1680 M 998 1710 L 968 1710"/>
+  </g>
+</svg>

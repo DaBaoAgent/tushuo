@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>蒙古第一次西征 · 讹答剌</title>
+<style>
+  @font-face {
+    font-family: "MongolSerif";
+    src: url("vendor/fonts/MongolSerif.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "MongolSans";
+    src: url("vendor/fonts/MongolSans.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #0d0c0a; overflow: hidden; }
+  #root {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #e8dcc3;
+    color: #171512;
+    font-family: "MongolSerif", serif;
+  }
+  .layer { position: absolute; inset: 0; }
+  #bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(120% 90% at 50% 40%, #efe5cf 0%, #e8dcc3 45%, #d8c9ab 100%);
+  }
+  #bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(107,90,66,.035) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(107,90,66,.025) 0 1px, transparent 1px 7px);
+    opacity: .7;
+  }
+  #map-stage {
+    position: absolute;
+    left: -10%; top: -10%;
+    width: 120%; height: 120%;
+    z-index: 1;
+    transform-origin: 55% 45%;
+    will-change: transform;
+    opacity: 1;
+  }
+  #map-svg { display: block; width: 100%; height: 100%; }
+  #vignette {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: radial-gradient(115% 85% at 50% 42%, rgba(0,0,0,0) 45%, rgba(23,21,18,.10) 72%, rgba(23,21,18,.34) 100%);
+  }
+  #grain {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: .35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+  #opening-dark { display: none; }
+
+  /* ---------- map annotations ---------- */
+  .city { position: absolute; width: 0; height: 0; z-index: 4; }
+  .city .ring {
+    position: absolute; left: -26px; top: -26px; width: 52px; height: 52px;
+    border: 2px solid rgba(166,58,43,.85); border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(166,58,43,.08);
+  }
+  .city .dot {
+    position: absolute; left: -6px; top: -6px; width: 12px; height: 12px;
+    background: #a63a2b; border-radius: 50%;
+    box-shadow: 0 0 12px rgba(166,58,43,.45);
+  }
+  .city .label {
+    position: absolute; left: 34px; top: -22px;
+    padding: 4px 10px 4px 12px;
+    background: rgba(232,220,195,.9);
+    border-left: 3px solid #a63a2b;
+    font-family: "MongolSans", sans-serif; font-size: 26px; font-weight: 600;
+    letter-spacing: 2px; color: #171512; white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(23,21,18,.12);
+  }
+  .city .sublabel {
+    position: absolute; left: 34px; top: 20px;
+    font-family: "MongolSans", sans-serif; font-size: 15px; letter-spacing: 1px;
+    color: #4a3d2d; white-space: nowrap;
+  }
+  .city.label-left .label {
+    left: auto; right: 34px; border-left: none; border-right: 3px solid #a63a2b;
+    text-align: right;
+  }
+  .city.label-left .sublabel { left: auto; right: 34px; text-align: right; }
+  .stamp-wrap {
+    position: absolute; left: -62px; top: -62px; width: 124px; height: 124px;
+    display: flex; align-items: center; justify-content: center;
+    transform: rotate(-9deg);
+  }
+  .stamp {
+    width: 104px; height: 104px;
+    border: 4px double #a63a2b; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "MongolSans", sans-serif; font-size: 40px; font-weight: 800;
+    letter-spacing: 2px; color: #a63a2b;
+    background: rgba(232,220,195,.42);
+    text-shadow: 0 0 1px rgba(166,58,43,.6);
+    opacity: 0;
+  }
+  .stamp.small { font-size: 26px; letter-spacing: 1px; }
+  #siege-ring {
+    position: absolute; left: -105px; top: -105px; width: 210px; height: 210px;
+    border: 2px dashed rgba(166,58,43,.75); border-radius: 50%;
+    opacity: 0;
+  }
+  #siege-ring .tick {
+    position: absolute; left: 50%; top: 50%; width: 2px; height: 16px;
+    background: #a63a2b; transform-origin: 1px 105px; opacity: .8;
+  }
+  #otrar-glow {
+    position: absolute; left: -110px; top: -110px; width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(166,58,43,.55) 0%, rgba(166,58,43,0) 68%);
+    opacity: 0;
+  }
+  #crown {
+    position: absolute; left: 26px; top: -78px; width: 76px; height: 54px;
+    opacity: 0;
+  }
+  #crown svg { display: block; width: 100%; height: 100%; }
+  #empire-label {
+    position: absolute; left: 50%; top: 43%;
+    transform: translate(-50%, -50%);
+    font-family: "MongolSans", sans-serif; font-size: 22px; letter-spacing: 6px;
+    color: #8a5a2b; white-space: nowrap; opacity: 0;
+  }
+
+  /* ---------- commander card: transparent cutout ---------- */
+  #commander {
+    position: absolute; left: 0; top: 0;
+    width: 150px; height: 150px; margin-left: -75px; margin-top: -75px;
+    z-index: 6; opacity: 0; pointer-events: none;
+    filter: drop-shadow(0 10px 18px rgba(23,21,18,.30));
+  }
+  #commander .cmd-ring {
+    position: relative; width: 150px; height: 150px; border-radius: 50%;
+    border: 3px double #c6a468; overflow: hidden; background: transparent;
+    box-shadow: 0 0 0 3px rgba(232,220,195,.16);
+  }
+  #commander .cmd-ring::after {
+    content: ""; position: absolute; inset: 3px; border-radius: 50%;
+    border: 1px solid rgba(166,58,43,.5); pointer-events: none;
+  }
+  #commander img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    object-position: 50% 38%;
+    filter: sepia(.08) saturate(.94) contrast(1.04) brightness(1.02);
+  }
+  #commander .cmd-label {
+    position: absolute; left: 50%; top: -30px; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    padding: 4px 10px 5px; background: rgba(23,21,18,.56);
+    border: 1px solid rgba(198,164,104,.75);
+    box-shadow: 0 6px 14px rgba(23,21,18,.22);
+    backdrop-filter: blur(2px);
+    font-family: "MongolSans", sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; color: #f0e6d2;
+  }
+  #commander .cmd-label span {
+    color: #e07a62; font-size: 10px; letter-spacing: 2px;
+  }
+
+  /* ---------- Mongol caravan model ---------- */
+  #caravan {
+    position: absolute; left: 0; top: 0;
+    width: 260px; height: 120px; margin-left: -40px; margin-top: -98px;
+    z-index: 5; opacity: 1; pointer-events: none;
+    filter: drop-shadow(0 7px 10px rgba(23,21,18,.26));
+  }
+  #caravan svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .caravan-label {
+    position: absolute; left: 50%; top: 104px; transform: translateX(-50%);
+    white-space: nowrap; padding: 3px 8px 4px;
+    background: rgba(23,21,18,.55); border: 1px solid rgba(198,164,104,.65);
+    backdrop-filter: blur(2px);
+    font-family: "MongolSans", sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; color: #f0e6d2;
+  }
+
+  /* ---------- timeline ---------- */
+  #timeline-ui {
+    position: absolute; left: 38px; top: 430px; width: 112px; height: 900px;
+    z-index: 11; opacity: 0;
+  }
+  #tl-line {
+    position: absolute; left: 20px; top: 0; width: 2px; height: 100%;
+    background: rgba(23,21,18,.22);
+  }
+  #tl-progress {
+    position: absolute; left: 18px; top: 0; width: 6px; height: 100%;
+    background: #a63a2b; transform-origin: top center; transform: scaleY(0);
+    box-shadow: 0 0 14px rgba(166,58,43,.35);
+  }
+  .tl-year {
+    position: absolute; left: 0; width: 112px;
+    font-family: "MongolSans", sans-serif; color: #4a3d2d; opacity: .85;
+  }
+  .tl-year .ydot {
+    position: absolute; left: 15px; top: 8px; width: 12px; height: 12px;
+    border: 2px solid #6b5a42; border-radius: 50%; background: #e8dcc3;
+  }
+  .tl-year .yval {
+    display: block; margin-left: 38px; font-size: 24px; font-weight: 700;
+    letter-spacing: 1px; line-height: 1.1;
+  }
+  .tl-year .ytag {
+    display: block; margin-left: 38px; margin-top: 4px; font-size: 16px;
+    letter-spacing: 3px; color: #4a3d2d;
+  }
+  #tl-1218 { top: 6%; }
+  #tl-1219 { top: 44%; }
+  #tl-1220 { top: 80%; }
+
+  /* ---------- top line / note ---------- */
+  #topline {
+    position: absolute; top: 32px; left: 70px; right: 70px; z-index: 12;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "MongolSans", sans-serif; font-size: 19px; font-weight: 500;
+    letter-spacing: 5px; color: #4a3d2d; opacity: 0;
+  }
+  #map-note {
+    position: absolute; top: 108px; right: 70px; z-index: 12;
+    font-family: "MongolSans", sans-serif; font-size: 14px; letter-spacing: 2px;
+    color: #4a3d2d; opacity: 0;
+  }
+
+  /* ---------- hero ---------- */
+  #hero {
+    position: absolute; top: 220px; left: 70px; right: 70px; z-index: 20;
+    color: #171512; opacity: 1;
+  }
+  #hero-scrim {
+    position: absolute; left: 0; top: 110px; width: 760px; height: 760px;
+    z-index: 19; pointer-events: none;
+    background: radial-gradient(ellipse at 35% 38%, rgba(232,220,195,.88) 0%, rgba(232,220,195,.60) 42%, rgba(232,220,195,0) 76%);
+  }
+  .hero-kicker {
+    font-family: "MongolSans", sans-serif; font-size: 24px; font-weight: 600;
+    letter-spacing: 10px; color: #8a5a2b; opacity: 0;
+  }
+  .hero-num {
+    margin-top: 14px; font-family: "MongolSerif", serif; font-size: 240px;
+    font-weight: 800; line-height: .9; letter-spacing: -8px; color: #171512;
+    opacity: 0; text-shadow: 0 2px 0 rgba(232,220,195,.45);
+  }
+  .hero-sub {
+    margin-top: 12px; font-family: "MongolSans", sans-serif; font-size: 38px;
+    font-weight: 500; letter-spacing: 3px; color: #4a3d2d; opacity: 0;
+  }
+  .hero-seal {
+    position: absolute; right: 12px; top: 62px; width: 180px; height: 180px;
+    border: 4px double #a63a2b; border-radius: 6px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #7a2a1e; opacity: 0;
+    box-shadow: inset 0 0 0 8px rgba(166,58,43,.06);
+  }
+  .hero-seal .s1 {
+    font-family: "MongolSerif", serif; font-size: 42px; font-weight: 700;
+    letter-spacing: 4px;
+  }
+  .hero-seal .s2 {
+    margin-top: 8px; font-family: "MongolSans", sans-serif; font-size: 18px;
+    letter-spacing: 5px;
+  }
+
+  /* ---------- archive cards: left evidence rail ---------- */
+  .archive-card {
+    position: absolute; left: 280px; top: 100px; width: 400px; height: 225px;
+    z-index: 15; padding: 16px 18px 14px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: rgba(23,21,18,.84); border: 1px solid rgba(169,130,69,.7);
+    box-shadow: 0 30px 80px rgba(23,21,18,.45);
+    backdrop-filter: blur(2px);
+    color: #efe4cc; opacity: 0;
+  }
+  .archive-card::before {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid rgba(169,130,69,.22); pointer-events: none;
+  }
+  .card-tab {
+    position: absolute; left: 18px; top: -26px; height: 30px; padding: 0 14px;
+    display: inline-flex; align-items: center;
+    background: rgba(169,130,69,.88); color: #171512;
+    font-family: "MongolSans", sans-serif; font-size: 17px; font-weight: 700;
+    letter-spacing: 4px;
+  }
+  .card-source {
+    max-width: 300px; font-family: "MongolSans", sans-serif; font-size: 18px;
+    line-height: 1.35; letter-spacing: 1.5px; color: #c9b691;
+  }
+  .card-quote {
+    margin-top: 6px; max-width: 364px;
+    font-family: "MongolSerif", serif; font-size: 25px; line-height: 1.3;
+    font-weight: 500; color: #f4ead6;
+  }
+  #card-3 .card-quote { font-size: 34px; line-height: 1.2; }
+  .card-cite {
+    margin-top: 10px; max-width: 290px; font-family: "MongolSans", sans-serif;
+    font-size: 13px; line-height: 1.5; letter-spacing: .5px; color: #b9a887;
+  }
+  .card-seal {
+    position: absolute; right: 14px; bottom: 12px; width: 58px; height: 58px;
+    border: 2px double #c8543f; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-family: "MongolSans", sans-serif; font-size: 8.5px; line-height: 1.35;
+    letter-spacing: .5px; color: #e89a88;
+    transform: rotate(-9deg); opacity: 1;
+  }
+
+  /* ---------- cause cards ---------- */
+  #cause-dim {
+    position: absolute; inset: 0; z-index: 16; background: #12100d; opacity: 0;
+    pointer-events: none;
+  }
+  #cause-wrap {
+    position: absolute; left: 80px; right: 80px; top: 310px; z-index: 17;
+    opacity: 0; text-align: center;
+  }
+  .cause-title {
+    font-family: "MongolSerif", serif; font-size: 62px; font-weight: 700;
+    letter-spacing: 4px; color: #f0e6d2;
+  }
+  .cause-title em {
+    display: block; margin-top: 14px; font-style: normal;
+    font-family: "MongolSans", sans-serif; font-size: 19px; letter-spacing: 8px;
+    color: #e2c27e;
+  }
+  .cause-slot { width: 840px; margin: 22px auto 0; opacity: 0; }
+  .cause-card {
+    display: flex; align-items: center; gap: 24px; text-align: left;
+    padding: 22px 30px; background: #171512;
+    border: 1px solid rgba(169,130,69,.65);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  }
+  .cause-slot:nth-of-type(2) .cause-card { transform: rotate(-1.2deg); }
+  .cause-slot:nth-of-type(3) .cause-card { transform: rotate(.9deg); }
+  .cause-slot:nth-of-type(4) .cause-card { transform: rotate(-.5deg); }
+  .cause-num {
+    flex: 0 0 64px; font-family: "MongolSerif", serif; font-size: 44px;
+    font-weight: 700; color: #d06a52;
+  }
+  .cause-txt { flex: 1; }
+  .cause-name {
+    font-family: "MongolSerif", serif; font-size: 38px; font-weight: 600;
+    letter-spacing: 2px; color: #f2e8d5;
+  }
+  .cause-desc {
+    margin-top: 6px; font-family: "MongolSans", sans-serif; font-size: 20px;
+    letter-spacing: 1px; color: #bda98a;
+  }
+  .cause-note {
+    display: inline-block; margin-top: 26px; padding: 7px 20px;
+    border: 1px solid #c8543f; color: #e07a62;
+    font-family: "MongolSans", sans-serif; font-size: 18px; letter-spacing: 5px;
+    transform: rotate(-2deg);
+  }
+
+  /* ---------- chapter end ---------- */
+  #chapter-veil {
+    position: absolute; inset: 0; z-index: 18; opacity: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 48%, rgba(232,220,195,.94) 0%, rgba(232,220,195,.80) 42%, rgba(232,220,195,.32) 100%);
+  }
+  #chapter-end {
+    position: absolute; inset: 0; z-index: 19; opacity: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; pointer-events: none;
+  }
+  .ce-kicker {
+    font-family: "MongolSans", sans-serif; font-size: 23px; letter-spacing: 10px;
+    color: #8a5a2b;
+  }
+  .ce-title {
+    margin-top: 22px; font-family: "MongolSerif", serif; font-size: 150px;
+    font-weight: 800; letter-spacing: 8px; line-height: 1; color: #171512;
+  }
+  .ce-sub {
+    margin-top: 22px; font-family: "MongolSans", sans-serif; font-size: 25px;
+    letter-spacing: 7px; color: #4a3d2d;
+  }
+  .ce-line {
+    width: 180px; height: 2px; margin-top: 30px; background: #a63a2b; opacity: .8;
+  }
+
+  /* ---------- end card ---------- */
+  #endcard {
+    position: absolute; inset: 0; z-index: 30; opacity: 0;
+    background:
+      radial-gradient(120% 90% at 50% 45%, #1c1915 0%, #12110f 60%, #0b0a09 100%);
+    color: #efe4cc;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 90px;
+  }
+  #endcard::before {
+    content: "1218";
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    font-family: "MongolSerif", serif; font-size: 420px; font-weight: 800;
+    letter-spacing: -20px; color: rgba(232,220,195,.035); white-space: nowrap;
+  }
+  .ec-seal {
+    width: 120px; height: 120px; border: 4px double #c8543f; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "MongolSerif", serif; font-size: 36px; font-weight: 700;
+    color: #e07a62; transform: rotate(-6deg); margin-bottom: 42px;
+  }
+  .ec-kicker {
+    font-family: "MongolSans", sans-serif; font-size: 20px; letter-spacing: 9px;
+    color: #c6a468;
+  }
+  .ec-title {
+    margin-top: 18px; font-family: "MongolSerif", serif; font-size: 124px;
+    font-weight: 800; letter-spacing: 10px; line-height: 1.05; color: #f1e6d2;
+  }
+  .ec-sub {
+    margin-top: 24px; font-family: "MongolSans", sans-serif; font-size: 28px;
+    letter-spacing: 3px; color: #d4c3a4;
+  }
+  .ec-next {
+    margin-top: 54px; padding: 11px 30px; border: 1px solid #c8543f;
+    font-family: "MongolSans", sans-serif; font-size: 27px; letter-spacing: 5px;
+    color: #e07a62;
+  }
+  .ec-sources {
+    margin-top: 62px; max-width: 780px;
+    font-family: "MongolSans", sans-serif; font-size: 17px; line-height: 1.75;
+    letter-spacing: 1px; color: #c5b69b;
+  }
+  .ec-note {
+    margin-top: 20px; font-family: "MongolSans", sans-serif; font-size: 15px;
+    letter-spacing: 2px; color: #a89170;
+  }
+  .ec-brand {
+    margin-top: 46px; font-family: "MongolSans", sans-serif; font-size: 20px;
+    letter-spacing: 10px; color: #c6a468;
+  }
+
+  /* ---------- captions: tushuo style ---------- */
+  #subtitle-veil {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 640px;
+    z-index: 25; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(10,9,8,0) 0%, rgba(10,9,8,.10) 48%, rgba(10,9,8,.24) 100%);
+  }
+  #caption-wrap {
+    position: absolute; left: 0; right: 0; bottom: 440px; height: 90px;
+    z-index: 26; pointer-events: none;
+  }
+  .cap-line {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    opacity: 0; white-space: nowrap;
+  }
+  .cap-box {
+    display: inline-block; padding: 14px 24px; border-radius: 8px;
+    background: rgba(0,0,0,.84); border: 1px solid rgba(255,255,255,.16);
+    color: #fff; font-family: "MongolSans", sans-serif; font-size: 48px;
+    font-weight: 700; line-height: 1.05; letter-spacing: 1px; text-align: center;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="mongol-west-1" data-start="0" data-width="1080" data-height="1920" data-duration="60">
+
+  <div id="bg"></div>
+
+  <div id="map-stage">
+    <svg id="map-svg" viewBox="0 0 1080 1920" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0e5cf"/>
+      <stop offset="45%" stop-color="#e8dcc3"/>
+      <stop offset="100%" stop-color="#d6c4a2"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="42%" cy="38%" r="72%">
+      <stop offset="0%" stop-color="#77948c"/>
+      <stop offset="55%" stop-color="#587770"/>
+      <stop offset="100%" stop-color="#3d5c57"/>
+    </radialGradient>
+    <linearGradient id="deepSea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#385752" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#24433f" stop-opacity=".55"/>
+    </linearGradient>
+    <linearGradient id="sandGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e0c18c"/>
+      <stop offset="100%" stop-color="#c9a66b"/>
+    </linearGradient>
+    <radialGradient id="oasisGrad" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#9bb276"/>
+      <stop offset="55%" stop-color="#7d9a62"/>
+      <stop offset="100%" stop-color="#6a8656" stop-opacity=".55"/>
+    </radialGradient>
+    <linearGradient id="steppeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b9b985"/>
+      <stop offset="100%" stop-color="#a8a874" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="mountainBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a9916b"/>
+      <stop offset="100%" stop-color="#8b7453"/>
+    </linearGradient>
+    <linearGradient id="mountainMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#907a56"/>
+      <stop offset="100%" stop-color="#6f5c40"/>
+    </linearGradient>
+    <linearGradient id="mountainFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7d6848"/>
+      <stop offset="100%" stop-color="#5c4b35"/>
+    </linearGradient>
+    <pattern id="grid" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#8c7655" stroke-width="1" opacity=".20"/>
+      <path d="M 60 0 L 60 120 M 0 60 L 120 60" fill="none" stroke="#8c7655" stroke-width=".6" opacity=".08"/>
+    </pattern>
+    <pattern id="sandDots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="7" r="1.4" fill="#8e6f45" opacity=".45"/>
+      <circle cx="18" cy="19" r="1.1" fill="#8e6f45" opacity=".35"/>
+      <circle cx="24" cy="5" r=".8" fill="#8e6f45" opacity=".3"/>
+    </pattern>
+    <pattern id="grassPat" width="70" height="46" patternUnits="userSpaceOnUse">
+      <path d="M 12 34 l 3 -11 M 15 34 l 1 -8 M 18 34 l 4 -12" fill="none" stroke="#6f7a4d" stroke-width="1.4" opacity=".5"/>
+      <path d="M 48 20 l 3 -10 M 51 20 l 1 -7 M 54 20 l 4 -11" fill="none" stroke="#6f7a4d" stroke-width="1.2" opacity=".4"/>
+    </pattern>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#3b2b1a" flood-opacity=".28"/>
+    </filter>
+    <filter id="blurSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <marker id="arrow-red" viewBox="0 0 14 12" refX="12" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 14 6 L 0 12 L 3 6 Z" fill="#a63a2b"/>
+    </marker>
+    <marker id="arrow-brown" viewBox="0 0 14 12" refX="12" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 14 6 L 0 12 L 3 6 Z" fill="#7a5a35"/>
+    </marker>
+    <linearGradient id="grad-main" gradientUnits="userSpaceOnUse" x1="950" y1="410" x2="590" y2="785">
+      <stop offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-main-a" offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-main-c" offset="0" stop-color="#a63a2b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#a63a2b" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="grad-adv-1" gradientUnits="userSpaceOnUse" x1="560" y1="800" x2="505" y2="985">
+      <stop offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-adv-1-a" offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-adv-1-c" offset="0" stop-color="#a63a2b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#a63a2b" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="grad-adv-2" gradientUnits="userSpaceOnUse" x1="520" y1="1000" x2="625" y2="980">
+      <stop offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-adv-2-a" offset="0" stop-color="#a63a2b"/>
+      <stop id="grad-adv-2-c" offset="0" stop-color="#a63a2b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#a63a2b" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mask-main">
+      <path id="mask-main-path" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-adv-1">
+      <path id="mask-adv-1-path" d="M 560 800 C 545 860 525 925 505 985" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-adv-2">
+      <path id="mask-adv-2-path" d="M 520 1000 C 560 1000 600 995 625 980" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="mask-flight">
+      <path id="mask-flight-path" d="M 640 988 C 540 1025 440 1055 340 1080 C 280 1095 230 1108 190 1120" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-dasharray="0 9999" stroke-dashoffset="0"/>
+    </mask>
+
+    <g id="tree-pine">
+      <rect x="-1.5" y="-4" width="3" height="10" fill="#5a4630"/>
+      <path d="M 0 -30 L -12 -8 L 12 -8 Z" fill="#4d6848" stroke="#354c35" stroke-width="1.2"/>
+      <path d="M 0 -38 L -10 -18 L 10 -18 Z" fill="#557351" stroke="#354c35" stroke-width="1.1"/>
+      <path d="M 0 -44 L -7 -28 L 7 -28 Z" fill="#617f59" stroke="#354c35" stroke-width="1"/>
+    </g>
+    <g id="tree-round">
+      <rect x="-1.5" y="-3" width="3" height="10" fill="#5a4630"/>
+      <circle cx="-6" cy="-13" r="8" fill="#6f8c58" stroke="#4b633c" stroke-width="1"/>
+      <circle cx="6" cy="-14" r="8.5" fill="#7c9962" stroke="#4b633c" stroke-width="1"/>
+      <circle cx="0" cy="-21" r="9" fill="#86a168" stroke="#4b633c" stroke-width="1"/>
+    </g>
+    <g id="palm">
+      <path d="M 0 0 C -2 -14 -4 -25 -2 -36" fill="none" stroke="#6b5335" stroke-width="4" stroke-linecap="round"/>
+      <path d="M -2 -36 C -16 -44 -22 -42 -25 -38" fill="none" stroke="#4f6f42" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C -12 -50 -10 -56 -4 -58" fill="none" stroke="#55784a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 4 -54 12 -58 18 -55" fill="none" stroke="#5c804f" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 12 -46 20 -44 24 -38" fill="none" stroke="#4f6f42" stroke-width="3" stroke-linecap="round"/>
+      <path d="M -2 -36 C 0 -22 5 -16 10 -12" fill="none" stroke="#4c6b3f" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+    </g>
+    <g id="yurt">
+      <path d="M -16 0 C -18 -8 -10 -14 0 -14 C 10 -14 18 -8 16 0 Z" fill="#d9c7a3" stroke="#6b5335" stroke-width="1.6"/>
+      <path d="M -6 0 L -6 -8 C -6 -11 6 -11 6 -8 L 6 0" fill="#8c5a3a" stroke="#5a3f2a" stroke-width="1"/>
+      <line x1="0" y1="-14" x2="0" y2="-19" stroke="#6b5335" stroke-width="1.4"/>
+      <path d="M 0 -19 l 9 3 l -9 3 Z" fill="#a63a2b"/>
+    </g>
+    <g id="camel">
+      <path d="M -10 0 l 1 -10 l 5 -4 l 1 -8 l 3 -2 l 2 9 l 5 4 l 1 10 l 3 0 l -1 -14 l -5 -7 l -6 -4 l -1 -8 l -4 0 l -1 8 l -6 4 l -4 7 l -1 15 Z" fill="#6b4e33" stroke="#3f2d1d" stroke-width=".8"/>
+    </g>
+    <g id="grass-tuft">
+      <path d="M 0 0 l 2 -10 M 0 0 l 0 -7 M 0 0 l -2 -9" fill="none" stroke="#6f7a4d" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#landGrad)"/>
+  <rect width="1080" height="1920" fill="url(#grid)"/>
+
+  <g opacity=".14" filter="url(#blurSoft)">
+    <ellipse cx="220" cy="1420" rx="330" ry="230" fill="#b49a6b"/>
+    <ellipse cx="880" cy="520" rx="270" ry="190" fill="#b49a6b"/>
+    <ellipse cx="760" cy="1330" rx="240" ry="180" fill="#9f875f"/>
+    <ellipse cx="420" cy="260" rx="260" ry="150" fill="#c6ad80"/>
+  </g>
+
+  <!-- Khwarazmian reach -->
+  <path id="empire-fill" d="M 356 806 C 426 784 508 808 578 856 C 648 904 704 976 698 1056 C 692 1138 614 1186 536 1170 C 458 1154 380 1114 332 1048 C 294 996 290 872 356 806 Z" fill="#a98245" opacity="0"/>
+
+  <!-- steppe / forest belt -->
+  <path d="M 300 500 C 450 450 650 470 800 520 C 880 560 900 640 860 700 C 760 740 600 700 480 680 C 360 660 300 600 300 500 Z" fill="url(#steppeGrad)" opacity=".55"/>
+  <path d="M 300 500 C 450 450 650 470 800 520 C 880 560 900 640 860 700 C 760 740 600 700 480 680 C 360 660 300 600 300 500 Z" fill="url(#grassPat)" opacity=".55"/>
+
+  <!-- Mongolian plateau -->
+  <g opacity=".9">
+    <path d="M 820 330 C 860 300 950 300 990 340 C 1014 372 1010 430 980 462 C 940 500 860 494 830 458 C 806 426 806 360 820 330 Z" fill="#c6bc8a" opacity=".55"/>
+    <path d="M 840 350 C 876 330 946 330 976 362 C 996 386 994 430 970 452 C 938 478 874 474 848 446 C 830 420 830 372 840 350 Z" fill="none" stroke="#8c7655" stroke-width="1.5" stroke-dasharray="7 8" opacity=".5"/>
+    <path d="M 860 372 C 888 356 936 356 958 380 C 972 398 970 426 952 442 C 928 460 882 456 864 434 C 850 416 852 386 860 372 Z" fill="none" stroke="#8c7655" stroke-width="1" stroke-dasharray="5 7" opacity=".45"/>
+    <use href="#yurt" transform="translate(900 402) scale(1.15)"/>
+    <use href="#yurt" transform="translate(944 424) scale(.9)"/>
+    <use href="#grass-tuft" transform="translate(872 440) scale(1.2)"/>
+    <use href="#grass-tuft" transform="translate(964 394) scale(1.1)"/>
+    <path d="M 850 414 C 890 406 930 410 970 430" fill="none" stroke="#6e8a7f" stroke-width="2.5" opacity=".7"/>
+  </g>
+
+  <!-- Kyzylkum and Karakum -->
+  <path d="M 380 850 C 480 820 620 850 720 900 C 760 950 720 1010 640 1040 C 540 1070 440 1050 390 990 C 360 950 355 890 380 850 Z" fill="url(#sandGrad)" opacity=".8"/>
+  <path d="M 380 850 C 480 820 620 850 720 900 C 760 950 720 1010 640 1040 C 540 1070 440 1050 390 990 C 360 950 355 890 380 850 Z" fill="url(#sandDots)" opacity=".8"/>
+  <path d="M 300 1080 C 380 1040 480 1060 540 1110 C 580 1160 540 1210 460 1230 C 380 1250 310 1200 290 1140 Z" fill="url(#sandGrad)" opacity=".8"/>
+  <path d="M 300 1080 C 380 1040 480 1060 540 1110 C 580 1160 540 1210 460 1230 C 380 1250 310 1200 290 1140 Z" fill="url(#sandDots)" opacity=".8"/>
+  <g fill="none" stroke="#9b794a" stroke-width="1.6" opacity=".55" stroke-linecap="round">
+    <path d="M 410 900 C 460 878 520 884 570 906 C 610 924 650 930 690 922"/>
+    <path d="M 390 940 C 450 918 510 924 566 948 C 606 966 646 970 686 960"/>
+    <path d="M 370 980 C 430 958 490 964 544 986 C 584 1002 622 1006 660 998"/>
+    <path d="M 330 1140 C 380 1120 430 1126 476 1146 C 510 1160 542 1162 574 1154"/>
+    <path d="M 320 1180 C 372 1160 420 1166 464 1184 C 498 1198 528 1200 558 1192"/>
+  </g>
+  <g fill="#7e6a45" opacity=".55">
+    <circle cx="430" cy="920" r="2.2"/><circle cx="470" cy="946" r="1.6"/><circle cx="514" cy="918" r="1.8"/>
+    <circle cx="612" cy="950" r="1.8"/><circle cx="650" cy="976" r="1.5"/><circle cx="688" cy="996" r="1.6"/>
+    <circle cx="360" cy="1160" r="1.8"/><circle cx="402" cy="1190" r="1.5"/><circle cx="446" cy="1166" r="1.7"/>
+  </g>
+  <g transform="translate(590 955) scale(1.15)" opacity=".9"><use href="#camel"/></g>
+  <g transform="translate(620 966) scale(1.0)" opacity=".8"><use href="#camel"/></g>
+  <g transform="translate(648 956) scale(.85)" opacity=".7"><use href="#camel"/></g>
+
+  <!-- oasis patches -->
+  <g>
+    <ellipse cx="505" cy="1018" rx="52" ry="22" fill="url(#oasisGrad)" opacity=".8"/>
+    <ellipse cx="646" cy="1000" rx="62" ry="24" fill="url(#oasisGrad)" opacity=".8"/>
+    <ellipse cx="392" cy="874" rx="38" ry="18" fill="url(#oasisGrad)" opacity=".65"/>
+    <ellipse cx="452" cy="1120" rx="30" ry="14" fill="url(#oasisGrad)" opacity=".55"/>
+    <ellipse cx="492" cy="1024" rx="12" ry="5" fill="#6f9d9a" stroke="#4d7773" stroke-width="1"/>
+    <ellipse cx="632" cy="1006" rx="14" ry="5" fill="#6f9d9a" stroke="#4d7773" stroke-width="1"/>
+    <use href="#palm" transform="translate(466 1026) scale(1.05)"/>
+    <use href="#palm" transform="translate(536 1022) scale(.9)"/>
+    <use href="#palm" transform="translate(610 1010) scale(1.1)"/>
+    <use href="#palm" transform="translate(674 1004) scale(.95)"/>
+    <use href="#palm" transform="translate(416 884) scale(.8)"/>
+    <path d="M 458 1030 l 5 -8 M 466 1030 l 0 -10 M 474 1030 l -4 -8" fill="none" stroke="#5f7a49" stroke-width="1.2" opacity=".8"/>
+    <path d="M 600 1016 l 5 -8 M 608 1016 l 0 -10 M 616 1016 l -4 -8" fill="none" stroke="#5f7a49" stroke-width="1.2" opacity=".8"/>
+  </g>
+
+  <!-- forest clusters -->
+  <g filter="url(#softShadow)">
+    <use href="#tree-pine" transform="translate(600 610) scale(1.3)"/>
+    <use href="#tree-pine" transform="translate(632 590) scale(1.0)"/>
+    <use href="#tree-pine" transform="translate(660 618) scale(1.15)"/>
+    <use href="#tree-pine" transform="translate(690 586) scale(.9)"/>
+    <use href="#tree-round" transform="translate(560 650) scale(1.1)"/>
+    <use href="#tree-round" transform="translate(590 670) scale(1.25)"/>
+    <use href="#tree-round" transform="translate(520 630) scale(.9)"/>
+    <use href="#tree-round" transform="translate(720 640) scale(1.1)"/>
+    <use href="#tree-round" transform="translate(750 610) scale(.85)"/>
+    <use href="#tree-pine" transform="translate(420 610) scale(1.0)"/>
+    <use href="#tree-pine" transform="translate(450 590) scale(.85)"/>
+    <use href="#tree-round" transform="translate(390 640) scale(.9)"/>
+    <use href="#tree-round" transform="translate(470 650) scale(1.0)"/>
+    <use href="#tree-round" transform="translate(340 680) scale(.85)"/>
+    <use href="#tree-pine" transform="translate(790 560) scale(.9)"/>
+    <use href="#tree-pine" transform="translate(820 590) scale(.8)"/>
+  </g>
+  <g opacity=".55">
+    <use href="#grass-tuft" transform="translate(500 570) scale(1.1)"/>
+    <use href="#grass-tuft" transform="translate(540 600) scale(.9)"/>
+    <use href="#grass-tuft" transform="translate(680 550) scale(1.0)"/>
+    <use href="#grass-tuft" transform="translate(740 680) scale(1.2)"/>
+    <use href="#grass-tuft" transform="translate(400 700) scale(.9)"/>
+  </g>
+
+  <!-- mountains: Tian Shan -->
+  <g filter="url(#softShadow)">
+    <path d="M 680 720 L 720 640 L 752 676 L 790 600 L 824 650 L 862 588 L 900 640 L 938 600 L 980 660 L 1010 630 L 1030 720 Z" fill="url(#mountainBack)" opacity=".7"/>
+    <path d="M 700 740 L 742 660 L 772 694 L 812 622 L 846 668 L 884 612 L 922 664 L 960 626 L 994 692 L 1020 740 Z" fill="url(#mountainMid)"/>
+    <path d="M 718 760 L 760 694 L 790 724 L 830 654 L 864 704 L 902 646 L 940 704 L 978 668 L 1010 742 L 1028 770 Z" fill="url(#mountainFront)"/>
+    <g fill="#e8e1cf" opacity=".9">
+      <path d="M 812 622 L 826 646 L 818 654 L 804 638 Z"/>
+      <path d="M 884 612 L 898 638 L 890 646 L 876 630 Z"/>
+      <path d="M 902 646 L 914 668 L 906 674 L 894 658 Z"/>
+      <path d="M 960 626 L 972 650 L 964 657 L 952 642 Z"/>
+      <path d="M 790 600 L 802 624 L 794 631 L 782 614 Z" opacity=".75"/>
+    </g>
+    <g fill="none" stroke="#4f3f2c" stroke-width="1.1" opacity=".28">
+      <path d="M 760 740 L 810 690 L 850 728"/>
+      <path d="M 840 742 L 884 690 L 930 736"/>
+      <path d="M 920 754 L 960 710 L 1000 754"/>
+    </g>
+    <text data-layout-ignore x="782" y="578" font-family="MongolSans" font-size="20" letter-spacing="5" fill="#5a4630" opacity=".72">天山</text>
+  </g>
+
+  <!-- Pamir foothills -->
+  <g filter="url(#softShadow)" opacity=".9">
+    <path d="M 720 1120 L 752 1062 L 780 1092 L 816 1042 L 848 1090 L 878 1060 L 906 1120 Z" fill="url(#mountainBack)" opacity=".8"/>
+    <path d="M 736 1132 L 766 1080 L 792 1106 L 824 1060 L 852 1104 L 882 1078 L 906 1132 Z" fill="url(#mountainFront)"/>
+    <g fill="#e8e1cf" opacity=".8">
+      <path d="M 816 1042 L 828 1064 L 820 1070 L 808 1054 Z"/>
+      <path d="M 848 1090 L 858 1108 L 850 1113 L 840 1098 Z"/>
+    </g>
+    <text data-layout-ignore x="790" y="1026" font-family="MongolSans" font-size="18" letter-spacing="4" fill="#5a4630" opacity=".66">帕米尔</text>
+  </g>
+
+  <!-- water: Caspian -->
+  <g>
+    <path d="M 152 784 C 128 854 118 944 126 1024 C 134 1114 170 1204 214 1268 C 250 1320 286 1304 294 1254 C 304 1184 274 1104 270 1024 C 266 944 286 864 278 816 C 270 774 232 758 196 766 C 170 772 158 776 152 784 Z" fill="url(#seaGrad)" stroke="#3f5a55" stroke-width="3"/>
+    <path d="M 170 850 C 150 920 148 990 158 1060 C 168 1130 194 1196 226 1248" fill="none" stroke="#a9c2b8" stroke-width="2" opacity=".35"/>
+    <path d="M 190 920 C 178 980 180 1040 192 1098 C 202 1148 222 1198 248 1238" fill="none" stroke="url(#deepSea)" stroke-width="18" opacity=".5"/>
+    <g fill="none" stroke="#c9d8cf" stroke-width="2" stroke-linecap="round" opacity=".45">
+      <path d="M 176 930 c 8 -5 16 -5 24 0"/>
+      <path d="M 190 960 c 8 -5 16 -5 24 0"/>
+      <path d="M 160 1000 c 8 -5 16 -5 24 0"/>
+      <path d="M 186 1040 c 8 -5 16 -5 24 0"/>
+      <path d="M 214 1090 c 8 -5 16 -5 24 0"/>
+      <path d="M 226 1130 c 8 -5 16 -5 24 0"/>
+      <path d="M 240 1170 c 8 -5 16 -5 24 0"/>
+    </g>
+    <text data-layout-ignore x="118" y="1040" font-family="MongolSans" font-size="19" letter-spacing="4" fill="#3f5a55" opacity=".8" transform="rotate(-90 118 1040)">里海</text>
+  </g>
+
+  <!-- water: Aral -->
+  <g>
+    <path d="M 330 746 C 312 774 306 814 320 844 C 334 874 366 874 382 848 C 398 822 396 784 378 762 C 362 742 342 734 330 746 Z" fill="url(#seaGrad)" stroke="#3f5a55" stroke-width="2.5"/>
+    <path d="M 342 770 C 332 792 330 820 340 840 C 350 858 366 858 374 842 C 384 822 382 792 370 776" fill="none" stroke="url(#deepSea)" stroke-width="10" opacity=".45"/>
+    <g fill="none" stroke="#c9d8cf" stroke-width="1.6" stroke-linecap="round" opacity=".42">
+      <path d="M 342 790 c 5 -3 10 -3 15 0"/>
+      <path d="M 350 812 c 5 -3 10 -3 15 0"/>
+      <path d="M 358 834 c 5 -3 10 -3 15 0"/>
+    </g>
+    <text data-layout-ignore x="336" y="724" font-family="MongolSans" font-size="16" letter-spacing="3" fill="#3f5a55" opacity=".72">咸海</text>
+  </g>
+
+  <!-- rivers -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 912 602 C 856 628 800 660 744 696 C 688 732 630 766 568 798 C 508 828 442 844 386 834 C 362 830 340 820 326 810" stroke="#34524e" stroke-width="10" opacity=".65"/>
+    <path d="M 912 602 C 856 628 800 660 744 696 C 688 732 630 766 568 798 C 508 828 442 844 386 834 C 362 830 340 820 326 810" stroke="#4e6e68" stroke-width="5.5"/>
+    <path d="M 912 600 C 856 626 800 658 744 694 C 688 730 630 764 568 796 C 508 826 442 842 386 832" stroke="#a9c2b8" stroke-width="1.6" opacity=".75"/>
+    <path d="M 806 1002 C 744 988 686 998 640 1020 C 594 1042 548 1048 506 1028 C 464 1008 424 976 396 938 C 382 920 370 900 360 880" stroke="#34524e" stroke-width="10" opacity=".65"/>
+    <path d="M 806 1002 C 744 988 686 998 640 1020 C 594 1042 548 1048 506 1028 C 464 1008 424 976 396 938 C 382 920 370 900 360 880" stroke="#4e6e68" stroke-width="5.5"/>
+    <path d="M 806 1000 C 744 986 686 996 640 1018 C 594 1040 548 1046 506 1026 C 464 1006 424 974 396 936" stroke="#a9c2b8" stroke-width="1.6" opacity=".7"/>
+    <!-- tributaries -->
+    <path d="M 846 660 C 820 690 790 710 760 724" stroke="#4e6e68" stroke-width="2.2" opacity=".7"/>
+    <path d="M 780 660 C 760 690 740 710 720 730" stroke="#4e6e68" stroke-width="1.8" opacity=".6"/>
+    <path d="M 730 1030 C 700 1040 680 1058 660 1078" stroke="#4e6e68" stroke-width="2" opacity=".6"/>
+    <path d="M 760 1010 C 740 1030 720 1040 700 1050" stroke="#4e6e68" stroke-width="1.6" opacity=".55"/>
+    <!-- deltas -->
+    <path d="M 380 820 C 370 800 360 786 350 772 M 380 820 C 386 800 390 786 392 770 M 380 820 C 396 812 408 806 420 800" stroke="#4e6e68" stroke-width="2.2" opacity=".75"/>
+    <path d="M 392 900 C 382 888 374 876 368 862 M 392 900 C 400 888 408 878 418 868" stroke="#4e6e68" stroke-width="2" opacity=".7"/>
+  </g>
+
+  <!-- settlements: Otrar -->
+  <g transform="translate(560 800)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="26" rx="62" ry="10" fill="#3b2b1a" opacity=".2"/>
+    <path d="M -54 18 L -48 -18 L 42 -26 L 54 8 L 46 26 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -48 -18 L 42 -26 L 46 -18 L -46 -10 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-44" y="-24" width="9" height="9"/><rect x="-31" y="-26" width="9" height="9"/>
+      <rect x="-18" y="-28" width="9" height="9"/><rect x="-5" y="-29" width="9" height="9"/>
+      <rect x="8" y="-30" width="9" height="9"/><rect x="21" y="-31" width="9" height="9"/>
+      <rect x="34" y="-32" width="9" height="9"/>
+    </g>
+    <path d="M -48 -10 L -48 -34 L -38 -38 L -38 -10 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 36 -12 L 36 -38 L 46 -42 L 46 -8 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 0 26 L 0 2 C -8 -4 -12 -10 -12 -18 L 12 -18 C 12 -10 8 -4 0 2 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.5"/>
+    <path d="M -8 22 L -8 4 C -11 0 -11 -6 -9 -10 L 9 -10 C 11 -6 11 0 8 4 L 8 22 Z" fill="#33261a"/>
+    <g>
+      <rect x="-36" y="-4" width="18" height="14" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+      <path d="M -38 -4 L -27 -12 L -16 -4 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+      <rect x="16" y="-2" width="18" height="14" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+      <path d="M 14 -2 L 25 -10 L 36 -2 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    </g>
+    <path d="M -22 -34 L -22 -46 L -16 -49 L -10 -46 L -10 -32 Z" fill="#9d7c4f" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M -16 -49 L -16 -62" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M -16 -62 l 12 4 l -12 5 Z" fill="#a63a2b" stroke="#7a2a1e" stroke-width=".8"/>
+    <path d="M -58 22 C -40 30 40 30 58 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+  </g>
+
+  <!-- settlements: Bukhara -->
+  <g transform="translate(500 1008)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="28" rx="60" ry="10" fill="#3b2b1a" opacity=".2"/>
+    <path d="M -52 20 L -48 -14 L 44 -22 L 54 12 L 46 28 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -48 -14 L 44 -22 L 48 -15 L -46 -7 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-42" y="-20" width="8" height="8"/><rect x="-30" y="-22" width="8" height="8"/>
+      <rect x="-18" y="-23" width="8" height="8"/><rect x="-6" y="-24" width="8" height="8"/>
+      <rect x="6" y="-25" width="8" height="8"/><rect x="18" y="-26" width="8" height="8"/>
+      <rect x="30" y="-27" width="8" height="8"/>
+    </g>
+    <path d="M -8 20 L -8 -6 C -18 -12 -20 -22 -12 -28 C -4 -34 8 -34 16 -28 C 24 -22 22 -12 12 -6 L 12 20 Z" fill="#5f8f8a" stroke="#3f5a55" stroke-width="1.6"/>
+    <path d="M -10 -10 C -16 -18 -12 -26 0 -30" fill="none" stroke="#a9c2b8" stroke-width="1.5" opacity=".7"/>
+    <path d="M 0 -34 L 0 -44 L 4 -48 L 8 -44 L 8 -34 Z" fill="#c6a468" stroke="#7a5a35" stroke-width=".9"/>
+    <path d="M 28 -2 L 28 -48 C 28 -54 34 -56 38 -52 L 38 -4 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 25 -34 L 41 -34 L 39 -27 L 27 -27 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 16 20 L 16 0 C 10 -4 8 -10 8 -16 L 24 -16 C 24 -10 22 -4 16 0 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.4"/>
+    <path d="M -48 22 C -30 30 34 30 54 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+  </g>
+
+  <!-- settlements: Samarkand -->
+  <g transform="translate(640 988)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="30" rx="72" ry="12" fill="#3b2b1a" opacity=".22"/>
+    <path d="M -62 20 L -56 -20 L 50 -30 L 64 10 L 54 30 Z" fill="#c7aa79" stroke="#5a4630" stroke-width="2"/>
+    <path d="M -56 -20 L 50 -30 L 54 -22 L -54 -12 Z" fill="#d9c39b" stroke="#5a4630" stroke-width="1.2"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width="1">
+      <rect x="-50" y="-26" width="9" height="9"/><rect x="-36" y="-28" width="9" height="9"/>
+      <rect x="-22" y="-29" width="9" height="9"/><rect x="-8" y="-30" width="9" height="9"/>
+      <rect x="6" y="-31" width="9" height="9"/><rect x="20" y="-32" width="9" height="9"/>
+      <rect x="34" y="-33" width="9" height="9"/>
+    </g>
+    <path d="M -16 22 L -16 -8 C -28 -16 -28 -30 -16 -36 C -4 -42 12 -42 22 -36 C 34 -30 30 -16 18 -8 L 18 22 Z" fill="#5f8f8a" stroke="#3f5a55" stroke-width="1.6"/>
+    <path d="M -20 -12 C -28 -22 -22 -32 0 -38" fill="none" stroke="#a9c2b8" stroke-width="1.5" opacity=".7"/>
+    <path d="M 0 -42 L 0 -54 L 5 -58 L 10 -54 L 10 -42 Z" fill="#c6a468" stroke="#7a5a35" stroke-width=".9"/>
+    <path d="M 38 18 L 38 -52 C 38 -60 46 -62 50 -56 L 50 20 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M 34 -36 L 54 -36 L 51 -29 L 37 -29 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 48 -54 L 48 -66" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M 48 -66 l 12 4 l -12 5 Z" fill="#a63a2b" stroke="#7a2a1e" stroke-width=".8"/>
+    <path d="M -46 -2 L -46 -28 C -46 -34 -38 -36 -34 -32 L -34 0 Z" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+    <path d="M -48 -28 L -32 -28 L -35 -22 L -45 -22 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -12 20 L -12 -2 C -18 -6 -20 -12 -20 -18 L -4 -18 C -4 -12 -6 -6 -12 -2 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.3"/>
+    <path d="M -58 22 C -40 32 40 32 60 20" fill="none" stroke="#5a4630" stroke-width="1.2" opacity=".5"/>
+    <g fill="#7c9962" opacity=".8">
+      <circle cx="-70" cy="4" r="10"/><circle cx="-78" cy="10" r="8"/><circle cx="72" cy="2" r="9"/><circle cx="80" cy="8" r="7"/>
+    </g>
+  </g>
+
+  <!-- caravanserai / towns -->
+  <g transform="translate(716 716)" filter="url(#softShadow)">
+    <ellipse cx="0" cy="16" rx="36" ry="7" fill="#3b2b1a" opacity=".18"/>
+    <path d="M -34 12 L -30 -12 L 28 -16 L 36 8 L 28 16 Z" fill="#cbb083" stroke="#5a4630" stroke-width="1.6"/>
+    <path d="M -30 -12 L 28 -16 L 30 -10 L -28 -6 Z" fill="#ddc9a4" stroke="#5a4630" stroke-width="1"/>
+    <g fill="#b3915f" stroke="#5a4630" stroke-width=".9">
+      <rect x="-24" y="-14" width="7" height="7"/><rect x="-12" y="-15" width="7" height="7"/>
+      <rect x="0" y="-16" width="7" height="7"/><rect x="12" y="-17" width="7" height="7"/>
+    </g>
+    <path d="M -6 14 L -6 -2 C -10 -4 -10 -8 -8 -10 L 8 -10 C 10 -8 10 -4 6 -2 L 6 14 Z" fill="#7a5a35" stroke="#4a3624" stroke-width="1.2"/>
+    <path d="M 24 -16 L 24 -30" stroke="#5a4630" stroke-width="1.2"/>
+    <path d="M 24 -30 l 10 3 l -10 4 Z" fill="#a63a2b"/>
+  </g>
+  <g transform="translate(430 900)" filter="url(#softShadow)" opacity=".92">
+    <ellipse cx="0" cy="12" rx="24" ry="5" fill="#3b2b1a" opacity=".16"/>
+    <rect x="-24" y="-2" width="18" height="12" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -26 -2 L -15 -9 L -4 -2 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <rect x="2" y="0" width="16" height="10" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 0 0 L 10 -7 L 20 0 Z" fill="#9d5a3d" stroke="#5a4630" stroke-width="1"/>
+    <rect x="-8" y="-12" width="12" height="8" fill="#b3915f" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -10 -12 L -2 -18 L 6 -12 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+  </g>
+  <g transform="translate(370 790)" filter="url(#softShadow)" opacity=".88">
+    <ellipse cx="0" cy="10" rx="20" ry="4" fill="#3b2b1a" opacity=".15"/>
+    <rect x="-18" y="0" width="14" height="10" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M -20 0 L -11 -6 L -2 0 Z" fill="#8e4b36" stroke="#5a4630" stroke-width="1"/>
+    <rect x="4" y="2" width="12" height="8" fill="#c7aa79" stroke="#5a4630" stroke-width="1"/>
+    <path d="M 2 2 L 10 -4 L 18 2 Z" fill="#9d5a3d" stroke="#5a4630" stroke-width="1"/>
+  </g>
+
+  <!-- silver stream near Otrar -->
+  <path id="silver-stream" d="M 512 736 C 530 758 546 780 560 800" fill="none" stroke="#d8d8d2" stroke-width="9" stroke-linecap="round" opacity="0"/>
+  <g id="ingot" opacity="0">
+    <rect x="470" y="700" width="54" height="32" rx="7" fill="#b9b7ae" stroke="#7c7a72" stroke-width="2"/>
+    <text data-layout-ignore x="497" y="723" text-anchor="middle" font-family="MongolSans" font-size="18" fill="#3b3a36">银</text>
+  </g>
+
+  <!-- routes -->
+  <path id="route-msg" d="M 560 800 C 620 740 700 660 780 590 C 840 536 900 480 950 410" fill="none" stroke="#7a5a35" stroke-width="3" stroke-dasharray="6 14" stroke-linecap="round" marker-end="url(#arrow-brown)" opacity="0"/>
+  <path id="route-main" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="none"/>
+  <path id="route-main-line" d="M 950 410 C 880 480 820 545 760 615 C 700 685 645 745 590 785" fill="none" stroke="url(#grad-main)" stroke-width="5.5" stroke-dasharray="18 12" stroke-linecap="round" opacity=".95"/>
+  <path id="route-main-arrow" d="M 590 785 L 612 779 L 601 802 Z" fill="#a63a2b" opacity="0"/>
+  <path id="route-adv-1" d="M 560 800 C 545 860 525 925 505 985" fill="none" stroke="none"/>
+  <path id="route-adv-1-line" d="M 560 800 C 545 860 525 925 505 985" fill="none" stroke="url(#grad-adv-1)" stroke-width="5" stroke-dasharray="16 11" stroke-linecap="round" opacity=".95"/>
+  <path id="route-adv-1-arrow" d="M 505 985 L 524 988 L 512 1006 Z" fill="#a63a2b" opacity="0"/>
+  <path id="route-adv-2" d="M 520 1000 C 560 1000 600 995 625 980" fill="none" stroke="none"/>
+  <path id="route-adv-2-line" d="M 520 1000 C 560 1000 600 995 625 980" fill="none" stroke="url(#grad-adv-2)" stroke-width="5" stroke-dasharray="16 11" stroke-linecap="round" opacity=".95"/>
+  <path id="route-adv-2-arrow" d="M 625 980 L 647 986 L 629 996 Z" fill="#a63a2b" opacity="0"/>
+  <path id="route-flight" d="M 640 988 C 540 1025 440 1055 340 1080 C 280 1095 230 1108 190 1120" fill="none" stroke="#a63a2b" stroke-width="3.2" stroke-dasharray="7 12" stroke-linecap="round" marker-end="url(#arrow-red)" opacity="0"/>
+
+  <!-- labels -->
+  <g font-family="MongolSans" fill="#5a4630" data-layout-ignore>
+    <text x="842" y="342" font-size="24" letter-spacing="7" opacity=".72">蒙古高原</text>
+    <text x="292" y="548" font-size="22" letter-spacing="6" opacity=".62">钦察草原</text>
+    <text x="430" y="1122" font-size="23" letter-spacing="7" opacity=".72">花剌子模</text>
+    <text x="700" y="1128" font-size="22" letter-spacing="6" opacity=".65">河中地区</text>
+    <text x="512" y="884" font-size="17" letter-spacing="4" opacity=".55" transform="rotate(-10 512 884)">克孜勒库姆沙漠</text>
+    <text x="356" y="1188" font-size="16" letter-spacing="3" opacity=".5" transform="rotate(-8 356 1188)">卡拉库姆沙漠</text>
+    <text x="700" y="756" font-size="16" letter-spacing="2" opacity=".55" transform="rotate(-22 700 756)">锡尔河</text>
+    <text x="536" y="950" font-size="16" letter-spacing="2" opacity=".55" transform="rotate(20 536 950)">阿姆河</text>
+    <text x="664" y="742" font-size="14" letter-spacing="3" opacity=".5">商镇</text>
+  </g>
+
+  <!-- compass and scale -->
+  <g opacity=".62" stroke="#5a4630" fill="#5a4630" font-family="MongolSans" data-layout-ignore>
+    <circle cx="930" cy="250" r="40" fill="none" stroke-width="1.5"/>
+    <circle cx="930" cy="250" r="30" fill="none" stroke-width="1" opacity=".5"/>
+    <path d="M 930 206 L 938 246 L 930 238 L 922 246 Z" stroke="none"/>
+    <path d="M 930 294 L 924 262 L 930 268 L 936 262 Z" stroke="none" opacity=".5"/>
+    <path d="M 886 250 L 918 244 L 912 250 L 918 256 Z" stroke="none" opacity=".5"/>
+    <path d="M 974 250 L 942 256 L 948 250 L 942 244 Z" stroke="none" opacity=".5"/>
+    <text x="930" y="310" font-size="15" text-anchor="middle" letter-spacing="2">N</text>
+    <line x1="110" y1="220" x2="230" y2="220" stroke-width="2"/>
+    <line x1="110" y1="214" x2="110" y2="226" stroke-width="2"/>
+    <line x1="230" y1="214" x2="230" y2="226" stroke-width="2"/>
+    <text x="110" y="204" font-size="14" letter-spacing="2">500 km · 示意</text>
+  </g>
+
+  <!-- corner ticks -->
+  <g stroke="#6b5a42" stroke-width="1.2" opacity=".35" fill="none">
+    <path d="M 82 190 L 82 220 M 82 190 L 112 190"/>
+    <path d="M 998 190 L 998 220 M 998 190 L 968 190"/>
+    <path d="M 82 1710 L 82 1680 M 82 1710 L 112 1710"/>
+    <path d="M 998 1710 L 998 1680 M 998 1710 L 968 1710"/>
+  </g>
+</svg>
+
+    <!-- city nodes -->
+    <div class="city" id="city-otrar" data-layout-ignore style="left:51.9%;top:41.7%">
+      <div class="ring"></div><div class="dot"></div>
+      <div class="label">讹答剌</div><div class="sublabel">边城 · 1218</div>
+      <div class="stamp-wrap"><div class="stamp small" id="stamp-otrar-spy">间谍</div></div>
+      <div class="stamp-wrap"><div class="stamp" id="stamp-otrar-fall">陷</div></div>
+      <div id="siege-ring"></div>
+      <div id="otrar-glow"></div>
+    </div>
+    <div class="city label-left" id="city-bukhara" data-layout-ignore style="left:46.3%;top:52.5%">
+      <div class="ring"></div><div class="dot"></div>
+      <div class="label">布哈拉</div><div class="sublabel">1220.2</div>
+      <div class="stamp-wrap"><div class="stamp" id="stamp-bukhara">陷</div></div>
+    </div>
+    <div class="city" id="city-samarkand" data-layout-ignore style="left:59.3%;top:51.5%">
+      <div class="ring"></div><div class="dot"></div>
+      <div class="label">撒马尔罕</div><div class="sublabel">1220.3</div>
+      <div class="stamp-wrap"><div class="stamp" id="stamp-samarkand">陷</div></div>
+      <div id="crown">
+        <svg viewBox="0 0 76 54" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 6 44 L 2 16 L 20 28 L 38 6 L 56 28 L 74 16 L 70 44 Z" fill="#a98245" stroke="#6b5a42" stroke-width="2"/>
+          <rect x="6" y="44" width="64" height="6" fill="#a98245" stroke="#6b5a42" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="city" id="city-island" data-layout-ignore style="left:17.6%;top:58.3%">
+      <div class="ring"></div><div class="dot"></div>
+      <div class="label">里海</div><div class="sublabel">1220.12 · 摩诃末死于此</div>
+    </div>
+    <div id="empire-label" data-layout-ignore style="left:32%;top:47%">花剌子模 · 扩张顶点</div>
+
+    <div id="commander">
+      <div class="cmd-ring"><img src="assets/genghis-cutout.png" alt=""></div>
+      <div class="cmd-label"><span>主帅</span>成吉思汗</div>
+    </div>
+
+    <div id="caravan">
+      <svg viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <g id="cv-camel">
+            <ellipse cx="0" cy="18" rx="21" ry="9" fill="#7a5a3f" stroke="#3f2d1d" stroke-width="1.4"/>
+            <path d="M -14 12 Q 0 0 14 12 Z" fill="#7a5a3f" stroke="#3f2d1d" stroke-width="1.2"/>
+            <path d="M -18 12 Q -28 4 -32 -8 L -27 -10 Q -20 0 -13 7 Z" fill="#7a5a3f" stroke="#3f2d1d" stroke-width="1.2"/>
+            <ellipse cx="-31" cy="-10" rx="5" ry="3.4" fill="#7a5a3f" stroke="#3f2d1d" stroke-width="1.2"/>
+            <circle cx="-33" cy="-11" r=".8" fill="#24170d"/>
+            <path d="M -36 -12 l -4 -2" stroke="#3f2d1d" stroke-width="1"/>
+            <g stroke="#3f2d1d" stroke-width="2" stroke-linecap="round">
+              <path d="M -14 26 L -14 44 M -8 26 L -8 44 M 8 26 L 8 44 M 14 26 L 14 44"/>
+            </g>
+            <path d="M 19 14 Q 27 18 24 27" fill="none" stroke="#3f2d1d" stroke-width="1.2"/>
+            <rect x="-10" y="4" width="20" height="12" rx="3" fill="#a63a2b" stroke="#5a2a1e" stroke-width="1"/>
+            <rect x="-6" y="6" width="12" height="8" rx="2" fill="#c6a468"/>
+            <path d="M -15 14 Q 0 7 15 14" fill="none" stroke="#c6a468" stroke-width="1.8"/>
+          </g>
+          <g id="cv-person">
+            <circle cx="0" cy="-18" r="5" fill="#4a3624" stroke="#2a1c10" stroke-width="1"/>
+            <path d="M -5 -18 Q 0 -26 5 -18" fill="#6b5335" stroke="#2a1c10" stroke-width="1"/>
+            <path d="M 0 -13 L 0 0 M -5 0 L 0 -7 L 5 0 M 0 -10 L -8 -4 M 0 -10 L 8 -5" fill="none" stroke="#4a3624" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M -4 -12 L 4 -12" stroke="#a63a2b" stroke-width="2"/>
+          </g>
+          <g id="cv-cart">
+            <rect x="0" y="10" width="34" height="16" rx="2" fill="#b3915f" stroke="#5a4630" stroke-width="1.4"/>
+            <path d="M 0 10 Q 17 -4 34 10" fill="#c7aa79" stroke="#5a4630" stroke-width="1.4"/>
+            <circle cx="9" cy="30" r="7" fill="none" stroke="#4a3624" stroke-width="3"/>
+            <circle cx="29" cy="30" r="7" fill="none" stroke="#4a3624" stroke-width="3"/>
+            <path d="M 34 18 L 46 24" stroke="#4a3624" stroke-width="2"/>
+          </g>
+        </defs>
+        <g transform="translate(40,52)"><use href="#cv-camel"/></g>
+        <g transform="translate(104,56) scale(.95)"><use href="#cv-camel"/></g>
+        <g transform="translate(164,54) scale(1.02)"><use href="#cv-camel"/></g>
+        <g transform="translate(78,96) scale(.9)"><use href="#cv-person"/></g>
+        <g transform="translate(138,96) scale(.9)"><use href="#cv-person"/></g>
+        <g transform="translate(196,64)"><use href="#cv-cart"/></g>
+        <path d="M 8 96 C 18 88 30 88 40 96" fill="none" stroke="#8c7655" stroke-width="1.2" opacity=".5"/>
+        <path d="M 72 98 C 82 90 94 90 104 98" fill="none" stroke="#8c7655" stroke-width="1.2" opacity=".5"/>
+      </svg>
+      <div class="caravan-label" data-layout-allow-overflow>蒙古商队</div>
+    </div>
+  </div>
+
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="opening-dark"></div>
+
+  <div id="topline"><span>图说战史 · 第一次西征</span><span>① 讹答剌</span></div>
+  <div id="map-note">地图为示意，非精确古地理</div>
+
+  <aside id="timeline-ui" data-layout-ignore>
+    <div id="tl-line"></div>
+    <div id="tl-progress"></div>
+    <div class="tl-year" id="tl-1218"><span class="ydot"></span><span class="yval">1218</span><span class="ytag">商队</span></div>
+    <div class="tl-year" id="tl-1219"><span class="ydot"></span><span class="yval">1219</span><span class="ytag">西征</span></div>
+    <div class="tl-year" id="tl-1220"><span class="ydot"></span><span class="yval">1220</span><span class="ytag">陷落</span></div>
+  </aside>
+
+  <div id="hero-scrim"></div>
+  <div id="hero">
+    <div class="hero-kicker">蒙古第一次西征</div>
+    <div class="hero-num">450</div>
+    <div class="hero-sub">个商人，走进讹答剌</div>
+    <div class="hero-seal"><span class="s1">讹答剌</span><span class="s2">1218</span></div>
+  </div>
+
+  <div class="archive-card" id="card-1">
+    <div class="card-tab" data-layout-allow-overflow>证物 01</div>
+    <div class="card-source">志费尼《世界征服者史》</div>
+    <div class="card-quote">450 名穆斯林商人，携金、银、<br>貂皮、丝绸，来到讹答剌。</div>
+    <div class="card-cite">Juvayni, Boyle trans., vol. 1, pp. 77–80.</div>
+    <div class="card-seal">数字据志费尼<br>另有异说</div>
+  </div>
+  <div class="archive-card" id="card-2">
+    <div class="card-tab" data-layout-allow-overflow>证物 02</div>
+    <div class="card-source">伊本·阿西尔《全史》</div>
+    <div class="card-quote">苏丹杀使者，<br>剃去随行者的胡须。</div>
+    <div class="card-cite">Ibn al-Athir, Richards trans., year 617 AH.</div>
+    <div class="card-seal">使者人数与细节<br>各史料有异</div>
+  </div>
+  <div class="archive-card" id="card-3">
+    <div class="card-tab" data-layout-allow-overflow>证物 03</div>
+    <div class="card-source">志费尼《世界征服者史》</div>
+    <div class="card-quote">熔银灌其眼耳。</div>
+    <div class="card-cite">Juvayni, Boyle trans., vol. 1, pp. 83–84.</div>
+    <div class="card-seal">史载，一说<br>现代史家存疑</div>
+  </div>
+
+  <div id="cause-dim"></div>
+  <div id="cause-wrap">
+    <div class="cause-title">导火索 ≠ 全部原因<em>WHY DID IT COLLAPSE</em></div>
+    <div class="cause-slot"><div class="cause-card"><div class="cause-num">01</div><div class="cause-txt"><div class="cause-name">分裂的朝堂</div><div class="cause-desc">苏丹、太后与钦察军方，各有算盘</div></div></div></div>
+    <div class="cause-slot"><div class="cause-card"><div class="cause-num">02</div><div class="cause-txt"><div class="cause-name">漫长的商路</div><div class="cause-desc">商队、情报与贸易线，都是战场</div></div></div></div>
+    <div class="cause-slot"><div class="cause-card"><div class="cause-num">03</div><div class="cause-txt"><div class="cause-name">战争机器</div><div class="cause-desc">机动、攻城与心理战，一起压过来</div></div></div></div>
+    <div class="cause-note">史家解释 · 非单一原因</div>
+  </div>
+
+  <div id="chapter-veil"></div>
+
+  <div id="chapter-end">
+    <div class="ce-kicker">蒙古第一次西征</div>
+    <div class="ce-title">讹答剌</div>
+    <div class="ce-sub">导火索 · 1218—1220</div>
+    <div class="ce-line"></div>
+  </div>
+
+  <div id="endcard">
+    <div class="ec-seal">西征</div>
+    <div class="ec-kicker">图说战史 · 第一次西征</div>
+    <div class="ec-title">讹答剌</div>
+    <div class="ec-sub">导火索之后，战争才刚刚开始</div>
+    <div class="ec-next">下一集：印度河</div>
+    <div class="ec-sources">史料：志费尼《世界征服者史》 · 伊本·阿西尔《全史》 · 《元史·太祖本纪》</div>
+    <div class="ec-note">地图为示意，非精确古地理</div>
+    <div class="ec-brand">图说战史</div>
+  </div>
+
+  <div id="subtitle-veil"></div>
+  <div id="caption-wrap"></div>
+
+  <audio id="vo" src="assets/voice/narration.fixed.mp3" data-start="0" data-duration="53.7" data-track-index="0" data-volume="1"></audio>
+</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script>
+const CAPS = [
+  { t: 0.0, end: 1.22, text: "四百五十个商人" },
+  { t: 1.25, end: 2.4, text: "走进讹答剌城" },
+  { t: 2.43, end: 3.26, text: "他们带的货" },
+  { t: 3.29, end: 4.72, text: "成了他们的催命符" },
+  { t: 4.75, end: 5.78, text: "一二一八年" },
+  { t: 5.81, end: 7.74, text: "一支蒙古商队带着金银" },
+  { t: 7.77, end: 8.6, text: "丝绸和毛皮" },
+  { t: 8.63, end: 10.042, text: "来到花剌子模的边城" },
+  { t: 10.17, end: 12.06, text: "守将亦纳勒术说他们是间谍" },
+  { t: 12.09, end: 13.54, text: "杀了人 吞了货" },
+  { t: 13.57, end: 14.72, text: "消息传回草原" },
+  { t: 14.75, end: 16.56, text: "成吉思汗先派三名使者" },
+  { t: 16.59, end: 17.48, text: "把人交出来" },
+  { t: 17.51, end: 19.24, text: "苏丹摩诃末的回答是" },
+  { t: 19.27, end: 20.865, text: "杀正使 辱副使" },
+  { t: 20.99, end: 22.0, text: "那时的摩诃末" },
+  { t: 22.03, end: 23.4, text: "刚把帝国推到顶点" },
+  { t: 23.43, end: 25.14, text: "没把东方的蒙古放在眼里" },
+  { t: 25.17, end: 26.46, text: "一二一九年秋" },
+  { t: 26.55, end: 27.28, text: "蒙古军西进" },
+  { t: 27.31, end: 28.68, text: "讹答剌被围了五个月" },
+  { t: 28.71, end: 30.46, text: "外城 内堡先后陷落" },
+  { t: 30.49, end: 31.527, text: "亦纳勒术被擒" },
+  { t: 31.61, end: 33.607, text: "志费尼记下 熔银灌眼" },
+  { t: 33.71, end: 35.96, text: "布哈拉 撒马尔罕接连陷落" },
+  { t: 35.99, end: 37.26, text: "摩诃末一路西逃" },
+  { t: 37.29, end: 38.62, text: "一二二零年冬天" },
+  { t: 38.65, end: 39.9, text: "死在里海的孤岛上" },
+  { t: 39.93, end: 41.24, text: "一座边城的劫案" },
+  { t: 41.27, end: 42.779, text: "为什么能拖垮一个帝国" },
+  { t: 42.83, end: 44.36, text: "因为讹答剌是导火索" },
+  { t: 44.39, end: 46.18, text: "火药桶是分裂的朝堂" },
+  { t: 46.21, end: 47.2, text: "漫长的商路" },
+  { t: 47.23, end: 49.06, text: "和一台已经启动的战争机器" },
+  { t: 49.09, end: 50.46, text: "这是蒙古第一次西征" },
+  { t: 50.49, end: 51.98, text: "讹答剌点着了导火索" },
+  { t: 52.01, end: 53.7, text: "但火药桶 早就埋好了" }
+];
+
+function buildCaptions() {
+  const wrap = document.getElementById("caption-wrap");
+  CAPS.forEach((s, i) => {
+    const line = document.createElement("div");
+    line.className = "cap-line";
+    line.id = "cap-" + i;
+    const box = document.createElement("span");
+    box.className = "cap-box";
+    box.textContent = s.text;
+    line.appendChild(box);
+    line.style.opacity = "0";
+    wrap.appendChild(line);
+  });
+}
+
+function prepDraw(selector) {
+  const el = document.querySelector(selector);
+  if (!el) return null;
+  const len = el.getTotalLength();
+  el.setAttribute("stroke-dasharray", String(len));
+  el.setAttribute("stroke-dashoffset", String(len));
+  return { el, len };
+}
+
+function setupRoute(pathSel, aSel, cSel) {
+  const path = document.querySelector(pathSel);
+  const a = document.querySelector(aSel);
+  const c = document.querySelector(cSel);
+  if (!path || !a || !c) return null;
+  return { path, a, c, len: path.getTotalLength() };
+}
+
+function buildTimeline() {
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
+
+  // opening: map-first, no black title card
+  tl.fromTo("#hero .hero-kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6 }, 0.0);
+  tl.fromTo("#hero .hero-num", { opacity: 0, scale: 1.18 }, { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }, 0.05);
+  tl.fromTo("#hero .hero-sub", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6 }, 0.45);
+  tl.fromTo("#hero .hero-seal", { opacity: 0, scale: 1.7, rotation: -18 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.5, ease: "back.out(2)" }, 0.9);
+  tl.to(["#hero", "#hero-scrim"], { opacity: 0, duration: 0.7, ease: "power2.inOut" }, 3.7);
+  tl.fromTo(["#topline", "#map-note"], { opacity: 0 }, { opacity: 1, duration: .8 }, 0.6);
+
+  // map camera
+  tl.fromTo("#map-stage", { scale: 1.0, x: 0, y: 0 }, { scale: 1.06, x: -18, y: 26, duration: 8, ease: "sine.inOut" }, 0);
+  tl.to("#map-stage", { scale: 1.30, x: -120, y: 120, duration: 8.5, ease: "sine.inOut", overwrite: "auto" }, 4.6);
+  tl.to("#map-stage", { scale: 1.16, x: -60, y: 60, duration: 4.5, ease: "sine.inOut", overwrite: "auto" }, 13.4);
+  tl.to("#map-stage", { scale: 1.08, x: -20, y: 20, duration: 5, ease: "sine.inOut", overwrite: "auto" }, 20.8);
+  tl.to("#map-stage", { scale: 1.34, x: -140, y: 150, duration: 8.5, ease: "sine.inOut", overwrite: "auto" }, 25.0);
+  tl.to("#map-stage", { scale: 1.42, x: -170, y: 190, duration: 6, ease: "sine.inOut", overwrite: "auto" }, 31.5);
+  tl.to("#map-stage", { scale: 1.18, x: -70, y: 80, duration: 5.5, ease: "sine.inOut", overwrite: "auto" }, 35.0);
+  tl.to("#map-stage", { scale: 1.02, x: 0, y: 0, duration: 4.5, ease: "sine.inOut", overwrite: "auto" }, 48.9);
+
+  // timeline ui: visible only when the evidence rail is closed
+  tl.fromTo("#tl-progress", { scaleY: 0 }, { scaleY: 1, duration: 42.4, ease: "none" }, 0);
+  tl.to("#timeline-ui", { opacity: 1, duration: .4 }, 10.15);
+  tl.to("#timeline-ui", { opacity: 0, duration: .4 }, 42.35);
+  tl.to("#tl-1218", { opacity: .95, duration: .3 }, 4.8);
+  tl.to("#tl-1218", { opacity: .35, duration: .4 }, 20.9);
+  tl.to("#tl-1219", { opacity: .95, duration: .3 }, 25.1);
+  tl.to("#tl-1219", { opacity: .35, duration: .4 }, 33.6);
+  tl.to("#tl-1220", { opacity: .95, duration: .3 }, 35.9);
+
+  // routes + caravan + commander
+  const mainRoute = setupRoute("#route-main", "#grad-main-a", "#grad-main-c");
+  const adv1Route = setupRoute("#route-adv-1", "#grad-adv-1-a", "#grad-adv-1-c");
+  const adv2Route = setupRoute("#route-adv-2", "#grad-adv-2-a", "#grad-adv-2-c");
+  const commander = document.getElementById("commander");
+  const caravan = document.getElementById("caravan");
+
+  function moveElement(route, el, start, duration) {
+    if (!route || !el) return;
+    const N = 48;
+    const pts = [];
+    for (let i = 0; i <= N; i++) {
+      pts.push(route.path.getPointAtLength(route.len * i / N));
+    }
+    gsap.set(el, { x: pts[0].x * 1.2, y: pts[0].y * 1.2 });
+    tl.to(route.a, { attr: { offset: 1 }, duration, ease: "none" }, start);
+    tl.to(route.c, { attr: { offset: 1 }, duration, ease: "none" }, start);
+    for (let i = 1; i <= N; i++) {
+      tl.to(el, {
+        x: pts[i].x * 1.2,
+        y: pts[i].y * 1.2,
+        duration: duration / N,
+        ease: "none"
+      }, start + (i - 1) * duration / N);
+    }
+  }
+
+
+  // 1218 caravan: the merchants are a camel caravan, not Genghis
+  moveElement(mainRoute, caravan, 4.75, 5.2);
+  tl.to("#caravan", { opacity: 0, duration: .35, ease: "power2.in" }, 10.02);
+
+  // 1219 army: Genghis leads the advance to Bukhara and Samarkand
+  tl.fromTo("#commander", { opacity: 0, scale: .85 }, { opacity: 1, scale: 1, duration: .35, ease: "back.out(2)" }, 25.05);
+  moveElement(adv1Route, commander, 25.2, 2.1);
+  tl.to("#commander", { opacity: 0, scale: .92, duration: .3, ease: "power2.in" }, 27.42);
+  tl.fromTo("#commander", { opacity: 0, scale: .85 }, { opacity: 1, scale: 1, duration: .3, ease: "back.out(2)", immediateRender: false }, 33.65);
+  moveElement(adv2Route, commander, 33.75, 1.55);
+  tl.to("#commander", { opacity: 0, scale: .92, duration: .3, ease: "power2.in" }, 35.4);
+  tl.to("#route-main-arrow", { opacity: 1, duration: .2 }, 9.95);
+  tl.to("#route-adv-1-arrow", { opacity: 1, duration: .2 }, 27.3);
+  tl.to("#route-adv-2-arrow", { opacity: 1, duration: .2 }, 35.3);
+
+  // cities
+  tl.fromTo("#city-otrar .ring", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(2)" }, 4.8);
+  tl.fromTo("#city-otrar .dot", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .4, ease: "back.out(3)" }, 5.0);
+  tl.fromTo("#city-otrar .label, #city-otrar .sublabel", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .4 }, 5.0);
+  tl.fromTo("#city-bukhara .ring", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(2)" }, 33.8);
+  tl.fromTo("#city-bukhara .label, #city-bukhara .sublabel", { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .4 }, 34.0);
+  tl.fromTo("#city-samarkand .ring", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(2)" }, 34.9);
+  tl.fromTo("#city-samarkand .label, #city-samarkand .sublabel", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .4 }, 35.1);
+  tl.fromTo("#city-island .ring", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(2)" }, 38.1);
+  tl.fromTo("#city-island .label, #city-island .sublabel", { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .4 }, 38.3);
+
+  // card 1
+  tl.fromTo("#card-1", { y: -390, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: "power3.out" }, 5.0);
+  tl.to("#card-1", { y: -390, duration: .45, ease: "power2.in" }, 9.9);
+  tl.to("#card-1", { opacity: 0, duration: .16, ease: "power1.in" }, 9.9);
+
+  // theft / spy stamp
+  tl.fromTo("#stamp-otrar-spy", { scale: 1.7, opacity: 0 }, { scale: 1, opacity: 1, duration: .4, ease: "back.out(2)" }, 10.25);
+  tl.to("#stamp-otrar-spy", { opacity: 0, duration: .3 }, 13.2);
+  tl.to("#route-msg", { opacity: .9, duration: .6 }, 13.55);
+  tl.to("#route-msg", { opacity: 0, duration: .4 }, 14.7);
+
+  // envoys / refusal
+  tl.fromTo("#card-2", { y: -390, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: "power3.out" }, 14.8);
+  tl.to("#card-2", { y: -390, duration: .45, ease: "power2.in" }, 20.65);
+  tl.to("#card-2", { opacity: 0, duration: .16, ease: "power1.in" }, 20.65);
+  tl.fromTo("#crown", { opacity: 0, scale: .7, y: 16 }, { opacity: 1, scale: 1, y: 0, duration: .5, ease: "back.out(2)" }, 17.6);
+
+  // height of empire
+  tl.to("#empire-fill", { opacity: .38, duration: 1.2, ease: "power2.out" }, 20.95);
+  tl.fromTo("#empire-label", { opacity: 0, y: 10 }, { opacity: .92, y: 0, duration: .5 }, 21.2);
+  tl.to("#empire-fill", { opacity: .12, duration: 1.2 }, 25.1);
+  tl.to("#empire-label", { opacity: 0, duration: .4 }, 25.1);
+
+  // siege
+  tl.to("#city-otrar .ring", { borderColor: "#7a2a1e", duration: .4 }, 27.25);
+  tl.fromTo("#siege-ring", { opacity: 0, rotation: 0, scale: .6 }, { opacity: 1, rotation: 28, scale: 1, duration: 4.2, ease: "power1.out" }, 27.25);
+  tl.to("#siege-ring", { opacity: 0, duration: .5 }, 31.46);
+  tl.fromTo("#stamp-otrar-fall", { scale: 1.8, opacity: 0 }, { scale: 1, opacity: 1, duration: .4, ease: "back.out(2)" }, 30.75);
+
+  // molten silver
+  tl.fromTo("#card-3", { y: -390, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: "power3.out" }, 31.6);
+  tl.to("#card-3", { y: -390, duration: .45, ease: "power2.in" }, 33.68);
+  tl.to("#card-3", { opacity: 0, duration: .16, ease: "power1.in" }, 33.68);
+  const silver = prepDraw("#silver-stream");
+  if (silver) {
+    tl.to("#ingot", { opacity: 1, duration: .3 }, 31.6);
+    tl.to(silver.el, { attr: { "stroke-dashoffset": 0 }, duration: 1.5, ease: "power1.inOut" }, 31.7);
+    tl.to("#silver-stream", { opacity: 1, duration: .2 }, 31.7);
+    tl.to("#silver-stream", { opacity: 0, duration: .6 }, 33.4);
+    tl.to("#ingot", { opacity: 0, duration: .5 }, 33.4);
+  }
+
+  // cities fall / flight
+  tl.fromTo("#stamp-bukhara", { scale: 1.8, opacity: 0 }, { scale: 1, opacity: 1, duration: .4, ease: "back.out(2)" }, 34.0);
+  tl.fromTo("#stamp-samarkand", { scale: 1.8, opacity: 0 }, { scale: 1, opacity: 1, duration: .4, ease: "back.out(2)" }, 35.3);
+  tl.fromTo("#route-flight", { opacity: 0 }, { opacity: .9, duration: .8 }, 36.0);
+
+  // question dim
+  tl.to("#cause-dim", { opacity: .35, duration: .8 }, 39.9);
+
+  // cause cards
+  tl.to(["#topline", "#timeline-ui", "#map-note"], { opacity: 0, duration: .45 }, 42.35);
+  tl.to("#cause-dim", { opacity: .74, duration: .6 }, 42.6);
+  tl.fromTo("#cause-wrap", { opacity: 0 }, { opacity: 1, duration: .5 }, 42.8);
+  tl.fromTo(".cause-slot", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: .55, stagger: .52, ease: "power3.out" }, 43.1);
+  tl.fromTo(".cause-note", { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .4, ease: "back.out(2)" }, 45.3);
+  tl.to("#cause-wrap", { opacity: 0, duration: .5 }, 48.9);
+  tl.to("#cause-dim", { opacity: 0, duration: .6 }, 49.0);
+  tl.fromTo("#chapter-veil", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 49.0);
+
+  // chapter end
+  tl.fromTo("#chapter-end", { opacity: 0 }, { opacity: 1, duration: .7 }, 49.15);
+  tl.to("#chapter-end .ce-title", { y: 0, duration: .1 }, 49.15);
+  tl.fromTo("#chapter-end .ce-title", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: .8, ease: "power3.out" }, 49.25);
+  tl.fromTo("#chapter-end .ce-kicker, #chapter-end .ce-sub, #chapter-end .ce-line", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .6, stagger: .12 }, 49.45);
+  tl.fromTo("#otrar-glow", { opacity: 0, scale: .7 }, { opacity: .8, scale: 1.1, duration: 1.2, ease: "power2.out" }, 50.45);
+  tl.to("#otrar-glow", { opacity: 0, duration: .8 }, 52.4);
+
+  // out / end card
+  tl.to(["#topline", "#timeline-ui", "#map-note"], { opacity: 0, duration: .5 }, 53.2);
+  tl.to("#map-stage", { opacity: .16, duration: 1.0 }, 53.2);
+  tl.to("#chapter-veil", { opacity: 0, duration: .5 }, 53.2);
+  tl.to("#chapter-end", { opacity: 0, duration: .6 }, 53.25);
+  tl.to("#subtitle-veil, #caption-wrap", { opacity: 0, duration: .35 }, 53.6);
+  tl.fromTo("#endcard", { opacity: 0 }, { opacity: 1, duration: .9, ease: "power2.inOut" }, 53.55);
+  tl.fromTo(".ec-seal", { opacity: 0, scale: 1.4, rotation: -16 }, { opacity: 1, scale: 1, rotation: -6, duration: .55, ease: "back.out(2)" }, 53.9);
+  tl.fromTo(".ec-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .5 }, 54.0);
+  tl.fromTo(".ec-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .7, ease: "power3.out" }, 54.15);
+  tl.fromTo(".ec-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .6 }, 54.45);
+  tl.fromTo(".ec-next", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .6 }, 54.8);
+  tl.fromTo(".ec-sources, .ec-note, .ec-brand", { opacity: 0 }, { opacity: 1, duration: .8, stagger: .15 }, 55.2);
+
+  // captions: tushuo-style one-line boxes
+  CAPS.forEach((s, i) => {
+    const el = document.getElementById("cap-" + i);
+    tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: .01, ease: "none" }, s.t);
+    tl.to(el, { opacity: 0, duration: .01, ease: "none" }, Math.max(s.t + .12, s.end - .05));
+  });
+
+  tl.to("#endcard", { opacity: 1, duration: 0.05 }, 59.9);
+  tl.to("#root", { opacity: 1, duration: 0.05 }, 59.95);
+
+  window.__timelines["mongol-west-1"] = tl;
+}
+
+buildCaptions();
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(buildTimeline).catch(buildTimeline);
+} else {
+  buildTimeline();
+}
+</script>
+</body>
+</html>

@@ -1,12 +1,16 @@
+# 依赖与缓存
 node_modules/
-.venv/
 __pycache__/
 *.pyc
+.cache/
 *.log
 *.pid
-.cache/
+*.err
+
+# 生成物 / 中间产物
 output/
 dist/
+renders/
 tmp/
 *.mp4
 *.mov
@@ -14,20 +18,18 @@ tmp/
 *.webm
 *.wav
 *.mp3
+
+# 模型权重
 *.pth
 *.ckpt
 *.onnx
 *.bin
-vendor/gpt-sovits/runtime/*.exe
-research/reference-*.jpg
-*.err
 
-# 大体积素材 / 模型权重：不入库，渲染时本机自备
-vendor/
-参考视频和logo/
-assets/_stage-portraits/
-assets/banner-cards/
+# HyperFrames 插件源与运行日志
+.hyperframes-src/
+.hyperframes/
+logs/
 
-# 本地工具目录
-.workbuddy/
-.workbuddy-ai/
+# 本地参考图 / 人物原图（不随公开仓库分发）
+/成吉思汗.png
+/微信图片_*.png
