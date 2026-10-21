@@ -129,20 +129,21 @@ tools/                   tts / transcribe / hf_audio_meta
 
 ## 7. GPT-SoVITS 运行时交接
 
-本机 `D:\GPT-SoVITS` 约 **5.0 GB**：`.venv` 约 2.7 GB，`GPT_SoVITS` 约 2.4 GB，`voices/dabao` 约 1.8 MB。它不能整包推 tushuo（PUBLIC 仓库，且有私人参考音频和模型权重）。
+本机 `D:\GPT-SoVITS` 约 **5.0 GB**：`.venv` 约 2.7 GB，`GPT_SoVITS` 约 2.4 GB，`voices/dabao` 约 1.8 MB。tushuo 是 PUBLIC 仓库，不能整包推入（私人参考音频 + 模型权重）。
 
-安全做法：
+**已推送**：私有仓库 <https://github.com/DaBaoAgent/gpt-sovits-dabao>（PRIVATE，2026-10-21，commit `b2bcc5b`）。
 
-1. 私有仓库 `DaBaoAgent/gpt-sovits-dabao`：放 GPT-SoVITS 代码、`dabao_tts.py/.cmd`、`voices/dabao` 的 preset/参考音频/逐字稿、安装说明；**不放** `.venv`、日志、缓存。
-2. 模型权重（v2 底模等）用官方安装脚本或 Hugging Face 下载，不进公开仓库。
-3. 新电脑装 Python/依赖后，把 `voices/dabao` 放回 `D:\GPT-SoVITS\voices\dabao`，再检查 `preset.json` 里的 `server` 路径是否为本机路径。
-4. 如果要求「零安装」，需要把完整 5 GB 打包走私有 release/网盘；不要放进 PUBLIC 仓库。
+- 已入库：源码快照（RVC-Boss/GPT-SoVITS @ `1b47ca0`）、CPU 配置与本地补丁、`dabao_tts.py/.cmd`、`voices/dabao` 全部资产（含 `ref_dabao3-1.wav`、`locked-sample.mp3`、preset、逐字稿、读音规范）、`bootstrap.ps1`、`HANDOFF.md`、`models-manifest.txt`。
+- 未入库：`.venv`（2.7 GB）、`GPT_SoVITS/pretrained_models`（1.2 GB）、`GPT_SoVITS/text/G2PWModel`（608 MB）。`bootstrap.ps1` 会从 ModelScope（或 HF-Mirror）下载，或从旧电脑整目录拷贝；`models-manifest.txt` 有 SHA256 校验。
+- 新电脑：`git clone https://github.com/DaBaoAgent/gpt-sovits-dabao.git D:\GPT-SoVITS`，装 Python 3.11 + FFmpeg，运行 `bootstrap.ps1`。详见该仓库的 `HANDOFF.md`。
+- 仓库必须保持 PRIVATE（参考音频与试听样音是私人资产）。
+- 如要「零安装」，再把 `.venv` + 模型打成私有 release/网盘包；仍然不要放进 tushuo PUBLIC 仓库。
 
 ## 8. 新电脑开工清单
 
 1. `git clone https://github.com/DaBaoAgent/tushuo.git`
 2. 安装 Node 22+、FFmpeg、Chrome；确认 `npx hyperframes` 可用。
-3. 拉取私有 GPT-SoVITS 仓库，按其中的 README 安装/恢复 dabao 预设。
+3. 克隆私有 GPT-SoVITS 仓库到 `D:\GPT-SoVITS`（`git clone https://github.com/DaBaoAgent/gpt-sovits-dabao.git D:\GPT-SoVITS`），装 Python 3.11 + FFmpeg，运行 `bootstrap.ps1` 恢复 dabao（含参考音频；模型由脚本下载）。
 4. 读 `CLAUDE.md`、`docs/制作管线.md`、本文件。
 5. 打开 `content/china-history-20min/口播稿.md` 做用户审稿。
 6. 审稿通过后按章拆分、配音、转写、分镜、90 秒样片、全片。
