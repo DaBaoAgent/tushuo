@@ -173,7 +173,7 @@ def sc_city(pal="day", crowd=True, fire=False, surrender=False):
         act.append(sh("banner", x=.5, y=.99, s=.9, color=C["white"]))
     if fire:
         act += [sh("smoke", x=.24, y=.8, s=.75), sh("smoke", x=.62, y=.86, s=1.0),
-                sh("embers", x=.5, y=.8, n=18)]
+                sh("embers")]
     fore = _banner_pair(P, .99, 1.15) + [sh("dust", x=.5, y=.99, w=1.8, opacity=.4)]
     return [sky(P, night=.3 if pal == "night" else None), L("far", 0.3, *far),
             L("mid", 0.58, *mid), L("action", 0.88, *act), L("fore", 1.14, *fore)]
@@ -1321,7 +1321,7 @@ add(316, [
     BEAT(S("sea", pal="rain", battle=True, junks=3), cam="hard"),
     BEAT(S("palace", pal="night"),
          [E(EM, .42, 1.56), E(SC, .62, 1.58, facing="left")], cam="tiltDn"),
-    BEAT(S("burning", pal="fire"), cam="push"),
+    BEAT(S("city", pal="fire", fire=True, crowd=False), cam="push"),
     BEAT(S("study", pal="day", obj="slips"), cam="pull"),
     BEAT(S("city", pal="gold", crowd=True), cam="wide"),
     BEAT(S("court", pal="imperial"), [E(EM, .46, 1.45), E(WO, .64, 1.58)],

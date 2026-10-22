@@ -376,14 +376,18 @@
   P.boat = (o) => {
     o = o || {};
     const x = n(o.x, .5) * W, y = n(o.y, .82) * H, s = n(o.s, 1), f = o.facing === "left" ? -1 : 1;
-    const body = `<g transform="translate(${x} ${y}) scale(${f * s} ${s})">
+    const tf = `transform="translate(${x} ${y}) scale(${f * s} ${s})"`;
+    const hull = `<g ${tf}>
       <path d="M -150 -40 Q 0 30 150 -40 L 120 30 Q 0 82 -120 30 Z"/>
-      <rect x="-4" y="-230" width="8" height="200"/>
-      <path d="M 4 -225 L 120 -120 L 4 -70 Z"/>
-      <path d="M -4 -215 L -100 -130 L -4 -90 Z" opacity=".85"/>
       <rect x="-120" y="-48" width="240" height="12"/>
     </g>`;
-    return cut(body, o.color || C.teal2, { so: .16, sy: 10 });
+    const rig = `<g ${tf}>
+      <rect x="-4" y="-230" width="8" height="200"/>
+      <path d="M 4 -225 L 120 -120 L 4 -70 Z"/>
+      <path d="M -4 -215 L -100 -130 L -4 -90 Z" opacity=".9"/>
+    </g>`;
+    return cut(hull, o.color || C.ink2, { so: .22, sy: 14 }) +
+      cut(rig, o.sail || C.paper, { so: .18, sy: 10 });
   };
 
   P.fleet = (o) => {
@@ -413,22 +417,17 @@
     const x = n(o.x, .5) * W, y = n(o.y, .8) * H, w = n(o.w, 2.6) * W, h = n(o.h, .2) * H;
     const left = x - w / 2, right = x + w / 2;
     const d = `M ${left} ${y + 8} Q ${left + w * .16} ${y - 12} ${left + w * .32} ${y + 2} T ${x + w * .02} ${y - 4} T ${x + w * .34} ${y + 6} T ${right} ${y - 2} L ${right} ${y + h} L ${left} ${y + h} Z`;
-    let tex = "";
-    if (o.tex !== false) {
-      const tc = o.texColor || C.ink;
-      const lines = [
-        [.12, .22], [.3, .34], [.52, .26], [.68, .4], [.86, .3],
-      ];
-      tex = `<g fill="none" stroke="${tc}" stroke-width="3" stroke-linecap="round" opacity=".07">` +
-        lines.map(([kx, ky], i) => `<path d="M ${left + w * kx} ${y + h * ky} Q ${left + w * (kx + .07)} ${y + h * (ky - .05)} ${left + w * (kx + .15)} ${y + h * ky}"/>`).join("") +
-        `</g>` +
-        Array.from({ length: 16 }).map((_, i) => {
-          const px = left + w * ((i * 83) % 1000) / 1000;
-          const py = y + h * (.12 + ((i * 47) % 80) / 100);
-          return `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${(1.6 + (i % 3)).toFixed(1)}" fill="${tc}" opacity=".08"/>`;
-        }).join("");
-    }
-    return cut(`<path d="${d}"/>`, o.color || C.shade, { so: .14, sy: 10, sx: 6 }) + tex;
+    const fill = o.color || "#a8926f";
+    const tc = o.texColor || C.ink;
+    const cracks = `<g fill="none" stroke="${tc}" stroke-width="2.6" stroke-linecap="round" opacity=".16">
+        <path d="M ${left + w * .14} ${y + h * .34} L ${left + w * .2} ${y + h * .6} L ${left + w * .17} ${y + h * .86}"/>
+        <path d="M ${left + w * .2} ${y + h * .6} L ${left + w * .3} ${y + h * .64}"/>
+        <path d="M ${left + w * .58} ${y + h * .22} L ${left + w * .54} ${y + h * .52} L ${left + w * .6} ${y + h * .8}"/>
+        <path d="M ${left + w * .83} ${y + h * .3} L ${left + w * .88} ${y + h * .56}"/>
+      </g>`;
+    const bevel = `<path d="M ${left + 6} ${y + 6} Q ${left + w * .16} ${y - 10} ${left + w * .32} ${y + 2} T ${x + w * .02} ${y - 4} T ${x + w * .34} ${y + 6} T ${right - 6} ${y - 2}"
+        fill="none" stroke="${C.white}" stroke-width="3" stroke-opacity=".22"/>`;
+    return cut(`<path d="${d}"/>`, fill, { so: .22, sy: 12, sx: 7 }) + cracks + bevel;
   };
 
   P.grass = (o) => {
@@ -607,12 +606,19 @@
     o = o || {};
     const x = n(o.x, .5) * W, y = n(o.y, .82) * H, s = n(o.s, 1);
     const body = `<g transform="translate(${x} ${y}) scale(${s})">
-      <path d="M -220 0 Q 0 -190 220 0 Z"/>
-      <rect x="-34" y="-250" width="68" height="150" rx="8" fill="${C.ink2}"/>
-      <rect x="-26" y="-238" width="52" height="110" rx="3" fill="${C.paper}"/>
-      <text x="0" y="-168" font-family="PaperKai,serif" font-size="38" fill="${C.ink}" text-anchor="middle">${esc(o.text || "陵")}</text>
+      <path d="M -300 0 Q 0 -235 300 0 Z"/>
+      <rect x="-168" y="-58" width="336" height="34" rx="5" fill="${C.ink2}"/>
+      <rect x="-132" y="-30" width="264" height="32" rx="4" fill="${C.ink2}"/>
+      <rect x="-58" y="-306" width="116" height="252" rx="12" fill="${C.ink2}"/>
+      <path d="M -78 -300 Q 0 -326 78 -300" fill="none" stroke="${C.ink2}" stroke-width="12"/>
+      <rect x="-45" y="-288" width="90" height="212" rx="4" fill="${C.paper}"/>
+      <text x="0" y="-186" font-family="PaperKai,serif" font-size="52" fill="${C.ink}" text-anchor="middle">${esc(o.text || "陵")}</text>
+      <rect x="-236" y="-136" width="30" height="136" rx="8" fill="${C.ink2}"/>
+      <rect x="206" y="-136" width="30" height="136" rx="8" fill="${C.ink2}"/>
+      <path d="M -236 -136 L -221 -168 L -206 -136 Z" fill="${C.ink2}"/>
+      <path d="M 206 -136 L 221 -168 L 236 -136 Z" fill="${C.ink2}"/>
     </g>`;
-    return cut(body, o.color || C.ochre, { so: .18, sy: 12 });
+    return cut(body, o.color || C.ochre, { so: .2, sy: 14 });
   };
 
   P.temple = (o) => {
@@ -641,12 +647,42 @@
   P.map = (o) => {
     o = o || {};
     const x = n(o.x, .5) * W, y = n(o.y, .52) * H, w = n(o.w, .86) * W, h = n(o.h, .52) * H;
-    let body = `<rect x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}" rx="8" fill="${C.paper2}" stroke="${C.ochre}" stroke-width="5"/>`;
-    // stylized regions
-    body += `<path d="M ${x - w * .38} ${y - h * .3} Q ${x - w * .1} ${y - h * .42} ${x + w * .1} ${y - h * .3} Q ${x + w * .32} ${y - h * .18} ${x + w * .36} ${y + h * .05} Q ${x + w * .2} ${y + h * .3} ${x - w * .02} ${y + h * .34} Q ${x - w * .3} ${y + h * .28} ${x - w * .4} ${y} Z" fill="${C.shade}" opacity=".8"/>`;
-    body += `<path d="M ${x - w * .3} ${y - h * .1} Q ${x - w * .05} ${y - h * .2} ${x + w * .2} ${y - h * .08}" fill="none" stroke="${C.teal}" stroke-width="7" stroke-dasharray="14 10"/>`;
-    body += `<path d="M ${x - w * .2} ${y + h * .18} Q ${x + w * .05} ${y + h * .05} ${x + w * .3} ${y + h * .16}" fill="none" stroke="${C.red}" stroke-width="7" stroke-dasharray="14 10"/>`;
-    return cut(body, C.paper2, { so: .2, sx: 10, sy: 16 });
+    const L_ = x - w / 2, T_ = y - h / 2;
+    const base = o.color || "#c6a97a";
+    const ink = o.line || C.ink;
+    const px = (k) => L_ + w * k, py = (k) => T_ + h * k;
+    let body = `<rect x="${L_}" y="${T_}" width="${w}" height="${h}" rx="10" fill="${base}" stroke="${ink}" stroke-width="10"/>`;
+    body += `<rect x="${L_ + 15}" y="${T_ + 15}" width="${w - 30}" height="${h - 30}" rx="5" fill="none" stroke="${C.ochre}" stroke-width="3" opacity=".8"/>`;
+    // 陆块：两块高地，压深一档把纸面和天空分开
+    body += `<path d="M ${px(.08)} ${py(.42)} Q ${px(.2)} ${py(.2)} ${px(.4)} ${py(.28)} Q ${px(.52)} ${py(.32)} ${px(.6)} ${py(.5)} Q ${px(.5)} ${py(.72)} ${px(.3)} ${py(.74)} Q ${px(.12)} ${py(.68)} ${px(.08)} ${py(.42)} Z" fill="#ac8c5e" stroke="#5b4227" stroke-width="3" opacity=".95"/>`;
+    body += `<path d="M ${px(.64)} ${py(.36)} Q ${px(.76)} ${py(.24)} ${px(.9)} ${py(.34)} Q ${px(.94)} ${py(.52)} ${px(.86)} ${py(.66)} Q ${px(.72)} ${py(.7)} ${px(.66)} ${py(.58)} Z" fill="#ac8c5e" stroke="#5b4227" stroke-width="3" opacity=".9"/>`;
+    // 山脉符号
+    const mts = [[.18, .38, .09], [.3, .31, .07], [.72, .32, .08], [.82, .42, .09], [.42, .63, .08], [.24, .68, .07], [.7, .62, .07]];
+    body += mts.map(([kx, ky, r]) =>
+      `<path d="M ${px(kx - r)} ${py(ky)} L ${px(kx)} ${py(ky - .12)} L ${px(kx + r)} ${py(ky)} Z" fill="none" stroke="${ink}" stroke-width="4" stroke-linejoin="round" opacity=".6"/>`).join("");
+    // 河流
+    body += `<path d="M ${px(.05)} ${py(.18)} Q ${px(.28)} ${py(.3)} ${px(.4)} ${py(.46)} T ${px(.62)} ${py(.62)} Q ${px(.72)} ${py(.7)} ${px(.9)} ${py(.74)}" fill="none" stroke="#3d6470" stroke-width="8" stroke-linecap="round" opacity=".9"/>`;
+    body += `<path d="M ${px(.15)} ${py(.9)} Q ${px(.34)} ${py(.78)} ${px(.52)} ${py(.82)} Q ${px(.7)} ${py(.86)} ${px(.9)} ${py(.8)}" fill="none" stroke="#3d6470" stroke-width="6" stroke-linecap="round" opacity=".62"/>`;
+    // 郡界（红虚线）
+    body += `<path d="M ${px(.46)} ${py(.12)} L ${px(.5)} ${py(.36)} L ${px(.44)} ${py(.6)} L ${px(.5)} ${py(.88)}" fill="none" stroke="${C.red2}" stroke-width="4" stroke-dasharray="12 10" opacity=".72"/>`;
+    // 城点与行军线
+    const towns = [[.2, .58], [.34, .47], [.46, .66], [.6, .46], [.74, .6], [.62, .74]];
+    body += towns.map(([kx, ky]) => `<circle cx="${px(kx)}" cy="${py(ky)}" r="8" fill="${C.red}" stroke="${ink}" stroke-width="2"/>`).join("");
+    body += `<path d="M ${px(.2)} ${py(.58)} L ${px(.34)} ${py(.47)} L ${px(.46)} ${py(.66)} L ${px(.6)} ${py(.46)}" fill="none" stroke="${C.red2}" stroke-width="5" stroke-dasharray="18 12" stroke-linecap="round"/>`;
+    body += `<path d="M ${px(.6)} ${py(.46)} L ${px(.63)} ${py(.4)} M ${px(.6)} ${py(.46)} L ${px(.55)} ${py(.43)}" fill="none" stroke="${C.red2}" stroke-width="5" stroke-linecap="round"/>`;
+    // 罗盘
+    const cx0 = px(.88), cy0 = py(.16), rr = Math.min(w, h) * .055;
+    body += `<g fill="none" stroke="${ink}" stroke-width="3" opacity=".7">
+      <circle cx="${cx0}" cy="${cy0}" r="${rr}"/>
+      <path d="M ${cx0} ${cy0 - rr} L ${cx0 + rr * .3} ${cy0} L ${cx0} ${cy0 + rr} L ${cx0 - rr * .3} ${cy0} Z"/>
+      <path d="M ${cx0 - rr * .7} ${cy0} L ${cx0 + rr * .7} ${cy0}"/>
+    </g>`;
+    // 纸面做旧折痕
+    body += `<g fill="none" stroke="${ink}" stroke-width="2" opacity=".1">
+      <path d="M ${px(.5)} ${T_ + 15} L ${px(.5)} ${T_ + h - 15}"/>
+      <path d="M ${L_ + 15} ${py(.5)} L ${L_ + w - 15} ${py(.5)}"/>
+    </g>`;
+    return cut(body, base, { so: .3, sx: 13, sy: 20 });
   };
 
   P.dragon = (o) => {
