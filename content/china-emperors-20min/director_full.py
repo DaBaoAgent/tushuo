@@ -162,7 +162,8 @@ def sc_city(pal="day", crowd=True, fire=False, surrender=False):
            sh("cloud", x=.22, y=.15, s=.9, color=C["white"], opacity=.26),
            sh("city", x=.5, y=.72, w=1.55, color=P["ink"])]
     if fire:
-        far += [sh("smoke", x=.72, y=.6, s=1.0), sh("fire", x=.72, y=.7, s=1.2)]
+        far += [sh("smoke", x=.64, y=.58, s=1.1), sh("fire", x=.64, y=.68, s=1.2),
+                sh("fire", x=.3, y=.72, s=.8)]
     mid = [sh("gate", x=.5, y=.93, w=.56, h=.3, color=P["ink"],
               door=C["paper"] if surrender else C["ochre"])]
     act = [sh("plate", x=.5, y=.93, w=2.6, h=.14)]
@@ -171,7 +172,8 @@ def sc_city(pal="day", crowd=True, fire=False, surrender=False):
     if surrender:
         act.append(sh("banner", x=.5, y=.99, s=.9, color=C["white"]))
     if fire:
-        act += [sh("smoke", x=.3, y=.82, s=.8), sh("smoke", x=.7, y=.84, s=.9)]
+        act += [sh("smoke", x=.24, y=.8, s=.75), sh("smoke", x=.62, y=.86, s=1.0),
+                sh("embers", x=.5, y=.8, n=18)]
     fore = _banner_pair(P, .99, 1.15) + [sh("dust", x=.5, y=.99, w=1.8, opacity=.4)]
     return [sky(P, night=.3 if pal == "night" else None), L("far", 0.3, *far),
             L("mid", 0.58, *mid), L("action", 0.88, *act), L("fore", 1.14, *fore)]
@@ -306,7 +308,7 @@ def sc_sea(pal="night", battle=False, junks=2):
     mid = [sh("wave", x=.5, y=.66, w=1.9, rows=3, color=C["teal2"])]
     act = [sh("wave", x=.5, y=.8, w=1.8, rows=2, color=C["teal"])]
     if junks:
-        act.append(sh("fleet", x=.45, y=.84, boats=junks, s=.75))
+        act.append(sh("fleet", x=.45, y=.81, boats=junks, s=.95, color=C["ink2"]))
     if battle:
         act += [sh("warship", x=.3, y=.8, s=.85, facing="right"),
                 sh("warship", x=.72, y=.82, s=.9, facing="left"),
@@ -544,7 +546,7 @@ def sc_harbor(pal="day", junks=2, city=True):
            sh("mountain", x=.3, y=.56, w=.7, h=.16, color=P["mount"])]
     mid = [sh("wave", x=.5, y=.7, w=1.9, rows=3, color=C["teal"])]
     act = [sh("wave", x=.5, y=.84, w=1.8, rows=2, color=C["teal2"]),
-           sh("fleet", x=.45, y=.86, boats=junks, s=.7),
+           sh("fleet", x=.45, y=.83, boats=junks, s=.9, color=C["ink2"]),
            sh("birds", x=.82, y=.3, s=.55, count=4)]
     fore = [sh("reeds", x=.06, y=1.02, s=.9), sh("rocks", x=.9, y=1.02, s=.5)]
     return [sky(P), L("far", 0.3, *[p for p in far if p]), L("mid", 0.54, *mid),
