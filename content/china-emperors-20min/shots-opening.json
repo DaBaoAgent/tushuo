@@ -1,0 +1,1553 @@
+[
+ {
+  "id": "s001",
+  "t0": 0.0,
+  "t1": 3.2,
+  "type": "title",
+  "hook": true,
+  "kicker": "公元前二二一年 — 一九一二年",
+  "title": "四百二十二把椅子",
+  "subtitle": "两千年，同一个座位",
+  "camera": {
+   "from": {
+    "x": -10,
+    "y": 8,
+    "scale": 1.05,
+    "rot": -0.4
+   },
+   "to": {
+    "x": 16,
+    "y": -8,
+    "scale": 1.19,
+    "rot": 0.3
+   },
+   "ease": "power2.out"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.16,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#241611",
+      "mid": "#77331f",
+      "to": "#e3aa5f",
+      "glow": "#ffd98a",
+      "glowO": 0.85,
+      "glowX": 0.5,
+      "glowY": 0.6,
+      "glowW": 0.52,
+      "glowH": 0.32
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.16,
+      "count": 11,
+      "spread": 1.9,
+      "len": 1.1,
+      "w0": 28,
+      "w1": 250,
+      "color": "#ffd07e",
+      "opacity": 0.2
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.5,
+      "y": 0.56,
+      "r": 205,
+      "color": "#a83426"
+     },
+     {
+      "shape": "halo",
+      "x": 0.5,
+      "y": 0.56,
+      "r": 215,
+      "rings": 3,
+      "color": "#e0b562"
+     },
+     {
+      "shape": "dragon",
+      "x": 0.5,
+      "y": 0.17,
+      "s": 1.3,
+      "color": "#5a2a1c"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.1,
+      "y": 0.15,
+      "s": 0.85,
+      "color": "#66351f",
+      "opacity": 0.42
+     },
+     {
+      "shape": "cloud",
+      "x": 0.9,
+      "y": 0.17,
+      "s": 0.75,
+      "color": "#66351f",
+      "opacity": 0.36
+     },
+     {
+      "shape": "mountain",
+      "x": 0.5,
+      "y": 0.83,
+      "w": 1.8,
+      "h": 0.28,
+      "color": "#4a281b"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.16,
+      "y": 0.86,
+      "w": 0.7,
+      "h": 0.2,
+      "color": "#381d14"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.84,
+      "y": 0.87,
+      "w": 0.8,
+      "h": 0.22,
+      "color": "#381d14"
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.55,
+    "props": [
+     {
+      "shape": "hall",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.3,
+      "h": 0.66,
+      "color": "#2b1c14"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.09,
+      "y": 1.0,
+      "h": 0.62,
+      "w": 120,
+      "color": "#3a2419"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.91,
+      "y": 1.0,
+      "h": 0.62,
+      "w": 120,
+      "color": "#3a2419"
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.95,
+      "s": 1.5,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "crown",
+      "x": 0.5,
+      "y": 0.5,
+      "s": 0.8,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.155,
+      "y": 0.26,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.845,
+      "y": 0.26,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.78,
+    "props": [
+     {
+      "shape": "crowd",
+      "x": 0.5,
+      "y": 1.03,
+      "s": 1.15,
+      "color": "#2a1a13"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "banner",
+      "x": 0.05,
+      "y": 1.04,
+      "s": 1.35,
+      "color": "#8f2a1e"
+     },
+     {
+      "shape": "banner",
+      "x": 0.95,
+      "y": 1.04,
+      "s": 1.35,
+      "flip": true,
+      "color": "#8f2a1e"
+     },
+     {
+      "shape": "embers",
+      "x": 0.5,
+      "y": 0.55
+     },
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 2.0,
+      "h": 0.035
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.22,
+    "y": 0.995,
+    "s": 1.15,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#8f2a1e"
+   },
+   {
+    "role": "emperor",
+    "x": 0.78,
+    "y": 0.995,
+    "s": 1.15,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ },
+ {
+  "id": "s002",
+  "t0": 3.2,
+  "t1": 5.7,
+  "type": "court",
+  "kicker": "一头一尾",
+  "title": "秦始皇 · 溥仪",
+  "subtitle": "相隔两千一百三十二年",
+  "camera": {
+   "from": {
+    "x": -40,
+    "y": 12,
+    "scale": 1.12,
+    "rot": -1.0
+   },
+   "to": {
+    "x": 36,
+    "y": -10,
+    "scale": 1.04,
+    "rot": 0.6
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e3bd",
+      "mid": "#e6c78e",
+      "to": "#b9a071",
+      "glow": "#ffdf9e",
+      "glowO": 0.45,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.62,
+      "glowH": 0.34
+     },
+     {
+      "shape": "night",
+      "color": "#3a352d",
+      "opacity": 0.1
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.32,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.7,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "palaceWall",
+      "x": 0.5,
+      "y": 1.04,
+      "w": 1.3,
+      "h": 0.85,
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.0,
+      "count": 6,
+      "spread": 1.5,
+      "len": 1.0,
+      "w0": 16,
+      "w1": 170,
+      "color": "#ffe8b0",
+      "opacity": 0.14
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.72,
+      "s": 1.05
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.26,
+      "y": 0.76,
+      "s": 0.8
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.74,
+      "y": 0.76,
+      "s": 0.8
+     },
+     {
+      "shape": "pillar",
+      "x": 0.07,
+      "y": 0.95,
+      "h": 0.64,
+      "w": 66
+     },
+     {
+      "shape": "pillar",
+      "x": 0.93,
+      "y": 0.95,
+      "h": 0.64,
+      "w": 66
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "drape",
+      "x": 0.28,
+      "y0": -20,
+      "len": 0.3,
+      "w": 0.12
+     },
+     {
+      "shape": "drape",
+      "x": 0.72,
+      "y0": -20,
+      "len": 0.3,
+      "w": 0.12
+     },
+     {
+      "shape": "lantern",
+      "x": 0.18,
+      "y": 0.26,
+      "s": 0.65
+     },
+     {
+      "shape": "lantern",
+      "x": 0.82,
+      "y": 0.26,
+      "s": 0.65
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.62,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.5,
+      "w": 0.5,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.32
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.86,
+    "props": [
+     {
+      "shape": "dais",
+      "x": 0.5,
+      "y": 0.97,
+      "w": 0.62,
+      "s": 1.1
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.4,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 1.6,
+      "opacity": 0.35
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.37,
+    "y": 0.72,
+    "s": 1.2,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "emperor",
+    "x": 0.63,
+    "y": 0.72,
+    "s": 1.2,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ },
+ {
+  "id": "s003",
+  "t0": 5.7,
+  "t1": 10.5,
+  "type": "crowd",
+  "kicker": "四百二十二人",
+  "title": "明君 · 昏君 · 暴君",
+  "subtitle": "也有没来得及长大的孩子",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 64,
+    "y": 10,
+    "scale": 1.04,
+    "rot": 0.6
+   },
+   "to": {
+    "x": -58,
+    "y": -12,
+    "scale": 1.16,
+    "rot": -0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f1e0bb",
+      "mid": "#e3c48c",
+      "to": "#b08f63",
+      "glow": "#ffd98e",
+      "glowO": 0.5,
+      "glowX": 0.22,
+      "glowY": 0.3,
+      "glowW": 0.5,
+      "glowH": 0.3
+     },
+     {
+      "shape": "rays",
+      "x": 0.18,
+      "y": 0.0,
+      "count": 5,
+      "spread": 1.2,
+      "len": 0.9,
+      "w0": 16,
+      "w1": 150,
+      "color": "#ffe8b0",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.18,
+      "y": 0.2,
+      "r": 70,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.7,
+      "y": 0.15,
+      "s": 0.9,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 1.5,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "birds",
+      "x": 0.74,
+      "y": 0.28,
+      "s": 0.7,
+      "count": 5
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.66,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.92,
+      "w": 0.56,
+      "h": 0.3,
+      "door": "#9a6b3f"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.6,
+      "h": 0.14
+     },
+     {
+      "shape": "crowd",
+      "x": 0.5,
+      "y": 0.97,
+      "s": 0.9,
+      "color": "#24211c"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "banner",
+      "x": 0.08,
+      "y": 0.98,
+      "s": 1.2,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "banner",
+      "x": 0.92,
+      "y": 0.98,
+      "s": 1.2,
+      "flip": true,
+      "color": "#b33a2b"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.32,
+    "props": [
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.97,
+      "w": 1.8,
+      "opacity": 0.4
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.3,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "emperor",
+    "x": 0.5,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#2f4b57"
+   },
+   {
+    "role": "emperor",
+    "x": 0.7,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#9a6b3f"
+   }
+  ]
+ },
+ {
+  "id": "s004",
+  "t0": 10.5,
+  "t1": 13.6,
+  "type": "map",
+  "kicker": "两千年",
+  "title": "一场两千年的赌局",
+  "subtitle": "每一代都有人上桌",
+  "camera": {
+   "from": {
+    "x": -24,
+    "y": -8,
+    "scale": 1.02,
+    "rot": 0.0
+   },
+   "to": {
+    "x": 26,
+    "y": 12,
+    "scale": 1.14,
+    "rot": 0.3
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e4c1",
+      "mid": "#e4c794",
+      "to": "#b0916a",
+      "glow": "#ffdf9e",
+      "glowO": 0.5,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.62,
+      "glowH": 0.4
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.0,
+      "count": 6,
+      "spread": 1.4,
+      "len": 1.0,
+      "w0": 16,
+      "w1": 170,
+      "color": "#ffe8b0",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.8,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "palace",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.15,
+      "h": 0.42,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "birds",
+      "x": 0.76,
+      "y": 0.26,
+      "s": 0.6,
+      "count": 4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.56,
+      "w": 0.5,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.45
+     },
+     {
+      "shape": "lantern",
+      "x": 0.16,
+      "y": 0.3,
+      "s": 0.65
+     },
+     {
+      "shape": "lantern",
+      "x": 0.84,
+      "y": 0.3,
+      "s": 0.65
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.9,
+      "h": 0.16,
+      "color": "#7d6647"
+     },
+     {
+      "shape": "scroll",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 0.56,
+      "h": 0.26,
+      "paper": "#f7f2e4"
+     },
+     {
+      "shape": "seal",
+      "x": 0.5,
+      "y": 0.62,
+      "s": 0.95,
+      "text": "帝"
+     },
+     {
+      "shape": "coin",
+      "x": 0.3,
+      "y": 0.87,
+      "s": 0.36
+     },
+     {
+      "shape": "coin",
+      "x": 0.7,
+      "y": 0.89,
+      "s": 0.32
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "pennant",
+      "x": 0.1,
+      "y": 0.99,
+      "s": 0.9,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.9,
+      "y": 0.99,
+      "s": 0.9,
+      "flip": true,
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.9,
+      "opacity": 0.3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "s005",
+  "t0": 13.6,
+  "t1": 15.0,
+  "type": "court",
+  "kicker": "秦国",
+  "title": "嬴政",
+  "subtitle": "",
+  "camera": {
+   "from": {
+    "x": -12,
+    "y": 16,
+    "scale": 1.16,
+    "rot": 0.5
+   },
+   "to": {
+    "x": 18,
+    "y": -8,
+    "scale": 1.26,
+    "rot": -0.4
+   },
+   "ease": "power2.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e3bd",
+      "mid": "#e2c286",
+      "to": "#ad8b5f",
+      "glow": "#ffdf9e",
+      "glowO": 0.5,
+      "glowX": 0.5,
+      "glowY": 0.44,
+      "glowW": 0.55,
+      "glowH": 0.32
+     },
+     {
+      "shape": "night",
+      "color": "#3a352d",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.18,
+      "y": 0.12,
+      "s": 0.7,
+      "color": "#f7f0df",
+      "opacity": 0.28
+     },
+     {
+      "shape": "palaceWall",
+      "x": 0.5,
+      "y": 1.05,
+      "w": 1.4,
+      "h": 0.95,
+      "color": "#2f4b57"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.46,
+    "props": [
+     {
+      "shape": "drape",
+      "x": 0.2,
+      "y0": -20,
+      "len": 0.34,
+      "w": 0.14
+     },
+     {
+      "shape": "drape",
+      "x": 0.8,
+      "y0": -20,
+      "len": 0.34,
+      "w": 0.14
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.78,
+      "s": 1.2
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.52,
+      "w": 0.45,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.34
+     },
+     {
+      "shape": "pillar",
+      "x": 0.1,
+      "y": 0.98,
+      "h": 0.7,
+      "w": 72
+     },
+     {
+      "shape": "pillar",
+      "x": 0.9,
+      "y": 0.98,
+      "h": 0.7,
+      "w": 72
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "dais",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 0.6,
+      "s": 1.2
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.4,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "candelabra",
+      "x": 0.12,
+      "y": 0.98,
+      "s": 0.9
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.88,
+      "y": 0.98,
+      "s": 0.9
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.96,
+      "w": 1.5,
+      "opacity": 0.3
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.5,
+    "y": 0.74,
+    "s": 1.35,
+    "facing": "right",
+    "pose": "stand"
+   }
+  ]
+ },
+ {
+  "id": "s006",
+  "t0": 15.0,
+  "t1": 17.85,
+  "type": "crowd",
+  "kicker": "公元前二五九年",
+  "title": "邯郸",
+  "subtitle": "赵国都城",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": -56,
+    "y": 6,
+    "scale": 1.12,
+    "rot": -0.8
+   },
+   "to": {
+    "x": 46,
+    "y": -10,
+    "scale": 1.04,
+    "rot": 0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#efdcb4",
+      "mid": "#dfc08a",
+      "to": "#a8895c",
+      "glow": "#ffd98e",
+      "glowO": 0.5,
+      "glowX": 0.76,
+      "glowY": 0.3,
+      "glowW": 0.45,
+      "glowH": 0.3
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.78,
+      "y": 0.22,
+      "r": 64,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.24,
+      "y": 0.16,
+      "s": 0.9,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "mountain",
+      "x": 0.5,
+      "y": 0.66,
+      "w": 1.6,
+      "h": 0.3,
+      "color": "#9a6b3f"
+     },
+     {
+      "shape": "birds",
+      "x": 0.3,
+      "y": 0.3,
+      "s": 0.6,
+      "count": 4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.7,
+      "w": 1.35,
+      "s": 0.95,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.93,
+      "w": 0.52,
+      "h": 0.28,
+      "door": "#9a6b3f"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.93,
+      "w": 2.6,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "pine",
+      "x": 0.06,
+      "y": 0.98,
+      "s": 1.1
+     },
+     {
+      "shape": "pine",
+      "x": 0.94,
+      "y": 0.98,
+      "s": 0.95
+     },
+     {
+      "shape": "rocks",
+      "x": 0.5,
+      "y": 1.02,
+      "s": 0.6
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.8,
+      "opacity": 0.38
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "s007",
+  "t0": 17.85,
+  "t1": 23.7,
+  "type": "night",
+  "kicker": "赵国 · 人质",
+  "title": "寄人篱下",
+  "subtitle": "一出生，就是人质",
+  "camera": {
+   "from": {
+    "x": -30,
+    "y": 18,
+    "scale": 1.08,
+    "rot": -0.6
+   },
+   "to": {
+    "x": 26,
+    "y": -10,
+    "scale": 1.2,
+    "rot": 0.6
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#3a4a52",
+      "mid": "#2a3a43",
+      "to": "#172228"
+     },
+     {
+      "shape": "night",
+      "color": "#0d1418",
+      "opacity": 0.38
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "stars",
+      "opacity": 0.65
+     },
+     {
+      "shape": "moon",
+      "x": 0.78,
+      "y": 0.18,
+      "r": 70
+     },
+     {
+      "shape": "halo",
+      "x": 0.78,
+      "y": 0.18,
+      "r": 92,
+      "rings": 2,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.72,
+      "w": 1.5,
+      "color": "#223841"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.7,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 0.66,
+      "h": 0.32,
+      "color": "#1c2b33",
+      "door": "#20323b"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.24,
+      "y": 0.34,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.76,
+      "y": 0.34,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.6,
+      "w": 0.45,
+      "h": 0.35,
+      "color": "#c9a24a",
+      "opacity": 0.25
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 2.6,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "rocks",
+      "x": 0.2,
+      "y": 1.02,
+      "s": 0.5
+     },
+     {
+      "shape": "rocks",
+      "x": 0.82,
+      "y": 1.0,
+      "s": 0.45
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.6,
+      "opacity": 0.25
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "official",
+    "x": 0.38,
+    "y": 0.8,
+    "s": 1.79,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#3a352d"
+   },
+   {
+    "role": "woman",
+    "x": 0.6,
+    "y": 0.8,
+    "s": 1.85,
+    "facing": "left",
+    "pose": "stand"
+   },
+   {
+    "role": "woman",
+    "x": 0.49,
+    "y": 0.81,
+    "s": 0.92,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#9a6b3f"
+   }
+  ]
+ },
+ {
+  "id": "s008",
+  "t0": 23.7,
+  "t1": 30.0,
+  "type": "default",
+  "kicker": "阳翟大贾",
+  "title": "吕不韦",
+  "subtitle": "他说，这是一件奇货",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 34,
+    "y": 12,
+    "scale": 1.06,
+    "rot": 0.7
+   },
+   "to": {
+    "x": -30,
+    "y": -12,
+    "scale": 1.18,
+    "rot": -0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f3e5c3",
+      "mid": "#e5c894",
+      "to": "#b2916a",
+      "glow": "#ffdf9e",
+      "glowO": 0.45,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.6,
+      "glowH": 0.36
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.8,
+      "color": "#f7f0df",
+      "opacity": 0.28
+     },
+     {
+      "shape": "palace",
+      "x": 0.5,
+      "y": 0.92,
+      "w": 1.0,
+      "h": 0.34,
+      "color": "#3a352d"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.46,
+    "props": [
+     {
+      "shape": "screen",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 0.72,
+      "h": 0.42
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.55,
+      "w": 0.4,
+      "h": 0.35,
+      "color": "#c9a24a",
+      "opacity": 0.3
+     },
+     {
+      "shape": "lantern",
+      "x": 0.16,
+      "y": 0.3,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.84,
+      "y": 0.3,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.94,
+      "w": 2.4,
+      "h": 0.12
+     },
+     {
+      "shape": "scroll",
+      "x": 0.22,
+      "y": 0.9,
+      "w": 0.2,
+      "h": 0.12,
+      "paper": "#e8d6ae"
+     },
+     {
+      "shape": "coin",
+      "x": 0.74,
+      "y": 0.9,
+      "s": 0.4
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "coin",
+      "x": 0.9,
+      "y": 0.99,
+      "s": 0.3
+     },
+     {
+      "shape": "coin",
+      "x": 0.08,
+      "y": 0.96,
+      "s": 0.34
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.7,
+      "opacity": 0.32
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "scholar",
+    "x": 0.43,
+    "y": 0.74,
+    "s": 1.4,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "official",
+    "x": 0.68,
+    "y": 0.74,
+    "s": 1.42,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ }
+]

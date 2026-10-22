@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>请验证后继续访问(153.34.228.48)</title>
+  <script async defer src="/js/altcha.min.js" type="module"></script>
+  <style>
+    * { box-sizing:border-box; }
+    body {
+      margin:0; min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+      background:linear-gradient(160deg,#eef3fb,#dfe9f7);
+      color:#1c2733; font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      padding:12vh 24px 24px;
+    }
+    .card {
+      width:100%; max-width:420px; background:#fff; border-radius:16px;
+      box-shadow:0 20px 40px -12px rgba(23,60,110,.18);
+      padding:36px 32px; text-align:center;
+    }
+    .icon {
+      width:52px; height:52px; margin:0 auto 16px; border-radius:50%;
+      background:#eaf2fc; display:flex; align-items:center; justify-content:center;
+      font-size:24px;
+    }
+    h1 { font-size:20px; margin:0 0 8px; }
+    .hint { color:#66758a; font-size:14px; line-height:1.6; margin:0 0 24px; }
+    altcha-widget { --altcha-max-width:100%; }
+    .status { display:none; margin-top:16px; color:#66758a; font-size:14px; }
+    .btn {
+      display:none; margin-top:16px; width:100%; border:0; border-radius:8px;
+      background:#1769aa; color:#fff; padding:12px; font-size:15px; font-weight:600;
+      cursor:pointer; transition:background .2s;
+    }
+    .btn:hover { background:#125a91; }
+    .footer {
+      margin-top:28px; padding-top:16px; border-top:1px solid #eef1f6;
+      font-size:12px; color:#9aa7b8; line-height:1.8;
+    }
+    .footer a { color:#7a8aa0; text-decoration:none; }
+    .footer a:hover { text-decoration:underline; }
+    .feedback-link {
+      background:none; border:0; padding:0; font-size:14px; color:#9aa7b8;
+      text-decoration:underline; cursor:pointer; font-family:inherit;
+    }
+    .feedback-tip { display:none; margin-top:6px; font-size:12px; color:#2e9e5b; }
+    .report-options { display:none; margin-top:10px; }
+    .reason-btn {
+      display:block; width:100%; margin-top:6px; padding:8px 10px;
+      border:1px solid #dfe6f0; border-radius:6px; background:#fafcff;
+      font-size:12px; color:#4a5568; cursor:pointer; text-align:left;
+    }
+    .reason-btn:hover { background:#eef4fc; border-color:#c7d7ec; }
+    [data-altcha-theme=cupcake],altcha-widget[theme=cupcake]{--altcha-border-width:2px;--altcha-border-radius:12px;--altcha-color-base:light-dark(oklch(97.816% 0.00342 38.025),oklch(21.06% 0.00803 17.645));--altcha-checkbox-border-color:light-dark(oklch(82.809% 0.10217 344.861),oklch(62.147% 0.1135 345.959));--altcha-checkbox-border-width:var(--altcha-border-width);--altcha-input-background-color:light-dark(oklch(100% 0.00011 271.152),oklch(25.197% 0.00003 271.152));--altcha-switch-background-color:var(--altcha-checkbox-border-color)}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="icon">🛡️</div>
+    <h1>请完成安全验证</h1>
+    <p class="hint">检测到访问频率过高，请验证后继续访问</p>
+    <form id="altcha-form" method="post" action="">
+      <input type="hidden" name="altchaapi" value="submit">
+      <input type="hidden" name="return" value="/pic/be64b4ae0f524208a05364c3/1-506-png_6_0_0_135_119_628_1030_892.979_1262.879-636-0-0-636.jpg">
+      <altcha-widget id="altcha" challenge="?altchaapi=challenge" workers="2" language="zh-cn" theme="cupcake" configuration='{"hideLogo": true,"hideFooter": true}'></altcha-widget>
+      <p id="status" class="status">验证通过，正在跳转…</p>
+      <button id="btn-submit" type="submit" class="btn">确认并继续</button>
+    </form>
+    <div class="footer">
+    有问题请联系：<img src="/images/tousu.png" style="vertical-align:middle;" alt="联系方式">
+    <br>
+    <button id="btn-report" class="feedback-link" type="button">点此反馈</button>
+    <div id="report-options" class="report-options">
+    <textarea id="reporttext" placeholder="请详细说明您的网络使用环境，比如您的地理位置、使用何种宽带、什么浏览器、访问本站多少页面等" rows="5" style="width:98%;padding:10px;border:1px solid #ccc;border-radius:6px"></textarea>
+    <button type="button" class="reason-btn" data-reason="false_block">莫名原因被拦截</button>
+    <button type="button" class="reason-btn" data-reason="widget_damage">验证码组件无法显示</button>
+    </div>
+    <div id="report-tip" class="feedback-tip">已收到反馈，感谢您的帮助</div>
+    </div>
+  </main>
+  <script>
+  const noop=()=>{};function safe_not_equal(e,t){return e!=e?t==t:e!==t||null!==e&&"object"==typeof e||"function"==typeof e}function subscribe_to_store(e,t,n){if(null==e)return t(void 0),noop;const r=untrack(()=>e.subscribe(t,n));return r.unsubscribe?()=>r.unsubscribe():r}const subscriber_queue=[];function writable(e,t=noop){let n=null;const r=new Set;function s(t){if(safe_not_equal(e,t)&&(e=t,n)){const t=!subscriber_queue.length;for(const t of r)t[1](),subscriber_queue.push(t,e);if(t){for(let e=0;e<subscriber_queue.length;e+=2)subscriber_queue[e][0](subscriber_queue[e+1]);subscriber_queue.length=0}}}function o(t){s(t(e))}return{set:s,update:o,subscribe:function(i,u=noop){const a=[i,u];return r.add(a),1===r.size&&(n=t(s,o)||noop),i(e),()=>{r.delete(a),0===r.size&&n&&(n(),n=null)}}}}function get(e){let t;return subscribe_to_store(e,e=>t=e)(),t}let untracking=!1;function untrack(e){var t=untracking;try{return untracking=!0,e()}finally{untracking=t}}function store(e){const t={get:e=>get(t.store)[e],set:(e,n)=>{"string"==typeof e?Object.assign(get(t.store),{[e]:n}):Object.assign(get(t.store),e),t.store.set(get(t.store))},store:writable(e)};return t}globalThis.$altcha=globalThis.$altcha||{algorithms:new Map,defaults:store({}),i18n:store({}),instances:new Set,plugins:new Set};const i18n={ariaLinkLabel:"Altcha",enterCode:"输入代码",enterCodeAria:"输入您听到的代码。按空格键播放音频。",error:"验证失败。稍后再试。",expired:"验证已过期。请重试。",footer:'ALTCHA',getAudioChallenge:"获取音频挑战",label:"我不是机器人",loading:"加载中...",reload:"重新加载",verify:"验证",verificationRequired:"需要验证！",verified:"已验证",verifying:"正在验证...",waitAlert:"正在验证... 请稍等。",cancel:"取消",enterCodeFromImage:"为继续操作，请输入下图中显示的验证码。"};globalThis.$altcha.i18n.set("zh-cn",i18n);
+
+    (function() {
+      var form = document.getElementById('altcha-form'),
+          widget = document.getElementById('altcha'),
+          status = document.getElementById('status'),
+          btn = document.getElementById('btn-submit'),
+          submitted = false;
+      widget.addEventListener('statechange', function(e) {
+        if (e.detail && e.detail.state === 'verified' && !submitted) {
+          submitted = true;
+          status.style.display = 'block';
+          form.submit();
+          setTimeout(function() {
+            status.textContent = '如未自动跳转，请点击下方按钮：';
+            btn.style.display = 'block';
+          }, 3000);
+        }
+      });
+    })();
+    window.addEventListener('load', () => {
+      if (window.$altcha && $altcha.i18n.get('zh-cn')) {
+        $altcha.i18n.set('zh-cn', {
+          ...$altcha.i18n.get('zh-cn'),
+          label: '点击这里进行安全验证',
+        });
+      }
+    });
+    
+    var reportBtn = document.getElementById('btn-report'),
+    reportOptions = document.getElementById('report-options'),
+    reportTip = document.getElementById('report-tip'),
+    reported = false;
+reportBtn.addEventListener('click', function() {
+  reportOptions.style.display = reportOptions.style.display === 'block' ? 'none' : 'block';
+});
+reportOptions.querySelectorAll('.reason-btn').forEach(function(el) {
+  el.addEventListener('click', function() {
+    if (reported) return;
+    reported = true;
+    reportOptions.querySelectorAll('.reason-btn').forEach(function(b) { b.disabled = true; });
+    var text = document.getElementById('reporttext').value.replace(/^\s+|\s+$/g, '');
+    var payload = 'action=report&reporttext='+text+'&nettype='+el.dataset.reason;
+      try {
+       var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.open("POST", "", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    xhr.send(payload);
+      } catch (e) {}
+    reportOptions.style.display = 'none';
+    reportTip.style.display = 'block';
+  });
+});
+  </script>
+</body>
+</html>

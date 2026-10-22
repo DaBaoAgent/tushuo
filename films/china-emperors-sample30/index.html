@@ -1,0 +1,2119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>一口气看完422位皇帝 · 20 分钟纸雕剪影版</title>
+<style>
+  :root {
+    --paper: #efe6d2; --paper2: #e2d4b8; --shade: #d9c9a8;
+    --ink: #24211c; --red: #b33a2b; --ochre: #9a6b3f;
+    --teal: #2f4b57; --gold: #c9a24a;
+  }
+  @font-face { font-family: "PaperKai"; src: local("KaiTi"), local("STKaiti"), local("楷体"), local("Noto Serif SC"); }
+  @font-face { font-family: "PaperSong"; src: local("SimSun"), local("宋体"), local("Noto Serif SC"); }
+  @font-face { font-family: "Microsoft YaHei"; src: local("Microsoft YaHei"), local("微软雅黑"); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #1c1916; overflow: hidden; }
+  #root {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    background: var(--paper); color: var(--ink);
+    font-family: "PaperKai", "PaperSong", serif;
+  }
+
+  /* ---------- paper stage ---------- */
+  #stage { position: absolute; inset: 0; z-index: 1; }
+  .shot { position: absolute; inset: 0; visibility: hidden; opacity: 0; overflow: hidden; }
+  .shot-world {
+    position: absolute; left: -6%; top: -6%; width: 112%; height: 112%;
+    transform-origin: 50% 52%; will-change: transform;
+  }
+  .pc-layer { position: absolute; inset: 0; will-change: transform; }
+  .pc-layer svg { display: block; width: 100%; height: 100%; }
+  .pc-layer.pc-far { opacity: .96; filter: saturate(.88) brightness(1.05) blur(.3px); }
+  .pc-layer.pc-mid { filter: drop-shadow(0 10px 12px rgba(36,33,28,.16)); }
+  .pc-layer.pc-action { filter: drop-shadow(0 14px 16px rgba(36,33,28,.22)); }
+  .pc-layer.pc-fore { filter: drop-shadow(0 20px 24px rgba(36,33,28,.32)); }
+  .pc-chars { position: absolute; inset: 0; }
+  .pc-chars svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- texture / light ---------- */
+  #key-light {
+    position: absolute; inset: 0; z-index: 37; pointer-events: none; opacity: .5;
+    mix-blend-mode: screen;
+    background: radial-gradient(58% 50% at 64% 20%, rgba(255,243,212,.55) 0%, rgba(255,243,212,.15) 46%, rgba(255,243,212,0) 76%);
+  }
+  #paper-grain {
+    position: absolute; inset: 0; z-index: 40; pointer-events: none; opacity: .26;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.5'/%3E%3C/svg%3E");
+  }
+  #paper-fiber {
+    position: absolute; inset: 0; z-index: 39; pointer-events: none; opacity: .22;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(107,90,66,.05) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(90deg, rgba(107,90,66,.035) 0 1px, transparent 1px 9px);
+  }
+  #vignette {
+    position: absolute; inset: 0; z-index: 41; pointer-events: none;
+    background: radial-gradient(118% 88% at 50% 44%, rgba(0,0,0,0) 46%, rgba(36,33,28,.16) 76%, rgba(36,33,28,.42) 100%);
+  }
+  #light-sweep {
+    position: absolute; top: -30%; left: -20%; width: 160%; height: 160%;
+    z-index: 38; pointer-events: none; opacity: .35;
+    background: linear-gradient(102deg, rgba(255,248,224,0) 30%, rgba(255,248,224,.5) 48%, rgba(255,248,224,0) 64%);
+    mix-blend-mode: screen; transform: rotate(-12deg);
+  }
+  #paper-wipe {
+    position: absolute; top: -10%; left: 0; width: 130%; height: 120%;
+    z-index: 60; pointer-events: none; visibility: hidden;
+    background: linear-gradient(90deg, var(--paper2) 0 82%, var(--paper2) 82%);
+    filter: drop-shadow(-24px 0 24px rgba(36,33,28,.26));
+    clip-path: polygon(0 0, 100% 0, 94% 6%, 100% 13%, 96% 21%, 100% 29%, 95% 38%, 100% 46%, 96% 55%, 100% 63%, 95% 72%, 100% 80%, 96% 89%, 100% 96%, 0 100%);
+  }
+
+  /* ---------- titles ---------- */
+  .shot-title {
+    position: absolute; left: 90px; top: 66px; z-index: 20; max-width: 960px;
+    padding: 16px 34px 18px 20px;
+    background: rgba(239,230,210,.9);
+    clip-path: polygon(0 0, 100% 0, 100% 84%, 97% 91%, 100% 100%, 0 100%);
+    filter: drop-shadow(8px 10px 0 rgba(36,33,28,.12));
+  }
+  .tc-kicker {
+    display: inline-block; padding: 5px 14px; margin-bottom: 12px;
+    background: var(--red); color: var(--paper); font-size: 24px; letter-spacing: 6px;
+    box-shadow: 6px 8px 0 rgba(36,33,28,.14);
+  }
+  .tc-title {
+    font-size: 66px; font-weight: 700; line-height: 1.1; letter-spacing: 3px;
+    color: var(--ink); text-shadow: 4px 5px 0 rgba(217,201,168,.9);
+  }
+  .tc-sub {
+    margin-top: 12px; padding-left: 16px; border-left: 7px solid var(--gold);
+    font-size: 27px; line-height: 1.35; letter-spacing: 3px; color: var(--ochre);
+  }
+
+  /* ---------- 开场钩子 ---------- */
+  .shot[data-shot="s001"] .shot-title {
+    left: 50%; top: 34px; width: max-content; max-width: 1740px;
+    padding: 0; text-align: center; background: none; clip-path: none; filter: none;
+    transform: translateX(-50%);
+  }
+  .shot[data-shot="s001"] .tc-kicker {
+    padding: 7px 24px; margin-bottom: 18px; font-size: 28px; letter-spacing: 10px;
+    background: var(--red); color: #f7ead0; box-shadow: 9px 11px 0 rgba(12,7,4,.4);
+  }
+  .shot[data-shot="s001"] .tc-title {
+    font-size: 150px; line-height: 1; letter-spacing: 8px; color: #f8ecd2;
+    text-shadow: 0 5px 0 #6f1f14, 0 9px 0 rgba(26,14,8,.55),
+                 0 22px 46px rgba(0,0,0,.55), 0 0 58px rgba(255,168,84,.38);
+  }
+  .shot[data-shot="s001"] .tc-sub {
+    margin-top: 24px; padding-left: 0; border-left: 0;
+    font-size: 40px; letter-spacing: 9px; color: #ffd9a0;
+    text-shadow: 0 4px 16px rgba(0,0,0,.55);
+  }
+  #hook-flash {
+    position: absolute; inset: 0; z-index: 58; pointer-events: none; opacity: 0;
+    background: radial-gradient(56% 52% at 50% 36%, #fff7e2 0%, rgba(255,244,214,.92) 30%, rgba(255,244,214,0) 72%);
+  }
+  #hook-ring {
+    position: absolute; left: 50%; top: 29%; width: 940px; height: 940px;
+    margin: -470px 0 0 -470px; z-index: 19; pointer-events: none; opacity: 0;
+    border-radius: 50%; border: 12px solid rgba(255,208,126,.9);
+    box-shadow: 0 0 64px rgba(255,156,66,.6), inset 0 0 64px rgba(255,156,66,.4);
+  }
+
+  /* ---------- captions: zhidiao style（无底板 + 白色加粗 + 2px 黑描边 + 微软雅黑）---------- */
+  #subtitle-veil { display: none; }
+  #caption-wrap { position: absolute; left: 0; right: 0; bottom: 44px; height: 110px; z-index: 26; pointer-events: none; }
+  .cap-line { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); opacity: 0; white-space: nowrap; }
+  .cap-box {
+    display: inline-block; padding: 16px 36px;
+    background: none; border: 0; box-shadow: none;
+    color: #ffffff; font-family: "Microsoft YaHei", sans-serif;
+    font-size: 52px; font-weight: 900; line-height: 1.22; letter-spacing: .05em;
+    /* 外描边用 text-shadow：-webkit-text-stroke 居中描边会盖住字芯，字号小时尤其明显 */
+    text-shadow:
+      -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+      0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000,
+      0 0 6px rgba(0,0,0,.55);
+    text-align: center; white-space: nowrap;
+  }
+
+  /* ---------- end card ---------- */
+  #endcard {
+    position: absolute; inset: 0; z-index: 70; opacity: 0; pointer-events: none;
+    background: radial-gradient(90% 70% at 50% 42%, #f3ead8 0%, #e6d8bd 70%, #d7c5a4 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .ec-seal {
+    width: 124px; height: 124px; border: 6px double var(--red); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red); font-size: 50px; font-weight: 700; letter-spacing: 4px;
+    transform: rotate(-6deg); background: rgba(239,230,210,.5);
+    box-shadow: 8px 10px 0 rgba(36,33,28,.10);
+  }
+  .ec-kicker { margin-top: 30px; font-size: 22px; letter-spacing: 11px; color: var(--ochre); }
+  .ec-title { margin-top: 16px; font-size: 74px; font-weight: 700; letter-spacing: 8px; color: var(--ink); }
+  .ec-sub { margin-top: 16px; font-size: 24px; letter-spacing: 5px; color: var(--ochre); }
+  .ec-next { margin-top: 34px; padding: 10px 30px; border: 2px solid var(--red); font-size: 22px; letter-spacing: 5px; color: var(--red); }
+  .ec-brand { margin-top: 28px; font-size: 17px; letter-spacing: 9px; color: #6f4a2a; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="china-emperors-sample30" data-start="0" data-width="1920" data-height="1080" data-fps="30" data-duration="30.000">
+
+  <div id="stage"></div>
+  <div id="key-light"></div>
+  <div id="light-sweep"></div>
+  <div id="paper-fiber"></div>
+  <div id="paper-grain"></div>
+  <div id="vignette"></div>
+  <div id="paper-wipe"></div>
+  <div id="hook-ring"></div>
+  <div id="hook-flash"></div>
+
+  <div id="subtitle-veil"></div>
+  <div id="caption-wrap"></div>
+
+  <div id="endcard">
+    <div class="ec-seal">史</div>
+    <div class="ec-kicker">上下五千年</div>
+    <div class="ec-title">四百二十二帝</div>
+    <div class="ec-sub">兴亡皆在一纸之间</div>
+    <div class="ec-next">下一部 · 敬请期待</div>
+    <div class="ec-brand">TUSHUO · 纸雕历史</div>
+  </div>
+
+  <audio id="vo" src="assets/voice/narration.mp3" data-start="0" data-duration="27.610" data-track-index="0" data-volume="1"></audio>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="assets/papercut.js"></script>
+  <script>
+/* ---------------- 分镜数据（由 content/<slug>/shots.json 注入） ---------------- */
+const SHOTS = [
+ {
+  "id": "s001",
+  "t0": 0.0,
+  "t1": 3.2,
+  "type": "title",
+  "hook": true,
+  "kicker": "公元前二二一年 — 一九一二年",
+  "title": "四百二十二把椅子",
+  "subtitle": "两千年，同一个座位",
+  "camera": {
+   "from": {
+    "x": -10,
+    "y": 8,
+    "scale": 1.05,
+    "rot": -0.4
+   },
+   "to": {
+    "x": 16,
+    "y": -8,
+    "scale": 1.19,
+    "rot": 0.3
+   },
+   "ease": "power2.out"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.16,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#241611",
+      "mid": "#77331f",
+      "to": "#e3aa5f",
+      "glow": "#ffd98a",
+      "glowO": 0.85,
+      "glowX": 0.5,
+      "glowY": 0.6,
+      "glowW": 0.52,
+      "glowH": 0.32
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.16,
+      "count": 11,
+      "spread": 1.9,
+      "len": 1.1,
+      "w0": 28,
+      "w1": 250,
+      "color": "#ffd07e",
+      "opacity": 0.2
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.5,
+      "y": 0.56,
+      "r": 205,
+      "color": "#a83426"
+     },
+     {
+      "shape": "halo",
+      "x": 0.5,
+      "y": 0.56,
+      "r": 215,
+      "rings": 3,
+      "color": "#e0b562"
+     },
+     {
+      "shape": "dragon",
+      "x": 0.5,
+      "y": 0.17,
+      "s": 1.3,
+      "color": "#5a2a1c"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.1,
+      "y": 0.15,
+      "s": 0.85,
+      "color": "#66351f",
+      "opacity": 0.42
+     },
+     {
+      "shape": "cloud",
+      "x": 0.9,
+      "y": 0.17,
+      "s": 0.75,
+      "color": "#66351f",
+      "opacity": 0.36
+     },
+     {
+      "shape": "mountain",
+      "x": 0.5,
+      "y": 0.83,
+      "w": 1.8,
+      "h": 0.28,
+      "color": "#4a281b"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.16,
+      "y": 0.86,
+      "w": 0.7,
+      "h": 0.2,
+      "color": "#381d14"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.84,
+      "y": 0.87,
+      "w": 0.8,
+      "h": 0.22,
+      "color": "#381d14"
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.55,
+    "props": [
+     {
+      "shape": "hall",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.3,
+      "h": 0.66,
+      "color": "#2b1c14"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.09,
+      "y": 1.0,
+      "h": 0.62,
+      "w": 120,
+      "color": "#3a2419"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.91,
+      "y": 1.0,
+      "h": 0.62,
+      "w": 120,
+      "color": "#3a2419"
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.95,
+      "s": 1.5,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "crown",
+      "x": 0.5,
+      "y": 0.5,
+      "s": 0.8,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.155,
+      "y": 0.26,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.845,
+      "y": 0.26,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.78,
+    "props": [
+     {
+      "shape": "crowd",
+      "x": 0.5,
+      "y": 1.03,
+      "s": 1.15,
+      "color": "#2a1a13"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "banner",
+      "x": 0.05,
+      "y": 1.04,
+      "s": 1.35,
+      "color": "#8f2a1e"
+     },
+     {
+      "shape": "banner",
+      "x": 0.95,
+      "y": 1.04,
+      "s": 1.35,
+      "flip": true,
+      "color": "#8f2a1e"
+     },
+     {
+      "shape": "embers",
+      "x": 0.5,
+      "y": 0.55
+     },
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 2.0,
+      "h": 0.035
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.22,
+    "y": 0.995,
+    "s": 1.15,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#8f2a1e"
+   },
+   {
+    "role": "emperor",
+    "x": 0.78,
+    "y": 0.995,
+    "s": 1.15,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ },
+ {
+  "id": "s002",
+  "t0": 3.2,
+  "t1": 5.7,
+  "type": "court",
+  "kicker": "一头一尾",
+  "title": "秦始皇 · 溥仪",
+  "subtitle": "相隔两千一百三十二年",
+  "camera": {
+   "from": {
+    "x": -40,
+    "y": 12,
+    "scale": 1.12,
+    "rot": -1.0
+   },
+   "to": {
+    "x": 36,
+    "y": -10,
+    "scale": 1.04,
+    "rot": 0.6
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e3bd",
+      "mid": "#e6c78e",
+      "to": "#b9a071",
+      "glow": "#ffdf9e",
+      "glowO": 0.45,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.62,
+      "glowH": 0.34
+     },
+     {
+      "shape": "night",
+      "color": "#3a352d",
+      "opacity": 0.1
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.32,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.7,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "palaceWall",
+      "x": 0.5,
+      "y": 1.04,
+      "w": 1.3,
+      "h": 0.85,
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.0,
+      "count": 6,
+      "spread": 1.5,
+      "len": 1.0,
+      "w0": 16,
+      "w1": 170,
+      "color": "#ffe8b0",
+      "opacity": 0.14
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.72,
+      "s": 1.05
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.26,
+      "y": 0.76,
+      "s": 0.8
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.74,
+      "y": 0.76,
+      "s": 0.8
+     },
+     {
+      "shape": "pillar",
+      "x": 0.07,
+      "y": 0.95,
+      "h": 0.64,
+      "w": 66
+     },
+     {
+      "shape": "pillar",
+      "x": 0.93,
+      "y": 0.95,
+      "h": 0.64,
+      "w": 66
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "drape",
+      "x": 0.28,
+      "y0": -20,
+      "len": 0.3,
+      "w": 0.12
+     },
+     {
+      "shape": "drape",
+      "x": 0.72,
+      "y0": -20,
+      "len": 0.3,
+      "w": 0.12
+     },
+     {
+      "shape": "lantern",
+      "x": 0.18,
+      "y": 0.26,
+      "s": 0.65
+     },
+     {
+      "shape": "lantern",
+      "x": 0.82,
+      "y": 0.26,
+      "s": 0.65
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.62,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.5,
+      "w": 0.5,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.32
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.86,
+    "props": [
+     {
+      "shape": "dais",
+      "x": 0.5,
+      "y": 0.97,
+      "w": 0.62,
+      "s": 1.1
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.4,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 1.6,
+      "opacity": 0.35
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.37,
+    "y": 0.72,
+    "s": 1.2,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "emperor",
+    "x": 0.63,
+    "y": 0.72,
+    "s": 1.2,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ },
+ {
+  "id": "s003",
+  "t0": 5.7,
+  "t1": 10.5,
+  "type": "crowd",
+  "kicker": "四百二十二人",
+  "title": "明君 · 昏君 · 暴君",
+  "subtitle": "也有没来得及长大的孩子",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 64,
+    "y": 10,
+    "scale": 1.04,
+    "rot": 0.6
+   },
+   "to": {
+    "x": -58,
+    "y": -12,
+    "scale": 1.16,
+    "rot": -0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f1e0bb",
+      "mid": "#e3c48c",
+      "to": "#b08f63",
+      "glow": "#ffd98e",
+      "glowO": 0.5,
+      "glowX": 0.22,
+      "glowY": 0.3,
+      "glowW": 0.5,
+      "glowH": 0.3
+     },
+     {
+      "shape": "rays",
+      "x": 0.18,
+      "y": 0.0,
+      "count": 5,
+      "spread": 1.2,
+      "len": 0.9,
+      "w0": 16,
+      "w1": 150,
+      "color": "#ffe8b0",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.18,
+      "y": 0.2,
+      "r": 70,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.7,
+      "y": 0.15,
+      "s": 0.9,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 1.5,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "birds",
+      "x": 0.74,
+      "y": 0.28,
+      "s": 0.7,
+      "count": 5
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.66,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.92,
+      "w": 0.56,
+      "h": 0.3,
+      "door": "#9a6b3f"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.6,
+      "h": 0.14
+     },
+     {
+      "shape": "crowd",
+      "x": 0.5,
+      "y": 0.97,
+      "s": 0.9,
+      "color": "#24211c"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "banner",
+      "x": 0.08,
+      "y": 0.98,
+      "s": 1.2,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "banner",
+      "x": 0.92,
+      "y": 0.98,
+      "s": 1.2,
+      "flip": true,
+      "color": "#b33a2b"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.32,
+    "props": [
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.97,
+      "w": 1.8,
+      "opacity": 0.4
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.3,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "emperor",
+    "x": 0.5,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#2f4b57"
+   },
+   {
+    "role": "emperor",
+    "x": 0.7,
+    "y": 0.84,
+    "s": 1.8,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#9a6b3f"
+   }
+  ]
+ },
+ {
+  "id": "s004",
+  "t0": 10.5,
+  "t1": 13.6,
+  "type": "map",
+  "kicker": "两千年",
+  "title": "一场两千年的赌局",
+  "subtitle": "每一代都有人上桌",
+  "camera": {
+   "from": {
+    "x": -24,
+    "y": -8,
+    "scale": 1.02,
+    "rot": 0.0
+   },
+   "to": {
+    "x": 26,
+    "y": 12,
+    "scale": 1.14,
+    "rot": 0.3
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e4c1",
+      "mid": "#e4c794",
+      "to": "#b0916a",
+      "glow": "#ffdf9e",
+      "glowO": 0.5,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.62,
+      "glowH": 0.4
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.0,
+      "count": 6,
+      "spread": 1.4,
+      "len": 1.0,
+      "w0": 16,
+      "w1": 170,
+      "color": "#ffe8b0",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.8,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "palace",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.15,
+      "h": 0.42,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "birds",
+      "x": 0.76,
+      "y": 0.26,
+      "s": 0.6,
+      "count": 4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.56,
+      "w": 0.5,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.45
+     },
+     {
+      "shape": "lantern",
+      "x": 0.16,
+      "y": 0.3,
+      "s": 0.65
+     },
+     {
+      "shape": "lantern",
+      "x": 0.84,
+      "y": 0.3,
+      "s": 0.65
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.9,
+      "h": 0.16,
+      "color": "#7d6647"
+     },
+     {
+      "shape": "scroll",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 0.56,
+      "h": 0.26,
+      "paper": "#f7f2e4"
+     },
+     {
+      "shape": "seal",
+      "x": 0.5,
+      "y": 0.62,
+      "s": 0.95,
+      "text": "帝"
+     },
+     {
+      "shape": "coin",
+      "x": 0.3,
+      "y": 0.87,
+      "s": 0.36
+     },
+     {
+      "shape": "coin",
+      "x": 0.7,
+      "y": 0.89,
+      "s": 0.32
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "pennant",
+      "x": 0.1,
+      "y": 0.99,
+      "s": 0.9,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.9,
+      "y": 0.99,
+      "s": 0.9,
+      "flip": true,
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.9,
+      "opacity": 0.3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "s005",
+  "t0": 13.6,
+  "t1": 15.0,
+  "type": "court",
+  "kicker": "秦国",
+  "title": "嬴政",
+  "subtitle": "",
+  "camera": {
+   "from": {
+    "x": -12,
+    "y": 16,
+    "scale": 1.16,
+    "rot": 0.5
+   },
+   "to": {
+    "x": 18,
+    "y": -8,
+    "scale": 1.26,
+    "rot": -0.4
+   },
+   "ease": "power2.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e3bd",
+      "mid": "#e2c286",
+      "to": "#ad8b5f",
+      "glow": "#ffdf9e",
+      "glowO": 0.5,
+      "glowX": 0.5,
+      "glowY": 0.44,
+      "glowW": 0.55,
+      "glowH": 0.32
+     },
+     {
+      "shape": "night",
+      "color": "#3a352d",
+      "opacity": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.18,
+      "y": 0.12,
+      "s": 0.7,
+      "color": "#f7f0df",
+      "opacity": 0.28
+     },
+     {
+      "shape": "palaceWall",
+      "x": 0.5,
+      "y": 1.05,
+      "w": 1.4,
+      "h": 0.95,
+      "color": "#2f4b57"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.46,
+    "props": [
+     {
+      "shape": "drape",
+      "x": 0.2,
+      "y0": -20,
+      "len": 0.34,
+      "w": 0.14
+     },
+     {
+      "shape": "drape",
+      "x": 0.8,
+      "y0": -20,
+      "len": 0.34,
+      "w": 0.14
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.78,
+      "s": 1.2
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.52,
+      "w": 0.45,
+      "h": 0.4,
+      "color": "#c9a24a",
+      "opacity": 0.34
+     },
+     {
+      "shape": "pillar",
+      "x": 0.1,
+      "y": 0.98,
+      "h": 0.7,
+      "w": 72
+     },
+     {
+      "shape": "pillar",
+      "x": 0.9,
+      "y": 0.98,
+      "h": 0.7,
+      "w": 72
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "dais",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 0.6,
+      "s": 1.2
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 2.4,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "candelabra",
+      "x": 0.12,
+      "y": 0.98,
+      "s": 0.9
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.88,
+      "y": 0.98,
+      "s": 0.9
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.96,
+      "w": 1.5,
+      "opacity": 0.3
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "emperor",
+    "x": 0.5,
+    "y": 0.74,
+    "s": 1.35,
+    "facing": "right",
+    "pose": "stand"
+   }
+  ]
+ },
+ {
+  "id": "s006",
+  "t0": 15.0,
+  "t1": 17.85,
+  "type": "crowd",
+  "kicker": "公元前二五九年",
+  "title": "邯郸",
+  "subtitle": "赵国都城",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": -56,
+    "y": 6,
+    "scale": 1.12,
+    "rot": -0.8
+   },
+   "to": {
+    "x": 46,
+    "y": -10,
+    "scale": 1.04,
+    "rot": 0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#efdcb4",
+      "mid": "#dfc08a",
+      "to": "#a8895c",
+      "glow": "#ffd98e",
+      "glowO": 0.5,
+      "glowX": 0.76,
+      "glowY": 0.3,
+      "glowW": 0.45,
+      "glowH": 0.3
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.78,
+      "y": 0.22,
+      "r": 64,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.24,
+      "y": 0.16,
+      "s": 0.9,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "mountain",
+      "x": 0.5,
+      "y": 0.66,
+      "w": 1.6,
+      "h": 0.3,
+      "color": "#9a6b3f"
+     },
+     {
+      "shape": "birds",
+      "x": 0.3,
+      "y": 0.3,
+      "s": 0.6,
+      "count": 4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.7,
+      "w": 1.35,
+      "s": 0.95,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.93,
+      "w": 0.52,
+      "h": 0.28,
+      "door": "#9a6b3f"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.93,
+      "w": 2.6,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "pine",
+      "x": 0.06,
+      "y": 0.98,
+      "s": 1.1
+     },
+     {
+      "shape": "pine",
+      "x": 0.94,
+      "y": 0.98,
+      "s": 0.95
+     },
+     {
+      "shape": "rocks",
+      "x": 0.5,
+      "y": 1.02,
+      "s": 0.6
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.8,
+      "opacity": 0.38
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "s007",
+  "t0": 17.85,
+  "t1": 23.7,
+  "type": "night",
+  "kicker": "赵国 · 人质",
+  "title": "寄人篱下",
+  "subtitle": "一出生，就是人质",
+  "camera": {
+   "from": {
+    "x": -30,
+    "y": 18,
+    "scale": 1.08,
+    "rot": -0.6
+   },
+   "to": {
+    "x": 26,
+    "y": -10,
+    "scale": 1.2,
+    "rot": 0.6
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#3a4a52",
+      "mid": "#2a3a43",
+      "to": "#172228"
+     },
+     {
+      "shape": "night",
+      "color": "#0d1418",
+      "opacity": 0.38
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "stars",
+      "opacity": 0.65
+     },
+     {
+      "shape": "moon",
+      "x": 0.78,
+      "y": 0.18,
+      "r": 70
+     },
+     {
+      "shape": "halo",
+      "x": 0.78,
+      "y": 0.18,
+      "r": 92,
+      "rings": 2,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "city",
+      "x": 0.5,
+      "y": 0.72,
+      "w": 1.5,
+      "color": "#223841"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.7,
+      "w": 1.9,
+      "h": 0.03
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 0.66,
+      "h": 0.32,
+      "color": "#1c2b33",
+      "door": "#20323b"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.24,
+      "y": 0.34,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.76,
+      "y": 0.34,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.6,
+      "w": 0.45,
+      "h": 0.35,
+      "color": "#c9a24a",
+      "opacity": 0.25
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.95,
+      "w": 2.6,
+      "h": 0.12
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "rocks",
+      "x": 0.2,
+      "y": 1.02,
+      "s": 0.5
+     },
+     {
+      "shape": "rocks",
+      "x": 0.82,
+      "y": 1.0,
+      "s": 0.45
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.99,
+      "w": 1.6,
+      "opacity": 0.25
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "official",
+    "x": 0.38,
+    "y": 0.8,
+    "s": 1.79,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#3a352d"
+   },
+   {
+    "role": "woman",
+    "x": 0.6,
+    "y": 0.8,
+    "s": 1.85,
+    "facing": "left",
+    "pose": "stand"
+   },
+   {
+    "role": "woman",
+    "x": 0.49,
+    "y": 0.81,
+    "s": 0.92,
+    "facing": "right",
+    "pose": "stand",
+    "color": "#9a6b3f"
+   }
+  ]
+ },
+ {
+  "id": "s008",
+  "t0": 23.7,
+  "t1": 30.0,
+  "type": "default",
+  "kicker": "阳翟大贾",
+  "title": "吕不韦",
+  "subtitle": "他说，这是一件奇货",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 34,
+    "y": 12,
+    "scale": 1.06,
+    "rot": 0.7
+   },
+   "to": {
+    "x": -30,
+    "y": -12,
+    "scale": 1.18,
+    "rot": -0.5
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f3e5c3",
+      "mid": "#e5c894",
+      "to": "#b2916a",
+      "glow": "#ffdf9e",
+      "glowO": 0.45,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.6,
+      "glowH": 0.36
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.2,
+      "y": 0.14,
+      "s": 0.8,
+      "color": "#f7f0df",
+      "opacity": 0.28
+     },
+     {
+      "shape": "palace",
+      "x": 0.5,
+      "y": 0.92,
+      "w": 1.0,
+      "h": 0.34,
+      "color": "#3a352d"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.46,
+    "props": [
+     {
+      "shape": "screen",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 0.72,
+      "h": 0.42
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.55,
+      "w": 0.4,
+      "h": 0.35,
+      "color": "#c9a24a",
+      "opacity": 0.3
+     },
+     {
+      "shape": "lantern",
+      "x": 0.16,
+      "y": 0.3,
+      "s": 0.6
+     },
+     {
+      "shape": "lantern",
+      "x": 0.84,
+      "y": 0.3,
+      "s": 0.6
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.94,
+      "w": 2.4,
+      "h": 0.12
+     },
+     {
+      "shape": "scroll",
+      "x": 0.22,
+      "y": 0.9,
+      "w": 0.2,
+      "h": 0.12,
+      "paper": "#e8d6ae"
+     },
+     {
+      "shape": "coin",
+      "x": 0.74,
+      "y": 0.9,
+      "s": 0.4
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "coin",
+      "x": 0.9,
+      "y": 0.99,
+      "s": 0.3
+     },
+     {
+      "shape": "coin",
+      "x": 0.08,
+      "y": 0.96,
+      "s": 0.34
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 1.7,
+      "opacity": 0.32
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "scholar",
+    "x": 0.43,
+    "y": 0.74,
+    "s": 1.4,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "official",
+    "x": 0.68,
+    "y": 0.74,
+    "s": 1.42,
+    "facing": "left",
+    "pose": "stand",
+    "color": "#2f4b57"
+   }
+  ]
+ }
+];
+
+/* ---------------- 字幕（由 splice_film.py 注入） ---------------- */
+const CAPS = [
+  { t: 0.018, end: 0.721, text: "两千年里" },
+  { t: 0.721, end: 3.18, text: "四百二十二个人抢过同一把椅子" },
+  { t: 3.208, end: 4.434, text: "第一个是秦始皇" },
+  { t: 4.434, end: 5.66, text: "最后一个叫溥仪" },
+  { t: 5.688, end: 6.839, text: "四百二十二人里" },
+  { t: 6.839, end: 8.319, text: "有明君 有昏君 有暴君" },
+  { t: 8.319, end: 10.457, text: "也有什么都没来得及做的孩子" },
+  { t: 10.485, end: 11.674, text: "这不是一份工作" },
+  { t: 11.674, end: 13.543, text: "是一场持续两千年的赌局" },
+  { t: 13.571, end: 14.946, text: "先说第一个 嬴政" },
+  { t: 14.974, end: 16.221, text: "公元前二五九年" },
+  { t: 16.221, end: 17.825, text: "他出生在赵国的邯郸" },
+  { t: 17.853, end: 19.641, text: "父亲异人在赵国当人质" },
+  { t: 19.641, end: 21.071, text: "他一出生也是人质" },
+  { t: 21.099, end: 22.639, text: "赵国人欺负他们母子" },
+  { t: 22.639, end: 23.665, text: "日子过得很苦" },
+  { t: 23.693, end: 25.372, text: "有个大商人叫吕不韦" },
+  { t: 25.372, end: 26.304, text: "看中了异人" },
+  { t: 26.304, end: 27.61, text: "说这是一件奇货" }
+];
+
+const CUE = { "total": 27.61, "filmEnd": 30.0, "noEndcard": true };
+
+/* ---------------- build ---------------- */
+let tl = null;
+
+function buildStage() {
+  document.getElementById("stage").innerHTML = PaperCut.buildStage(SHOTS);
+}
+
+function buildCaptions() {
+  const wrap = document.getElementById("caption-wrap");
+  wrap.innerHTML = "";
+  CAPS.forEach((s, i) => {
+    const line = document.createElement("div");
+    line.className = "cap-line";
+    line.id = "cap-" + i;
+    const box = document.createElement("span");
+    box.className = "cap-box";
+    box.textContent = s.text;
+    line.appendChild(box);
+    wrap.appendChild(line);
+  });
+}
+
+function cameraOf(shot) {
+  const c = shot.camera || {};
+  const from = c.from || { x: 0, y: 0, scale: 1.02, rot: 0 };
+  const to = c.to || { x: 0, y: 0, scale: 1.10, rot: 0 };
+  return { from, to };
+}
+
+/* 人物：跑步的起伏与摆臂摆腿、披风、主角动作（挥刺 / 拉弓 / 举剑 / 后坐） */
+function animateLife(el, shot, t0, dur) {
+  const chars = shot.chars || [];
+  const persons = el.querySelectorAll(".pc-chars .pc-person-wrap");
+
+  persons.forEach((w, i) => {
+    const c = chars[i] || {};
+    const role = c.role || "official";
+    const pose = c.pose || "stand";
+    const dir = c.facing === "left" ? -1 : 1;
+    const moving = pose === "run" || pose === "walk";
+
+    const breath = w.querySelectorAll(".pc-breathe");
+    const armL = w.querySelectorAll(".pc-arm-l");
+    const armR = w.querySelectorAll(".pc-arm-r");
+    const legL = w.querySelectorAll(".pc-leg-l");
+    const legR = w.querySelectorAll(".pc-leg-r");
+    const capeL = w.querySelectorAll(".pc-cape-l");
+    const capeR = w.querySelectorAll(".pc-cape-r");
+
+    /* 每个人的步频与相位错开，避免多人同拍像队列 */
+    const amp = pose === "run" ? 7 : pose === "walk" ? 4 : 2.2;
+    const cycle = (pose === "run" ? .18 : pose === "walk" ? .3 : 1.2) * (1 + (i % 3) * .07);
+    const ph = .06 + i * .093;
+    const reps = Math.max(2, 2 * Math.floor(dur / (cycle * 2)));
+
+    breath.forEach((b, k) => {
+      tl.fromTo(b, { y: 0 }, { y: -amp, duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
+        t0 + ph + k * .02);
+    });
+
+    if (moving) {
+      tl.fromTo(w, { x: 0 }, { x: dir * (pose === "run" ? 26 : 14), duration: dur, ease: "sine.inOut" }, t0);
+      const swing = (pose === "run" ? 14 : 8) * (role === "soldier" ? 1.1 : 1);
+      /* 切镜即动：靠反向起步与各自步频错开，而不是延后起摆 */
+      const s0 = i % 2 ? -1 : 1;
+      [[legL, -14, 1], [legR, 14, -1]].forEach(([gs, ox, sgn]) => {
+        gs.forEach((g, k) => {
+          const base = gsap.getProperty(g, "rotation") || 0;
+          tl.fromTo(g, { rotation: base - swing * sgn * s0, svgOrigin: ox + " -44" },
+            { rotation: base + swing * sgn * s0, svgOrigin: ox + " -44", duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
+            t0 + .02 + k * .01);
+        });
+      });
+      [[armL, -19, -1], [armR, 19, 1]].forEach(([gs, ox, sgn]) => {
+        gs.forEach((g) => {
+          const base = gsap.getProperty(g, "rotation") || 0;
+          tl.fromTo(g, { rotation: base - swing * .55 * sgn * s0, svgOrigin: ox + " -130" },
+            { rotation: base + swing * .55 * sgn * s0, svgOrigin: ox + " -130", duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
+            t0 + .02);
+        });
+      });
+    } else {
+      armL.forEach((g) => {
+        const base = gsap.getProperty(g, "rotation") || 0;
+        tl.fromTo(g, { rotation: base }, { rotation: base + 1.3 * dir, svgOrigin: "-19 -130", duration: 1.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor(dur / 1.7)) }, t0 + .2);
+      });
+      armR.forEach((g) => {
+        const base = gsap.getProperty(g, "rotation") || 0;
+        tl.fromTo(g, { rotation: base }, { rotation: base - 1.1 * dir, svgOrigin: "19 -130", duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor(dur / 2.1)) }, t0 + .3);
+      });
+    }
+
+    capeL.forEach((p) => tl.fromTo(p, { scaleX: 1 }, { scaleX: 1.12, transformOrigin: "100% 30%", duration: .7, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.4)) }, t0 + .1));
+    capeR.forEach((p) => tl.fromTo(p, { scaleX: 1 }, { scaleX: 1.1, transformOrigin: "0% 30%", duration: .82, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.64)) }, t0 + .1));
+
+    /* 主角动作：按镜头设计 */
+    if (role !== "general") return;
+    if (shot.id === "r001") {
+      [[1.02], [3.06]].forEach(([tt]) => {
+        tl.to(w, { x: -12, duration: .24, ease: "power2.in" }, t0 + tt)
+          .to(w, { x: 30, duration: .14, ease: "power4.out" }, t0 + tt + .24)
+          .to(w, { x: 0, duration: .82, ease: "power2.inOut" }, t0 + tt + .38);
+        tl.fromTo("#stage", { x: 0 }, { x: 7, duration: .05, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt + .27);
+      });
+    } else if (shot.id === "r002") {
+      [.9, 2.7].forEach((tt) => {
+        tl.fromTo(w, { scale: 1 }, { scale: 1.035, duration: .2, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt);
+      });
+    } else if (shot.id === "r003") {
+      tl.fromTo(w, { y: 0, rotation: 0 }, { y: -6, rotation: -1.2, duration: 1.5, ease: "sine.out" }, t0 + .5);
+      tl.to(w, { y: 0, rotation: 0, duration: 2.6, ease: "sine.inOut" }, t0 + 2.2);
+    } else if (shot.id === "r004") {
+      tl.to(w, { x: -9, duration: 1.25, ease: "sine.out" }, t0 + .35);
+      tl.to(w, { x: 12, duration: .1, ease: "power4.out" }, t0 + 1.68);
+      tl.to(w, { x: 0, duration: .95, ease: "power2.out" }, t0 + 1.78);
+      tl.fromTo("#stage", { x: 0 }, { x: 9, duration: .055, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + 1.7);
+    } else if (shot.id === "r005") {
+      [1.15, 3.45].forEach((tt) => {
+        tl.to(w, { x: 9, duration: .07, ease: "power3.out" }, t0 + tt)
+          .to(w, { x: 0, duration: .55, ease: "power2.out" }, t0 + tt + .07);
+        tl.fromTo("#stage", { x: 0 }, { x: 10, duration: .06, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt);
+      });
+    }
+  });
+}
+
+/* 环境：云、雾、鸟、旗、芦苇、马队、船、军阵、火/烟/雪/尘 */
+function animateEnvironment(el, shot, t0, dur) {
+  el.querySelectorAll(".pc-cloud").forEach((c, k) => {
+    tl.fromTo(c, { x: -10 - (k % 3) * 12 }, { x: 16 + (k % 3) * 14, duration: dur * 1.08, ease: "sine.inOut" }, t0);
+  });
+  el.querySelectorAll(".pc-mist").forEach((m, k) => {
+    tl.fromTo(m, { x: -34, opacity: .5 }, { x: 40, opacity: .82, duration: dur, ease: "sine.inOut" }, t0 + k * .12);
+  });
+  el.querySelectorAll(".pc-birds").forEach((b, k) => {
+    tl.fromTo(b, { x: -46, y: 10 }, { x: 78, y: -14, duration: dur, ease: "sine.inOut" }, t0 + k * .22);
+  });
+  el.querySelectorAll(".pc-banner").forEach((b, k) => {
+    const d = 2.1 + (k % 3) * .3;
+    tl.fromTo(b, { rotation: -1.3 }, { rotation: 1.3, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 4) * .18);
+  });
+  el.querySelectorAll(".pc-pennant").forEach((p, k) => {
+    const d = 1.9 + (k % 3) * .28;
+    tl.fromTo(p, { rotation: -1.1 }, { rotation: 1.1, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 4) * .22);
+  });
+  el.querySelectorAll(".pc-reeds").forEach((g, k) => {
+    const d = 1.7 + (k % 3) * .25;
+    tl.fromTo(g, { rotation: -1.2 }, { rotation: 1.2, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 5) * .16);
+  });
+  el.querySelectorAll(".pc-spears").forEach((s, k) => {
+    tl.fromTo(s, { rotation: -.6 }, { rotation: .6, transformOrigin: "50% 100%", duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / 2.6)) }, t0 + k * .2);
+  });
+  el.querySelectorAll(".pc-cavalry").forEach((h, k) => {
+    tl.fromTo(h, { y: 0, rotation: -1.2 }, { y: -8, rotation: 1.2, transformOrigin: "50% 100%", duration: .19, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / .38)) }, t0 + k * .05);
+    tl.fromTo(h, { x: -12 }, { x: 14, duration: dur, ease: "sine.inOut" }, t0);
+  });
+  el.querySelectorAll(".pc-junk, .pc-warship").forEach((b, k) => {
+    const d = 1.5 + k * .3;
+    tl.fromTo(b, { y: 0, rotation: -.7 }, { y: -6, rotation: .7, transformOrigin: "50% 92%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / (d * 2))) }, t0 + k * .3);
+  });
+  el.querySelectorAll(".pc-army, .pc-crowd").forEach((a, k) => {
+    tl.fromTo(a, { y: 0 }, { y: -2.5, duration: .95, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.9)) }, t0 + k * .15);
+  });
+  el.querySelectorAll(".pc-fire").forEach((f, k) => {
+    tl.fromTo(f, { scaleY: .9, y: 3 }, { scaleY: 1.09, y: -5, duration: .46 + (k % 3) * .07, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.ceil(dur / .5)) }, t0 + (k % 3) * .06);
+  });
+  el.querySelectorAll(".pc-smoke").forEach((s, k) => {
+    tl.fromTo(s, { x: -10 - k * 3, opacity: .5 }, { x: 20 + k * 4, opacity: .86, duration: dur, ease: "sine.inOut" }, t0 + k * .1);
+  });
+  el.querySelectorAll(".pc-snow").forEach((s) => {
+    tl.fromTo(s, { y: -32, x: -8 }, { y: 30, x: 10, duration: dur, ease: "none" }, t0);
+  });
+  el.querySelectorAll(".pc-rain").forEach((r) => {
+    tl.fromTo(r, { y: -40 }, { y: 40, duration: dur, ease: "none" }, t0);
+  });
+  el.querySelectorAll(".pc-embers").forEach((m, k) => {
+    tl.fromTo(m, { y: 28, opacity: .5 }, { y: -42, opacity: .95, duration: dur, ease: "sine.out" }, t0 + (k % 3) * .12);
+  });
+  el.querySelectorAll(".pc-dust").forEach((m, k) => {
+    tl.fromTo(m, { x: -30, opacity: .24 }, { x: 34, opacity: .5, duration: dur, ease: "sine.inOut" }, t0 + k * .1);
+  });
+  el.querySelectorAll(".pc-stars").forEach((m) => {
+    tl.fromTo(m, { opacity: .38 }, { opacity: .92, duration: Math.max(.7, dur / 2), ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 2)) }, t0);
+  });
+  /* 炮口闪光：让开炮发生在运镜落定之后 */
+  el.querySelectorAll(".pc-muzzle").forEach((m) => {
+    [1.15, 3.45].forEach((tt) => {
+      tl.fromTo(m, { scale: .18, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, duration: .11, ease: "power4.out" }, t0 + tt);
+      tl.to(m, { scale: 1.8, opacity: 0, duration: .52, ease: "power2.out" }, t0 + tt + .13);
+    });
+  });
+}
+
+/* 开场钩子：标题砸屏后 1 秒抖屏，振幅按 1.6 次方衰减到 0 */
+function hookShake(el, t0, dur, amp) {
+  const n = Math.round(dur * 30);
+  for (let k = 0; k <= n; k++) {
+    const tt = k / 30;
+    const env = Math.pow(1 - tt / dur, 1.6);
+    const dx = Math.sin(tt * 11 * 2 * Math.PI) * amp * env;
+    const dy = Math.sin(tt * 7.3 * 2 * Math.PI) * amp * .6 * env;
+    tl.set(el, { x: dx, y: dy }, t0 + tt);
+  }
+}
+
+function buildTimeline() {
+  const rootDur = parseFloat(document.getElementById("root").dataset.duration) || 0;
+  const total = CUE.noEndcard ? Math.max(CUE.filmEnd || 0, rootDur) : Math.max(CUE.filmEnd || 0, rootDur, SHOTS.length ? SHOTS[SHOTS.length - 1].t1 + 5.4 : 5.4);
+  tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
+
+  gsap.set(".shot", { autoAlpha: 0 });
+
+  SHOTS.forEach((shot, i) => {
+    const el = document.querySelectorAll("#stage .shot")[i];
+    if (!el) return;
+    const t0 = Number(shot.t0) || 0;
+    const t1 = Number(shot.t1) || t0 + 3.5;
+    const dur = Math.max(0.4, t1 - t0);
+    const world = el.querySelector(".shot-world");
+    const cam = cameraOf(shot);
+    const ease = shot.camera && shot.camera.ease ? shot.camera.ease : "sine.inOut";
+    const hook = !!shot.hook;
+
+    tl.set(el, { autoAlpha: 1 }, t0);
+
+    /* 运镜：两段式（推进 → 收束），缩放走对数空间，速度变化不顿挫 */
+    const cf = cam.from, ct = cam.to;
+    const cs = (a, b, r) => Math.exp(Math.log(a) * (1 - r) + Math.log(b) * r);
+    const mid = {
+      x: (cf.x || 0) + ((ct.x || 0) - (cf.x || 0)) * .58,
+      y: (cf.y || 0) + ((ct.y || 0) - (cf.y || 0)) * .58,
+      scale: cs(cf.scale || 1.02, ct.scale || 1.10, .58),
+      rotation: (cf.rot || 0) + ((ct.rot || 0) - (cf.rot || 0)) * .58
+    };
+    tl.fromTo(world,
+      { x: cf.x || 0, y: cf.y || 0, scale: cf.scale || 1.02, rotation: cf.rot || 0 },
+      { x: mid.x, y: mid.y, scale: mid.scale, rotation: mid.rotation, duration: dur * .58, ease: "power1.inOut" }, t0);
+    tl.to(world,
+      { x: ct.x || 0, y: ct.y || 0, scale: ct.scale || 1.10, rotation: ct.rot || 0, duration: dur * .42, ease },
+      t0 + dur * .58);
+
+    if (hook) {
+      /* 钩子：各层从下方砸入，落定后抖屏 1 秒 */
+      [
+        [".pc-sky", -22, 1.05, 0],
+        [".pc-far", 26, 1.04, .02],
+        [".pc-mid", 64, 1.10, .04],
+        [".pc-action", 96, 1.14, .06],
+        [".pc-fore", 26, 1.04, .08]
+      ].forEach(([sel, y0, s0, delay]) => {
+        const layer = el.querySelector(sel);
+        if (!layer) return;
+        tl.fromTo(layer, { x: 0, y: y0, scale: s0, transformOrigin: "50% 82%" },
+          { x: 0, y: 0, scale: 1, duration: .52, ease: "power4.out" }, t0 + delay);
+      });
+      hookShake(el, t0, 1.0, 14);
+      tl.fromTo("#hook-flash", { opacity: 0 }, { opacity: .95, duration: .04, ease: "none" }, t0);
+      tl.to("#hook-flash", { opacity: 0, duration: .32, ease: "power2.out" }, t0 + .05);
+      tl.fromTo("#hook-ring", { opacity: 0, scale: .32 }, { opacity: .85, scale: 1, duration: .16, ease: "power4.out" }, t0 + .03);
+      tl.to("#hook-ring", { opacity: 0, scale: 1.55, duration: .44, ease: "power2.out" }, t0 + .20);
+    } else {
+      /* 手持浮动：整镜极轻微漂移，去掉三脚架感 */
+      const hs = i % 2 ? 1 : -1;
+      tl.fromTo(el, { x: 0, y: 0 }, { x: hs * 5, y: -3 - (i % 3), duration: dur, ease: "sine.inOut" }, t0);
+
+      /* 层间视差：远景慢、近景快 */
+      el.querySelectorAll(".pc-layer").forEach((layer, j) => {
+        const depth = parseFloat(layer.dataset.depth || "1");
+        const drift = (j % 2 ? 1 : -1) * (12 + depth * 22);
+        tl.fromTo(layer, { x: -drift * .55, y: -6 }, { x: drift, y: 9, duration: dur, ease: "sine.inOut" }, t0);
+      });
+    }
+
+    animateLife(el, shot, t0, dur);
+    animateEnvironment(el, shot, t0, dur);
+
+    /* 标题 */
+    const title = el.querySelector(".shot-title");
+    if (title) {
+      if (hook) {
+        tl.set(title, { xPercent: -50 }, t0);
+        tl.fromTo(title, { opacity: 0, y: 62, scale: 1.52 },
+          { opacity: 1, y: 0, scale: 1, duration: .27, ease: "power4.out" }, t0 + .02);
+        tl.fromTo(title, { scale: 1 }, { scale: 1.032, duration: .42, ease: "power2.out" }, t0 + .30);
+        tl.to(title, { scale: 1, duration: .55, ease: "sine.inOut" }, t0 + .72);
+        const kick = title.querySelector(".tc-kicker");
+        const sub = title.querySelector(".tc-sub");
+        if (kick) {
+          tl.set(kick, { opacity: 0 }, t0);
+          tl.fromTo(kick, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .32, ease: "power3.out" }, t0 + .20);
+        }
+        if (sub) {
+          tl.set(sub, { opacity: 0 }, t0);
+          tl.fromTo(sub, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .36, ease: "power3.out" }, t0 + .36);
+        }
+        tl.to(title, { opacity: 0, y: -26, duration: .38, ease: "power2.in" }, Math.max(t0 + .5, t1 - .46));
+      } else {
+        tl.fromTo(title, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, t0 + .12);
+        tl.to(title, { opacity: 0, y: -18, duration: .38, ease: "power2.in" }, Math.max(t0 + .5, t1 - .48));
+      }
+    }
+
+    /* 纸片转场：章节切换或显式声明 */
+    if (shot.wipe) {
+      tl.set("#paper-wipe", { visibility: "visible" }, Math.max(0, t0 - .22));
+      tl.fromTo("#paper-wipe", { xPercent: -105 }, { xPercent: 105, duration: .44, ease: "power2.inOut" }, Math.max(0, t0 - .22));
+      tl.set("#paper-wipe", { visibility: "hidden" }, t0 + .24);
+    }
+
+    tl.set(el, { autoAlpha: 0 }, t1);
+  });
+
+  /* 字幕 */
+  CAPS.forEach((s, i) => {
+    const el = document.getElementById("cap-" + i);
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: .01, ease: "none" }, s.t);
+    tl.to(el, { opacity: 0, duration: .01, ease: "none" }, Math.max(s.t + .12, s.end - .04));
+  });
+
+  /* 光扫 */
+  tl.fromTo("#light-sweep", { xPercent: -22, opacity: .18 }, { xPercent: 22, opacity: .42, duration: 7, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(total / 7) }, 0);
+
+  /* 片尾 */
+  const endAt = total - 5.4;
+  if (endAt > 0 && !CUE.noEndcard) {
+    tl.to("#stage, #caption-wrap, #subtitle-veil, #vignette", { opacity: 0, duration: .7 }, endAt);
+    tl.fromTo("#endcard", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, endAt + .15);
+    tl.fromTo(".ec-seal", { opacity: 0, scale: 1.3, rotation: -16 }, { opacity: 1, scale: 1, rotation: -6, duration: .6, ease: "back.out(2)" }, endAt + .35);
+    tl.fromTo(".ec-kicker, .ec-title, .ec-sub, .ec-next, .ec-brand", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .65, stagger: .14 }, endAt + .55);
+  }
+
+  window.__timelines["china-emperors-sample30"] = tl;
+}
+
+buildStage();
+buildCaptions();
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(buildTimeline).catch(buildTimeline);
+} else {
+  buildTimeline();
+}
+  </script>
+</body>
+</html>

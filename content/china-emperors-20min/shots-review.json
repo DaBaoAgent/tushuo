@@ -1,0 +1,2185 @@
+[
+ {
+  "id": "r001",
+  "t0": 0.0,
+  "t1": 5.0,
+  "type": "court",
+  "kicker": "公元前227年 · 咸阳宫",
+  "title": "图穷匕见",
+  "subtitle": "荆轲追着秦王，绕柱三圈",
+  "camera": {
+   "from": {
+    "x": -46,
+    "y": 14,
+    "scale": 1.05,
+    "rot": -1.1
+   },
+   "to": {
+    "x": 52,
+    "y": -20,
+    "scale": 1.22,
+    "rot": 0.9
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.18,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f2e3bd",
+      "mid": "#e6c78e",
+      "to": "#b9a071",
+      "glow": "#ffdf9e",
+      "glowO": 0.5,
+      "glowX": 0.5,
+      "glowY": 0.46,
+      "glowW": 0.62,
+      "glowH": 0.34
+     },
+     {
+      "shape": "night",
+      "color": "#3a352d",
+      "opacity": 0.14
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "cloud",
+      "x": 0.08,
+      "y": 0.05,
+      "s": 0.46,
+      "color": "#f7f0df",
+      "opacity": 0.3
+     },
+     {
+      "shape": "cloud",
+      "x": 0.9,
+      "y": 0.04,
+      "s": 0.4,
+      "color": "#f7f0df",
+      "opacity": 0.24
+     },
+     {
+      "shape": "palaceWall",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 1.12,
+      "h": 1.0,
+      "color": "#6b4a33"
+     },
+     {
+      "shape": "rays",
+      "x": 0.5,
+      "y": 0.0,
+      "count": 6,
+      "spread": 1.5,
+      "len": 1.0,
+      "w0": 16,
+      "w1": 170,
+      "color": "#ffe8b0",
+      "opacity": 0.16
+     },
+     {
+      "shape": "throne",
+      "x": 0.5,
+      "y": 0.676,
+      "s": 0.56,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.365,
+      "y": 0.683,
+      "s": 0.34
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.635,
+      "y": 0.683,
+      "s": 0.34
+     },
+     {
+      "shape": "pillar",
+      "x": 0.115,
+      "y": 0.875,
+      "h": 0.66,
+      "w": 26,
+      "color": "#4a3325"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.235,
+      "y": 0.875,
+      "h": 0.66,
+      "w": 26,
+      "color": "#4a3325"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.765,
+      "y": 0.875,
+      "h": 0.66,
+      "w": 26,
+      "color": "#4a3325"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.885,
+      "y": 0.875,
+      "h": 0.66,
+      "w": 26,
+      "color": "#4a3325"
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.545,
+      "w": 1.0,
+      "h": 0.055,
+      "color": "#4a3325",
+      "tex": false
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "drape",
+      "x": 0.25,
+      "y0": -0.05,
+      "len": 0.34,
+      "w": 0.045,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "drape",
+      "x": 0.75,
+      "y0": -0.05,
+      "len": 0.34,
+      "w": 0.045,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "drape",
+      "x": 0.5,
+      "y0": -0.05,
+      "len": 0.2,
+      "w": 0.045,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.33,
+      "y": 0.16,
+      "s": 0.34
+     },
+     {
+      "shape": "lantern",
+      "x": 0.67,
+      "y": 0.16,
+      "s": 0.34
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.62,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.484,
+      "w": 0.34,
+      "h": 0.4,
+      "color": "#ffdf9e",
+      "opacity": 0.5
+     },
+     {
+      "shape": "screen",
+      "x": 0.5,
+      "y": 0.658,
+      "w": 0.3,
+      "h": 0.2,
+      "panels": 5,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.305,
+      "y": 0.78,
+      "h": 0.58,
+      "w": 42,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.695,
+      "y": 0.78,
+      "h": 0.58,
+      "w": 42,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "incense",
+      "x": 0.42,
+      "y": 0.676,
+      "s": 0.4
+     },
+     {
+      "shape": "slips",
+      "x": 0.585,
+      "y": 0.68,
+      "s": 0.34,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "lantern",
+      "x": 0.24,
+      "y": 0.3,
+      "s": 0.42
+     },
+     {
+      "shape": "lantern",
+      "x": 0.76,
+      "y": 0.3,
+      "s": 0.42
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.86,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.74,
+      "w": 2.6,
+      "h": 0.16,
+      "color": "#4a4238"
+     },
+     {
+      "shape": "glow",
+      "x": 0.5,
+      "y": 0.746,
+      "w": 0.62,
+      "h": 0.075,
+      "color": "#ffcf8a",
+      "opacity": 0.24
+     },
+     {
+      "shape": "pillar",
+      "x": 0.125,
+      "y": 0.9,
+      "h": 0.84,
+      "w": 64,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.875,
+      "y": 0.9,
+      "h": 0.84,
+      "w": 64,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "dais",
+      "x": 0.5,
+      "y": 0.766,
+      "w": 0.36,
+      "s": 0.62
+     },
+     {
+      "shape": "dagger",
+      "x": 0.595,
+      "y": 0.728,
+      "s": 0.46,
+      "rot": -70
+     },
+     {
+      "shape": "scroll",
+      "x": 0.6,
+      "y": 0.736,
+      "w": 0.05,
+      "h": 0.032,
+      "paper": "#e2d4b8"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.47,
+      "y": 0.68,
+      "w": 0.4,
+      "h": 0.26,
+      "color": "#ffc074",
+      "opacity": 0.26
+     },
+     {
+      "shape": "pennant",
+      "x": 0.018,
+      "y": 0.99,
+      "s": 0.66,
+      "text": "秦"
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 1.5,
+      "opacity": 0.22
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.19,
+      "y": 0.99,
+      "s": 0.52
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.81,
+      "y": 0.99,
+      "s": 0.52
+     },
+     {
+      "shape": "soldier",
+      "x": 0.83,
+      "y": 0.862,
+      "s": 0.78,
+      "facing": "left",
+      "pose": "brace",
+      "weapon": "spear",
+      "color": "#3a352d"
+     },
+     {
+      "shape": "smoke",
+      "x": 0.42,
+      "y": 0.6,
+      "s": 0.26,
+      "color": "#d9c9a8"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.3,
+    "props": [
+     {
+      "shape": "pillar",
+      "x": 0.045,
+      "y": 1.06,
+      "h": 1.02,
+      "w": 96,
+      "color": "#5a241b"
+     },
+     {
+      "shape": "pillar",
+      "x": 0.955,
+      "y": 1.06,
+      "h": 1.02,
+      "w": 96,
+      "color": "#5a241b"
+     },
+     {
+      "shape": "drape",
+      "x": 0.0,
+      "y0": 0.62,
+      "len": 0.34,
+      "w": 0.12,
+      "color": "#7a241a"
+     },
+     {
+      "shape": "drape",
+      "x": 1.0,
+      "y0": 0.62,
+      "len": 0.34,
+      "w": 0.12,
+      "color": "#7a241a"
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "general",
+    "x": 0.5,
+    "y": 0.72,
+    "s": 1.3,
+    "facing": "left",
+    "pose": "lunge",
+    "weapon": "dagger",
+    "color": "#24211c"
+   },
+   {
+    "role": "emperor",
+    "x": 0.398,
+    "y": 0.72,
+    "s": 1.263,
+    "facing": "left",
+    "pose": "run"
+   },
+   {
+    "role": "official",
+    "x": 0.275,
+    "y": 0.722,
+    "s": 0.891,
+    "facing": "right",
+    "pose": "stand"
+   },
+   {
+    "role": "soldier",
+    "x": 0.72,
+    "y": 0.724,
+    "s": 0.842,
+    "facing": "left",
+    "pose": "brace",
+    "weapon": "spear",
+    "color": "#3a352d"
+   }
+  ]
+ },
+ {
+  "id": "r002",
+  "t0": 5.0,
+  "t1": 10.0,
+  "type": "battle",
+  "kicker": "公元前207年 · 巨鹿",
+  "title": "破釜沉舟",
+  "subtitle": "砸锅、沉船，只带三天粮",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 74,
+    "y": 8,
+    "scale": 1.12,
+    "rot": 0.9
+   },
+   "to": {
+    "x": -64,
+    "y": -14,
+    "scale": 1.06,
+    "rot": -0.8
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.2,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#f6dcae",
+      "mid": "#eab878",
+      "to": "#c9763f",
+      "glow": "#ffd08a",
+      "glowO": 0.6,
+      "glowX": 0.78,
+      "glowY": 0.34,
+      "glowW": 0.9,
+      "glowH": 0.4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.81,
+      "y": 0.11,
+      "r": 52,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.13,
+      "y": 0.06,
+      "s": 0.74
+     },
+     {
+      "shape": "cloud",
+      "x": 0.5,
+      "y": 0.03,
+      "s": 0.44,
+      "color": "#f7f0df"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.79,
+      "y": 0.15,
+      "s": 0.32,
+      "color": "#f7f0df",
+      "opacity": 0.8
+     },
+     {
+      "shape": "mountain",
+      "x": 0.34,
+      "y": 0.628,
+      "w": 1.5,
+      "h": 0.235,
+      "peaks": 9,
+      "seed": 5,
+      "color": "#bf9a68",
+      "facet": "#ad8857",
+      "light": false
+     },
+     {
+      "shape": "mountain",
+      "x": 0.16,
+      "y": 0.662,
+      "w": 1.1,
+      "h": 0.2,
+      "peaks": 7,
+      "color": "#b3895a",
+      "facet": "#9a6b3f",
+      "light": false
+     },
+     {
+      "shape": "mountain",
+      "x": 0.56,
+      "y": 0.678,
+      "w": 1.0,
+      "h": 0.15,
+      "peaks": 8,
+      "seed": 3,
+      "color": "#9a6b3f",
+      "facet": "#7c5227",
+      "lines": true,
+      "light": false
+     },
+     {
+      "shape": "mountain",
+      "x": 0.96,
+      "y": 0.662,
+      "w": 0.62,
+      "h": 0.125,
+      "peaks": 4,
+      "color": "#8a5e36",
+      "facet": "#714a28",
+      "light": false,
+      "lines": true
+     },
+     {
+      "shape": "birds",
+      "x": 0.55,
+      "y": 0.17,
+      "s": 0.44,
+      "count": 7
+     },
+     {
+      "shape": "birds",
+      "x": 0.23,
+      "y": 0.25,
+      "s": 0.28,
+      "count": 4
+     },
+     {
+      "shape": "pine",
+      "x": 0.035,
+      "y": 0.672,
+      "s": 0.3,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "pine",
+      "x": 0.095,
+      "y": 0.678,
+      "s": 0.24,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "pine",
+      "x": 0.965,
+      "y": 0.682,
+      "s": 0.26,
+      "color": "#3a352d"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.678,
+      "w": 2.0,
+      "h": 0.018,
+      "color": "#e8d5ae",
+      "opacity": 0.5
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.7,
+      "w": 2.6,
+      "h": 0.012,
+      "color": "#6b5334",
+      "tex": false
+     },
+     {
+      "shape": "city",
+      "x": 0.63,
+      "y": 0.7,
+      "w": 0.17,
+      "color": "#7c5c3e",
+      "s": 0.55
+     },
+     {
+      "shape": "spears",
+      "x": 0.8,
+      "y": 0.7,
+      "s": 0.2,
+      "count": 7,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.875,
+      "y": 0.7,
+      "s": 0.3,
+      "text": "秦"
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "river",
+      "x": 0.5,
+      "y": 0.706,
+      "w": 2.6,
+      "color": "#2f4b57",
+      "h": 0.126
+     },
+     {
+      "shape": "junk",
+      "x": 0.55,
+      "y": 0.748,
+      "s": 0.8,
+      "facing": "left",
+      "rot": -6,
+      "color": "#223841",
+      "sailColor": "#d9c9a8"
+     },
+     {
+      "shape": "junk",
+      "x": 0.79,
+      "y": 0.756,
+      "s": 0.4,
+      "facing": "left",
+      "rot": 16,
+      "color": "#2f4b57",
+      "sailColor": "#cbb894"
+     },
+     {
+      "shape": "junk",
+      "x": 0.28,
+      "y": 0.752,
+      "s": 0.34,
+      "facing": "right",
+      "rot": -4,
+      "color": "#3a352d",
+      "sailColor": "#cbb894"
+     },
+     {
+      "shape": "fire",
+      "x": 0.6,
+      "y": 0.722,
+      "s": 0.62
+     },
+     {
+      "shape": "smoke",
+      "x": 0.62,
+      "y": 0.62,
+      "s": 0.5,
+      "color": "#9a8f7d"
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.709,
+      "w": 2.6,
+      "h": 0.008,
+      "color": "#d9c9a8",
+      "tex": false
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.86,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.711,
+      "w": 2.6,
+      "h": 0.18,
+      "color": "#8a6540"
+     },
+     {
+      "shape": "cauldron",
+      "x": 0.3,
+      "y": 0.683,
+      "s": 0.85,
+      "rot": -35,
+      "color": "#161616"
+     },
+     {
+      "shape": "rubble",
+      "x": 0.21,
+      "y": 0.806,
+      "s": 0.6,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "spears",
+      "x": 0.92,
+      "y": 0.715,
+      "s": 0.44,
+      "count": 8,
+      "color": "#24211c"
+     },
+     {
+      "shape": "army",
+      "x": 0.9,
+      "y": 0.739,
+      "cols": 4,
+      "rows": 2,
+      "s": 0.18,
+      "color": "#24211c"
+     },
+     {
+      "shape": "grass",
+      "x0": 0.06,
+      "x1": 0.94,
+      "y0": 0.719,
+      "y1": 0.742,
+      "count": 18,
+      "s": 0.8,
+      "color": "#3a352d",
+      "opacity": 0.35
+     },
+     {
+      "shape": "rocks",
+      "x": 0.34,
+      "y": 0.88,
+      "s": 0.34,
+      "color": "#5c452c"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.62,
+      "y": 0.9,
+      "s": 0.28,
+      "color": "#5c452c"
+     },
+     {
+      "shape": "tents",
+      "x": 0.73,
+      "y": 0.728,
+      "s": 0.26,
+      "color": "#5c452c"
+     },
+     {
+      "shape": "rubble",
+      "x": 0.255,
+      "y": 0.703,
+      "s": 0.3,
+      "color": "#24211c"
+     },
+     {
+      "shape": "rubble",
+      "x": 0.345,
+      "y": 0.71,
+      "s": 0.26,
+      "color": "#24211c"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "reeds",
+      "x": 0.035,
+      "y": 0.96,
+      "s": 1.05,
+      "count": 15
+     },
+     {
+      "shape": "rocks",
+      "x": 0.9,
+      "y": 0.94,
+      "s": 0.5,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "grass",
+      "x0": 0.0,
+      "x1": 0.3,
+      "y0": 0.95,
+      "y1": 1.02,
+      "count": 10,
+      "s": 1.1,
+      "color": "#24211c",
+      "opacity": 0.5
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.3,
+    "props": [
+     {
+      "shape": "ridge",
+      "x": 0.5,
+      "y": 1.02,
+      "w": 2.6,
+      "h": 0.14,
+      "color": "#223841"
+     },
+     {
+      "shape": "reeds",
+      "x": 0.975,
+      "y": 1.0,
+      "s": 0.66,
+      "count": 9
+     },
+     {
+      "shape": "rocks",
+      "x": 0.12,
+      "y": 1.02,
+      "s": 0.72,
+      "color": "#1b2a31"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.97,
+      "y": 1.0,
+      "s": 0.85,
+      "color": "#1b2a31"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.42,
+    "props": [
+     {
+      "shape": "embers",
+      "x": 0.6,
+      "y": 0.55,
+      "w": 1.1
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.87,
+      "w": 1.6,
+      "opacity": 0.2
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "general",
+    "x": 0.5,
+    "y": 0.72,
+    "s": 1.3,
+    "facing": "left",
+    "pose": "brace",
+    "weapon": "spear"
+   },
+   {
+    "role": "soldier",
+    "x": 0.61,
+    "y": 0.724,
+    "s": 1.089,
+    "facing": "left",
+    "pose": "run",
+    "weapon": "spear"
+   }
+  ]
+ },
+ {
+  "id": "r003",
+  "t0": 10.0,
+  "t1": 15.0,
+  "type": "steppe",
+  "kicker": "公元前119年 · 漠北",
+  "title": "封狼居胥",
+  "subtitle": "二十一岁，出塞两千余里",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": 54,
+    "y": 24,
+    "scale": 1.04,
+    "rot": 0.5
+   },
+   "to": {
+    "x": -46,
+    "y": -28,
+    "scale": 1.22,
+    "rot": -0.9
+   },
+   "ease": "power1.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.2,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#eef2f0",
+      "mid": "#dfe6e3",
+      "to": "#c6d4d4",
+      "glow": "#ffffff",
+      "glowO": 0.45,
+      "glowX": 0.86,
+      "glowY": 0.26,
+      "glowW": 0.66,
+      "glowH": 0.28
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.87,
+      "y": 0.1,
+      "r": 44,
+      "color": "#c9a24a"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.13,
+      "y": 0.07,
+      "s": 0.58,
+      "color": "#f7f0df"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.58,
+      "y": 0.04,
+      "s": 0.44,
+      "color": "#f7f0df",
+      "opacity": 0.8
+     },
+     {
+      "shape": "mountain",
+      "x": 0.5,
+      "y": 0.66,
+      "w": 2.6,
+      "h": 0.1,
+      "peaks": 11,
+      "seed": 2,
+      "color": "#93a7a6",
+      "light": "#ffffff"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.28,
+      "y": 0.635,
+      "w": 1.4,
+      "h": 0.29,
+      "peaks": 6,
+      "color": "#9faeac",
+      "facet": "#7d8f92",
+      "snow": "#f7f0df",
+      "lines": true
+     },
+     {
+      "shape": "mountain",
+      "x": 0.86,
+      "y": 0.65,
+      "w": 0.56,
+      "h": 0.19,
+      "peaks": 4,
+      "seed": 5,
+      "color": "#8c9c9a",
+      "facet": "#6d7d80",
+      "snow": "#f7f0df"
+     },
+     {
+      "shape": "birds",
+      "x": 0.26,
+      "y": 0.19,
+      "s": 0.34,
+      "count": 5
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "rays",
+      "x": 0.87,
+      "y": 0.06,
+      "count": 5,
+      "spread": 1.0,
+      "len": 0.8,
+      "w0": 12,
+      "w1": 120,
+      "color": "#fff6d8",
+      "opacity": 0.22,
+      "ang": -28
+     },
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.662,
+      "w": 2.0,
+      "h": 0.022,
+      "color": "#f7f0df",
+      "opacity": 0.7
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.676,
+      "w": 2.6,
+      "h": 0.32,
+      "color": "#e9f0ec",
+      "texColor": "#9a6b3f"
+     },
+     {
+      "shape": "ridge",
+      "x": 0.5,
+      "y": 0.722,
+      "w": 2.4,
+      "h": 0.028,
+      "color": "#cbb894"
+     },
+     {
+      "shape": "tents",
+      "x": 0.075,
+      "y": 0.73,
+      "s": 0.5,
+      "color": "#e2d4b8"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.46,
+      "y": 0.732,
+      "s": 0.2,
+      "facing": "right",
+      "color": "#5c6b6b"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.52,
+      "y": 0.735,
+      "s": 0.18,
+      "facing": "right",
+      "color": "#5c6b6b"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.13,
+      "y": 0.728,
+      "s": 0.34,
+      "text": "汉"
+     },
+     {
+      "shape": "army",
+      "x": 0.74,
+      "y": 0.734,
+      "cols": 7,
+      "rows": 2,
+      "s": 0.24,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "spears",
+      "x": 0.6,
+      "y": 0.74,
+      "s": 0.36,
+      "count": 9,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.94,
+      "y": 0.748,
+      "s": 0.48,
+      "facing": "left",
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "pine",
+      "x": 0.02,
+      "y": 0.742,
+      "s": 0.34,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "pine",
+      "x": 0.985,
+      "y": 0.748,
+      "s": 0.3,
+      "color": "#3a352d"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "glow",
+      "x": 0.74,
+      "y": 0.76,
+      "w": 0.16,
+      "h": 0.2,
+      "color": "#ffdf9e",
+      "opacity": 0.35
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.702,
+      "w": 2.6,
+      "h": 0.2,
+      "color": "#f7f0df",
+      "texColor": "#9a6b3f"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.56,
+      "y": 0.768,
+      "s": 0.44,
+      "facing": "left",
+      "color": "#3a352d"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.87,
+      "y": 0.792,
+      "s": 0.5,
+      "facing": "left",
+      "color": "#2f4b57"
+     },
+     {
+      "shape": "fire",
+      "x": 0.105,
+      "y": 0.782,
+      "s": 0.4
+     },
+     {
+      "shape": "rocks",
+      "x": 0.12,
+      "y": 0.86,
+      "s": 0.42,
+      "color": "#b8a684"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.9,
+      "y": 0.87,
+      "s": 0.34,
+      "color": "#cbb894"
+     },
+     {
+      "shape": "fire",
+      "x": 0.735,
+      "y": 0.8,
+      "s": 0.3
+     },
+     {
+      "shape": "pine",
+      "x": 0.055,
+      "y": 0.84,
+      "s": 0.5,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "pine",
+      "x": 0.115,
+      "y": 0.846,
+      "s": 0.42,
+      "color": "#3a352d"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "altar",
+      "x": 0.74,
+      "y": 0.752,
+      "s": 0.92,
+      "color": "#9a6b3f"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.74,
+      "y": 0.722,
+      "s": 0.42,
+      "text": "汉"
+     },
+     {
+      "shape": "pine",
+      "x": 0.035,
+      "y": 0.96,
+      "s": 0.92,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.9,
+      "y": 0.94,
+      "s": 0.72,
+      "facing": "left",
+      "color": "#3a352d"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.24,
+      "y": 0.99,
+      "s": 0.5,
+      "color": "#cbb894"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.02,
+      "y": 0.99,
+      "s": 0.8,
+      "color": "#b8a684"
+     },
+     {
+      "shape": "cavalry",
+      "x": 0.12,
+      "y": 0.965,
+      "s": 0.95,
+      "facing": "right",
+      "color": "#3d4444"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.3,
+    "props": [
+     {
+      "shape": "ridge",
+      "x": 0.5,
+      "y": 0.945,
+      "w": 2.6,
+      "h": 0.04,
+      "color": "#cbb894"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.9,
+      "y": 0.97,
+      "s": 0.46,
+      "color": "#b8a684"
+     },
+     {
+      "shape": "ridge",
+      "x": 0.3,
+      "y": 0.985,
+      "w": 1.2,
+      "h": 0.035,
+      "color": "#f7f0df"
+     },
+     {
+      "shape": "grass",
+      "x0": 0.55,
+      "x1": 1.0,
+      "y0": 0.93,
+      "y1": 0.97,
+      "count": 8,
+      "s": 0.7,
+      "color": "#b8a684",
+      "opacity": 0.5
+     },
+     {
+      "shape": "ridge",
+      "x": 0.18,
+      "y": 0.955,
+      "w": 0.9,
+      "h": 0.022,
+      "color": "#e9e0cb"
+     },
+     {
+      "shape": "ridge",
+      "x": 0.72,
+      "y": 0.975,
+      "w": 0.7,
+      "h": 0.018,
+      "color": "#e2d8c0"
+     },
+     {
+      "shape": "pine",
+      "x": 0.955,
+      "y": 0.945,
+      "s": 0.42,
+      "color": "#4a5050"
+     },
+     {
+      "shape": "pine",
+      "x": 0.9,
+      "y": 0.952,
+      "s": 0.32,
+      "color": "#3a4444"
+     },
+     {
+      "shape": "grass",
+      "x0": 0.26,
+      "x1": 0.62,
+      "y0": 0.958,
+      "y1": 0.985,
+      "count": 22,
+      "s": 0.42,
+      "color": "#b9ab8c",
+      "opacity": 0.5
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.42,
+    "props": [
+     {
+      "shape": "snow",
+      "x": 0.5,
+      "y": 0.5,
+      "s": 1.0
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "general",
+    "x": 0.5,
+    "y": 0.72,
+    "s": 1.3,
+    "facing": "right",
+    "pose": "raise",
+    "weapon": "sword"
+   },
+   {
+    "role": "soldier",
+    "x": 0.61,
+    "y": 0.724,
+    "s": 1.065,
+    "facing": "right",
+    "pose": "stand",
+    "weapon": "spear"
+   }
+  ]
+ },
+ {
+  "id": "r004",
+  "t0": 15.0,
+  "t1": 20.0,
+  "type": "night",
+  "kicker": "公元626年 · 长安",
+  "title": "玄武门",
+  "subtitle": "一箭，改写了继承",
+  "wipe": false,
+  "camera": {
+   "from": {
+    "x": -32,
+    "y": 24,
+    "scale": 1.05,
+    "rot": -2.0
+   },
+   "to": {
+    "x": 36,
+    "y": -16,
+    "scale": 1.24,
+    "rot": 1.4
+   },
+   "ease": "power2.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.2,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#142730",
+      "mid": "#22414d",
+      "to": "#2f4b57",
+      "glow": "#cfbc98",
+      "glowO": 0.3,
+      "glowX": 0.85,
+      "glowY": 0.12,
+      "glowW": 0.5,
+      "glowH": 0.26
+     },
+     {
+      "shape": "night",
+      "color": "#1b2e36",
+      "opacity": 0.5
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.32,
+    "props": [
+     {
+      "shape": "stars",
+      "opacity": 0.72
+     },
+     {
+      "shape": "moon",
+      "x": 0.85,
+      "y": 0.09,
+      "r": 50,
+      "color": "#f7f0df"
+     },
+     {
+      "shape": "halo",
+      "x": 0.85,
+      "y": 0.09,
+      "r": 74,
+      "color": "#f7f0df",
+      "rings": 2
+     },
+     {
+      "shape": "city",
+      "x": 0.4,
+      "y": 0.72,
+      "w": 1.8,
+      "color": "#1b2a31"
+     },
+     {
+      "shape": "cloud",
+      "x": 0.15,
+      "y": 0.13,
+      "s": 0.56,
+      "color": "#1b2a31"
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.48,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.685,
+      "w": 2.0,
+      "h": 0.024,
+      "color": "#2f4b57",
+      "opacity": 0.44
+     },
+     {
+      "shape": "ridge",
+      "x": 0.5,
+      "y": 0.702,
+      "w": 2.3,
+      "h": 0.05,
+      "color": "#1b2a31"
+     },
+     {
+      "shape": "rays",
+      "x": 0.85,
+      "y": 0.06,
+      "count": 4,
+      "spread": 0.8,
+      "len": 0.7,
+      "w0": 8,
+      "w1": 70,
+      "color": "#f7f0df",
+      "opacity": 0.1,
+      "ang": -20
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.66,
+    "props": [
+     {
+      "shape": "gate",
+      "x": 0.5,
+      "y": 0.69,
+      "w": 0.32,
+      "h": 0.26,
+      "color": "#3a352d",
+      "door": "#8a7a5c"
+     },
+     {
+      "shape": "banner",
+      "x": 0.2,
+      "y": 0.6,
+      "s": 0.5,
+      "color": "#8e2b20"
+     },
+     {
+      "shape": "banner",
+      "x": 0.8,
+      "y": 0.6,
+      "s": 0.5,
+      "color": "#8e2b20",
+      "flip": true
+     },
+     {
+      "shape": "lantern",
+      "x": 0.18,
+      "y": 0.18,
+      "s": 0.48
+     },
+     {
+      "shape": "lantern",
+      "x": 0.82,
+      "y": 0.18,
+      "s": 0.48
+     },
+     {
+      "shape": "lantern",
+      "x": 0.33,
+      "y": 0.56,
+      "s": 0.28
+     },
+     {
+      "shape": "lantern",
+      "x": 0.67,
+      "y": 0.56,
+      "s": 0.28
+     },
+     {
+      "shape": "crowd",
+      "x": 0.5,
+      "y": 0.704,
+      "s": 0.5,
+      "color": "#24211c"
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.22,
+      "y": 0.732,
+      "s": 0.4
+     },
+     {
+      "shape": "candelabra",
+      "x": 0.78,
+      "y": 0.732,
+      "s": 0.4
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.9,
+    "props": [
+     {
+      "shape": "arrows",
+      "x": 0.14,
+      "y": 0.34,
+      "s": 0.4,
+      "count": 5,
+      "ang": 86,
+      "color": "#cfbc98"
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.822,
+      "w": 2.6,
+      "h": 0.18,
+      "color": "#2a2a26"
+     },
+     {
+      "shape": "arrows",
+      "x": 0.38,
+      "y": 0.37,
+      "s": 0.54,
+      "count": 8,
+      "ang": 80,
+      "color": "#d9c9a8"
+     },
+     {
+      "shape": "arrows",
+      "x": 0.57,
+      "y": 0.41,
+      "s": 1.0,
+      "count": 1,
+      "ang": 74,
+      "color": "#f7f0df"
+     },
+     {
+      "shape": "fire",
+      "x": 0.11,
+      "y": 0.707,
+      "s": 0.46
+     },
+     {
+      "shape": "smoke",
+      "x": 0.6,
+      "y": 0.56,
+      "s": 0.36,
+      "color": "#3a352d"
+     },
+     {
+      "shape": "rubble",
+      "x": 0.5,
+      "y": 0.83,
+      "s": 0.5,
+      "color": "#8e2b20"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.14,
+    "props": [
+     {
+      "shape": "banner",
+      "x": 0.018,
+      "y": 0.92,
+      "s": 0.84,
+      "color": "#b33a2b"
+     },
+     {
+      "shape": "banner",
+      "x": 0.982,
+      "y": 0.92,
+      "s": 0.8,
+      "color": "#b33a2b",
+      "flip": true
+     },
+     {
+      "shape": "spears",
+      "x": 0.925,
+      "y": 0.92,
+      "s": 0.44,
+      "count": 5,
+      "color": "#24211c"
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.3,
+    "props": [
+     {
+      "shape": "ridge",
+      "x": 0.5,
+      "y": 0.98,
+      "w": 2.6,
+      "h": 0.14,
+      "color": "#1b2a31"
+     },
+     {
+      "shape": "fire",
+      "x": 0.05,
+      "y": 0.95,
+      "s": 0.4
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.9,
+      "w": 1.5,
+      "opacity": 0.22
+     },
+     {
+      "shape": "rocks",
+      "x": 0.03,
+      "y": 1.02,
+      "s": 0.8,
+      "color": "#16242a"
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "general",
+    "x": 0.5,
+    "y": 0.72,
+    "s": 1.3,
+    "facing": "right",
+    "pose": "aim",
+    "weapon": "bow"
+   },
+   {
+    "role": "official",
+    "x": 0.595,
+    "y": 0.724,
+    "s": 1.089,
+    "facing": "left",
+    "pose": "run",
+    "color": "#2f4b57"
+   },
+   {
+    "role": "soldier",
+    "x": 0.7,
+    "y": 0.728,
+    "s": 0.941,
+    "facing": "left",
+    "pose": "run",
+    "weapon": "sword",
+    "color": "#9a6b3f"
+   }
+  ]
+ },
+ {
+  "id": "r005",
+  "t0": 20.0,
+  "t1": 25.0,
+  "type": "sea",
+  "kicker": "1840年 · 虎门",
+  "title": "炮口对炮口",
+  "subtitle": "几千年帝制，撞上蒸汽机",
+  "wipe": true,
+  "camera": {
+   "from": {
+    "x": -80,
+    "y": 8,
+    "scale": 1.1,
+    "rot": 1.1
+   },
+   "to": {
+    "x": 70,
+    "y": -16,
+    "scale": 1.2,
+    "rot": -1.0
+   },
+   "ease": "sine.inOut"
+  },
+  "layers": [
+   {
+    "kind": "sky",
+    "depth": 0.2,
+    "props": [
+     {
+      "shape": "skygrad",
+      "from": "#33444b",
+      "mid": "#7d8584",
+      "to": "#d3b183",
+      "glow": "#f0c184",
+      "glowO": 0.65,
+      "glowX": 0.3,
+      "glowY": 0.6,
+      "glowW": 0.6,
+      "glowH": 0.3
+     },
+     {
+      "shape": "night",
+      "color": "#16242a",
+      "opacity": 0.16
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.3,
+    "props": [
+     {
+      "shape": "sun",
+      "x": 0.3,
+      "y": 0.615,
+      "r": 72,
+      "color": "#c9763f"
+     },
+     {
+      "shape": "rays",
+      "x": 0.3,
+      "y": 0.6,
+      "count": 7,
+      "spread": 1.9,
+      "len": 1.0,
+      "w0": 14,
+      "w1": 150,
+      "ang": -22,
+      "color": "#f4b878",
+      "opacity": 0.16
+     },
+     {
+      "shape": "cloud",
+      "x": 0.18,
+      "y": 0.05,
+      "s": 1.4,
+      "color": "#3d4a4e",
+      "opacity": 0.8
+     },
+     {
+      "shape": "cloud",
+      "x": 0.7,
+      "y": 0.02,
+      "s": 1.05,
+      "color": "#465356",
+      "opacity": 0.5
+     },
+     {
+      "shape": "cloud",
+      "x": 0.5,
+      "y": 0.12,
+      "s": 0.7,
+      "color": "#5c6866",
+      "opacity": 0.5
+     },
+     {
+      "shape": "cloud",
+      "x": 0.88,
+      "y": 0.17,
+      "s": 0.5,
+      "color": "#6b7573",
+      "opacity": 0.3
+     },
+     {
+      "shape": "mountain",
+      "x": 0.03,
+      "y": 0.648,
+      "w": 0.85,
+      "h": 0.19,
+      "peaks": 6,
+      "color": "#22343a",
+      "facet": "#16242a"
+     },
+     {
+      "shape": "mountain",
+      "x": 0.79,
+      "y": 0.662,
+      "w": 0.58,
+      "h": 0.12,
+      "peaks": 4,
+      "seed": 9,
+      "color": "#2b4046",
+      "light": "#e8b878"
+     },
+     {
+      "shape": "birds",
+      "x": 0.52,
+      "y": 0.2,
+      "s": 0.34,
+      "count": 7
+     },
+     {
+      "shape": "cloud",
+      "x": 0.38,
+      "y": 0.44,
+      "s": 0.7,
+      "color": "#c98a5a",
+      "opacity": 0.35
+     },
+     {
+      "shape": "cloud",
+      "x": 0.1,
+      "y": 0.33,
+      "s": 0.5,
+      "color": "#8f7a63",
+      "opacity": 0.4
+     }
+    ]
+   },
+   {
+    "kind": "far",
+    "depth": 0.44,
+    "props": [
+     {
+      "shape": "mist",
+      "x": 0.5,
+      "y": 0.68,
+      "w": 2.0,
+      "h": 0.02,
+      "color": "#d9b98a",
+      "opacity": 0.45
+     },
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.703,
+      "w": 2.6,
+      "h": 0.012,
+      "color": "#3a4a4f",
+      "tex": false
+     }
+    ]
+   },
+   {
+    "kind": "mid",
+    "depth": 0.64,
+    "props": [
+     {
+      "shape": "river",
+      "x": 0.5,
+      "y": 0.708,
+      "w": 2.6,
+      "color": "#223841",
+      "h": 0.124
+     },
+     {
+      "shape": "junk",
+      "x": 0.34,
+      "y": 0.754,
+      "s": 0.6,
+      "facing": "right",
+      "color": "#16242a",
+      "sailColor": "#8c7a5c"
+     },
+     {
+      "shape": "warship",
+      "x": 0.78,
+      "y": 0.758,
+      "s": 1.0,
+      "facing": "left",
+      "color": "#16242a"
+     },
+     {
+      "shape": "smoke",
+      "x": 0.85,
+      "y": 0.63,
+      "s": 0.54,
+      "color": "#6f6a5e"
+     }
+    ]
+   },
+   {
+    "kind": "action",
+    "depth": 0.88,
+    "props": [
+     {
+      "shape": "plate",
+      "x": 0.5,
+      "y": 0.713,
+      "w": 2.6,
+      "h": 0.17,
+      "color": "#6b543c"
+     },
+     {
+      "shape": "fort",
+      "x": 0.07,
+      "y": 0.721,
+      "w": 0.3,
+      "s": 0.9,
+      "color": "#24211c"
+     },
+     {
+      "shape": "cannon",
+      "x": 0.19,
+      "y": 0.731,
+      "s": 1.22,
+      "facing": "right",
+      "color": "#1b1b18"
+     },
+     {
+      "shape": "cannon",
+      "x": 0.325,
+      "y": 0.748,
+      "s": 0.64,
+      "facing": "right",
+      "color": "#1b1b18"
+     },
+     {
+      "shape": "sandbags",
+      "x": 0.135,
+      "y": 0.757,
+      "w": 0.22,
+      "s": 0.5,
+      "color": "#8a7a5c"
+     },
+     {
+      "shape": "rubble",
+      "x": 0.02,
+      "y": 0.88,
+      "s": 0.46,
+      "color": "#1b1b18"
+     },
+     {
+      "shape": "muzzle",
+      "x": 0.272,
+      "y": 0.653,
+      "r": 78
+     },
+     {
+      "shape": "grass",
+      "x0": 0.3,
+      "x1": 0.98,
+      "y0": 0.727,
+      "y1": 0.765,
+      "count": 16,
+      "s": 0.8,
+      "color": "#1b1b18",
+      "opacity": 0.45
+     },
+     {
+      "shape": "smoke",
+      "x": 0.33,
+      "y": 0.623,
+      "s": 0.34,
+      "color": "#6f6a5e"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.055,
+      "y": 0.663,
+      "s": 0.5,
+      "text": "清"
+     },
+     {
+      "shape": "glow",
+      "x": 0.29,
+      "y": 0.658,
+      "w": 0.22,
+      "h": 0.16,
+      "color": "#ffd27a",
+      "opacity": 0.9
+     },
+     {
+      "shape": "rocks",
+      "x": 0.0,
+      "y": 0.96,
+      "s": 0.95,
+      "color": "#16242a"
+     },
+     {
+      "shape": "glow",
+      "x": 0.27,
+      "y": 0.658,
+      "w": 0.32,
+      "h": 0.22,
+      "color": "#ff8a3c",
+      "opacity": 0.28
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.12,
+    "props": [
+     {
+      "shape": "cannon",
+      "x": 0.075,
+      "y": 1.12,
+      "s": 1.9,
+      "facing": "right",
+      "color": "#101d22"
+     },
+     {
+      "shape": "pennant",
+      "x": 0.018,
+      "y": 0.955,
+      "s": 0.76,
+      "text": "清"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.965,
+      "y": 0.93,
+      "s": 0.62,
+      "color": "#16242a"
+     },
+     {
+      "shape": "rocks",
+      "x": 0.06,
+      "y": 1.0,
+      "s": 0.7,
+      "color": "#16242a"
+     },
+     {
+      "shape": "grass",
+      "x0": 0.0,
+      "x1": 0.24,
+      "y0": 0.95,
+      "y1": 1.02,
+      "count": 10,
+      "s": 1.1,
+      "color": "#16242a",
+      "opacity": 0.55
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.3,
+    "props": [
+     {
+      "shape": "reeds",
+      "x": 0.96,
+      "y": 0.99,
+      "s": 0.6,
+      "count": 8
+     }
+    ]
+   },
+   {
+    "kind": "fore",
+    "depth": 1.42,
+    "props": [
+     {
+      "shape": "embers",
+      "x": 0.58,
+      "y": 0.62,
+      "w": 1.1
+     },
+     {
+      "shape": "dust",
+      "x": 0.5,
+      "y": 0.88,
+      "w": 1.6,
+      "opacity": 0.22
+     }
+    ]
+   }
+  ],
+  "chars": [
+   {
+    "role": "general",
+    "x": 0.5,
+    "y": 0.72,
+    "s": 1.3,
+    "facing": "right",
+    "pose": "brace",
+    "weapon": "sword"
+   },
+   {
+    "role": "soldier",
+    "x": 0.61,
+    "y": 0.724,
+    "s": 1.089,
+    "facing": "right",
+    "pose": "lunge",
+    "weapon": "spear"
+   }
+  ]
+ }
+]

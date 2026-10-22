@@ -38,17 +38,17 @@ description: tushuo 历史讲解片定稿管线（HyperFrames + GPT-SoVITS dabao
 tools\tts.cmd --text-file content\<slug>\口播稿.txt --out output\<slug>\narration.mp3
 ```
 
-- 参数以 `D:\GPT-SoVITS\voices\dabao\preset.json` 为准：cut1、speed 1.0、
-  temperature 1.0、top_p 1.0、top_k 15、seed 20261020、≤78 字、6.2 字/秒守卫、
-  240/185 ms 压停顿、44.1 kHz 单声道 mp3 192k。
-- 逐段回读 `narration-chunks/*.json`；整句被吞时单独合成缺句，按 20 ms 插回。
-- 多音字按 `docs/读音规范.md`；按幕修音用 `--act N`。
+- 参数以 `vendor\gpt-sovits\tts_server.py` 的 `LOCKED` 为准：cut1、speed 1.0、
+  repetition_penalty 1.35、temperature 0.80、top_p 0.95、top_k 15、seed 666、
+  ≤78 字、段前 30 ms、段间 20 ms、44.1 kHz 单声道 mp3 192k。
+- 逐段回读 `narration.json` 的 `chunks`；整句被吞时用 `--only N` 单独重合成。
+- 多音字按 `docs/读音规范.md`，改动进 `tools\dabao_batch_tts.py` 的 `SPEAK_FIXES`。
 
 ### 3. 转写与字幕
 
 ```powershell
 tools\transcribe_dabao.cmd --audio output\<slug>\narration.mp3 --out output\<slug>\transcript.json
-python tools\hf_audio_meta.py --hyperframes films\<slug> `
+vendor\gpt-sovits\.venv\Scripts\python.exe tools\hf_audio_meta.py --hyperframes films\<slug> `
   --audio output\<slug>\narration.mp3 --words output\<slug>\transcript.json --frame-id 1
 ```
 
@@ -84,7 +84,6 @@ npx --yes hyperframes snapshot --at 0.5,3.3,6.5,17,25.8,32,34.5,45.5,50.5 --no-e
 ### 6. 渲染（Windows）
 
 ```bash
-HYPERFRAMES_BROWSER_PATH="C:/Users/Administrator/AppData/Local/Google/Chrome/Application/chrome.exe" \
 npx --yes hyperframes render -o "renders/<slug>-v4.mp4" \
   --no-browser-gpu --workers 1 --low-memory-mode --quality delivery --quiet
 ```
@@ -116,6 +115,9 @@ ffmpeg -i "$F" -af loudnorm=print_format=json -f null -
 
 - 交付 1080p 主片 + 720p 审阅版 + `output/<slug>/QA.md`；QA 写 SHA256、规格、黑帧、
   响度、峰值、render revision、限制。
+- 交付时必须附 `发布信息.txt`（全管线统一口径）：恰好两行。第一行标题 **≤25 字、两段式强钩子**
+  （问号/冒号/感叹号分隔），数字用阿拉伯数字；第二行恰好 4 个 `#话题`。
+  示例：`华夏延续170万年！有10次差点灭亡`。
 - 交付前做独立 verification 复核；PASS 才交付。若代理未返回，如实写明。
 
 ## 不要做

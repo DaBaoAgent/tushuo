@@ -1,0 +1,22 @@
+[
+ {"id":"s001","t0":0.0,"t1":4.0,"type":"title","kicker":"公元前221年","title":"六王毕，四海一","subtitle":"一个人的天下，开始了","wipe":true,
+  "camera":{"from":{"x":0,"y":10,"scale":1.02,"rot":0},"to":{"x":-30,"y":-10,"scale":1.14,"rot":-1}},
+  "chars":[{"role":"emperor","x":0.5,"y":0.8,"s":1.1,"facing":"right"}]},
+ {"id":"s002","t0":4.0,"t1":8.0,"type":"court","kicker":"咸阳宫","title":"朝堂之上","subtitle":"谁来替皇帝治理天下",
+  "camera":{"from":{"x":30,"y":0,"scale":1.16,"rot":1},"to":{"x":-20,"y":-12,"scale":1.04,"rot":0}},
+  "chars":[{"role":"emperor","x":0.5,"y":0.78,"s":1.2,"facing":"right"},{"role":"official","x":0.3,"y":0.88,"s":1.0,"facing":"right"},{"role":"official","x":0.7,"y":0.88,"s":1.0,"facing":"left"}]},
+ {"id":"s003","t0":8.0,"t1":12.0,"type":"wall","kicker":"北境","title":"万里长城","subtitle":"把草原挡在墙外","wipe":true,
+  "camera":{"from":{"x":-40,"y":0,"scale":1.1,"rot":-2},"to":{"x":40,"y":-20,"scale":1.22,"rot":1}},
+  "chars":[{"role":"soldier","x":0.3,"y":0.8,"s":1.2,"facing":"right"}]},
+ {"id":"s004","t0":12.0,"t1":16.0,"type":"battle","kicker":"巨鹿","title":"破釜沉舟","subtitle":"项羽的赌局",
+  "camera":{"from":{"x":-20,"y":10,"scale":1.05,"rot":0},"to":{"x":20,"y":-10,"scale":1.2,"rot":2}},
+  "chars":[{"role":"general","x":0.28,"y":0.86,"s":1.3,"facing":"right"},{"role":"general","x":0.72,"y":0.86,"s":1.3,"facing":"left","color":"#2f4b57"}]},
+ {"id":"s005","t0":16.0,"t1":20.0,"type":"map","kicker":"天下","title":"十八路诸侯","subtitle":"地图上的裂口","wipe":true,
+  "camera":{"from":{"x":0,"y":-10,"scale":1.03,"rot":0},"to":{"x":0,"y":10,"scale":1.18,"rot":0}}},
+ {"id":"s006","t0":20.0,"t1":24.0,"type":"river","kicker":"长江","title":"百万雄师","subtitle":"船头对着船头",
+  "camera":{"from":{"x":-30,"y":0,"scale":1.08,"rot":0},"to":{"x":30,"y":-14,"scale":1.2,"rot":-1}}},
+ {"id":"s007","t0":24.0,"t1":28.0,"type":"object","kicker":"传国玉玺","title":"受命于天","subtitle":"一块玉，压住四百年的争夺","seal":"玺","wipe":true,
+  "camera":{"from":{"x":0,"y":20,"scale":1.0,"rot":-2},"to":{"x":0,"y":-16,"scale":1.16,"rot":0}}},
+ {"id":"s008","t0":28.0,"t1":32.0,"type":"tomb","kicker":"骊山","title":"始皇陵","subtitle":"地下的帝国",
+  "camera":{"from":{"x":-16,"y":0,"scale":1.1,"rot":0},"to":{"x":16,"y":-10,"scale":1.0,"rot":1}}}
+]

@@ -1,0 +1,338 @@
+{
+ "yuan": {
+  "name": "袁绍",
+  "side": "yuan",
+  "role": "主帅",
+  "height": 320,
+  "missing": false,
+  "file": "yuan.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "zhanghe": {
+  "name": "张郃",
+  "side": "yuan",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "zhanghe.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "gaolan": {
+  "name": "高览",
+  "side": "yuan",
+  "role": "偏将",
+  "height": 230,
+  "missing": true,
+  "file": "gaolan.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "yuantan": {
+  "name": "袁谭",
+  "side": "yuan",
+  "role": "偏将",
+  "height": 230,
+  "missing": true,
+  "file": "yuantan.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "jushou": {
+  "name": "沮授",
+  "side": "yuan",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "jushou.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "guotu": {
+  "name": "郭图",
+  "side": "yuan",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "guotu.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xuyou": {
+  "name": "许攸",
+  "side": "yuan",
+  "role": "谋士",
+  "height": 230,
+  "missing": true,
+  "file": "xuyou.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "cao": {
+  "name": "曹操",
+  "side": "cao",
+  "role": "主帅",
+  "height": 320,
+  "missing": false,
+  "file": "cao.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "caohong": {
+  "name": "曹洪",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "caohong.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xuhuang": {
+  "name": "徐晃",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "xuhuang.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "shihuan": {
+  "name": "史涣",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": true,
+  "file": "shihuan.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "zhangliao": {
+  "name": "张辽",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "zhangliao.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "yujin": {
+  "name": "于禁",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "yujin.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "lejin": {
+  "name": "乐进",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "lejin.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xuchu": {
+  "name": "许褚",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "xuchu.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xiahouyuan": {
+  "name": "夏侯渊",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "xiahouyuan.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "caoren": {
+  "name": "曹仁",
+  "side": "cao",
+  "role": "偏将",
+  "height": 230,
+  "missing": false,
+  "file": "caoren.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xunyou": {
+  "name": "荀攸",
+  "side": "cao",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "xunyou.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "guojia": {
+  "name": "郭嘉",
+  "side": "cao",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "guojia.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "jiaxu": {
+  "name": "贾诩",
+  "side": "cao",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "jiaxu.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "shenpei": {
+  "name": "审配",
+  "side": "yuan",
+  "role": "留守",
+  "height": 270,
+  "missing": false,
+  "file": "shenpei.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "fengji": {
+  "name": "逢纪",
+  "side": "yuan",
+  "role": "谋士",
+  "height": 230,
+  "missing": false,
+  "file": "fengji.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "tianfeng": {
+  "name": "田丰",
+  "side": "grey",
+  "role": "谋士 · 下狱",
+  "height": 230,
+  "missing": false,
+  "file": "tianfeng.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "xunyu": {
+  "name": "荀彧",
+  "side": "cao",
+  "role": "守尚书令",
+  "height": 270,
+  "missing": false,
+  "file": "xunyu.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "yanliang": {
+  "name": "颜良",
+  "side": "yuan",
+  "role": "围白马",
+  "height": 230,
+  "missing": false,
+  "file": "yanliang.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "wenchou": {
+  "name": "文丑",
+  "side": "yuan",
+  "role": "延津",
+  "height": 230,
+  "missing": false,
+  "file": "wenchou.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "liu": {
+  "name": "刘备",
+  "side": "yuan",
+  "role": "客将",
+  "height": 230,
+  "missing": false,
+  "file": "liu.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ },
+ "chunyuqiong": {
+  "name": "淳于琼",
+  "side": "yuan",
+  "role": "护粮",
+  "height": 230,
+  "missing": true,
+  "file": "chunyuqiong.png",
+  "anchor": [
+   0.5,
+   0.9722
+  ]
+ }
+}
