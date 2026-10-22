@@ -323,7 +323,7 @@ def sc_map(pal="day", banners=2, extra=None, arrows=False):
     P = PAL[pal]
     far = [sh("mountain", x=.18, y=.8, w=.8, h=.2, color=P["far"]),
            sh("mountain", x=.86, y=.78, w=.7, h=.18, color=P["far"])]
-    mid = [sh("map", x=.5, y=.56, w=.9, h=.54)]
+    mid = [sh("map", x=.5, y=.58, w=.72, h=.46)]
     act = [sh("plate", x=.5, y=.96, w=2.6, h=.12),
            sh("candelabra", x=.08, y=.99, s=.6, color=C["ochre"]),
            sh("candelabra", x=.92, y=.99, s=.6, color=C["ochre"])]
@@ -470,7 +470,7 @@ def sc_execution(pal="gloom", crowd=True):
     P = PAL[pal]
     far = [sh("city", x=.5, y=.7, w=1.5, color=P["ink"]),
            sh("cloud", x=.3, y=.14, s=.9, color=C["white"], opacity=.2)]
-    mid = [sh("gate", x=.5, y=.9, w=.58, h=.3, color=P["ink"]),
+    mid = [sh("gate", x=.5, y=.9, w=.58, h=.3, color=P["ink"], door=C["ink2"]),
            sh("spears", x=.2, y=1.0, count=5, s=.9),
            sh("spears", x=.8, y=1.0, count=5, s=.9)]
     act = [sh("plate", x=.5, y=.93, w=2.6, h=.14)]
@@ -593,7 +593,7 @@ def sc_portrait(pal="gold", back="sun", prop=None):
             L("fore", 1.12, *fore)]
 
 
-def sc_plain(pal="steppe", tree=True, army=False):
+def sc_plain(pal="steppe", tree=True, army=False, pines=0):
     P = PAL[pal]
     far = [sh("sun", x=.8, y=.18, r=64, color=P["sun"]),
            sh("cloud", x=.26, y=.14, s=1.0, color=C["white"], opacity=.3),
@@ -602,6 +602,9 @@ def sc_plain(pal="steppe", tree=True, army=False):
     act = [sh("grass", x0=0, x1=1, y0=.86, y1=.98, count=22, opacity=.3, color=P["ink"])]
     if tree:
         act += [sh("tree", x=.16, y=.9, s=.9), sh("pine", x=.86, y=.92, s=.8)]
+    for i in range(pines):
+        act.append(sh("pine", x=.1 + i * (.8 / max(pines - 1, 1)),
+                      y=.9 + (i % 2) * .015, s=.6 + (i % 3) * .08))
     if army:
         act.append(sh("army", x=.5, y=.94, cols=8, rows=2, s=.5, color=P["ink"]))
     fore = [sh("reeds", x=.5, y=1.02, s=1.0)]
@@ -788,7 +791,7 @@ add(5, [
     BEAT(S("study", pal="autumn", obj="slips"),
          [E(SC, .40, 1.72), E(SC, .60, 1.68, facing="left")], cam="pushL"),
     BEAT(S("wall", pal="snow"), cam="pull"),
-    BEAT(S("plain", pal="day"), cam="driftR"),
+    BEAT(S("plain", pal="day", tree=False, pines=8), cam="driftR"),
     BEAT(S("study", pal="night", obj="scroll"), [E(EM, .44, 1.6)], cam="slow"),
     BEAT(S("execution", pal="gloom", crowd=True),
          [E(SD, .26, 1.7, weapon="spear"), E(SD, .74, 1.7, weapon="spear", facing="left")],

@@ -225,10 +225,20 @@
     o = o || {};
     const x = n(o.x, .5) * W, y = n(o.y, .82) * H, w = n(o.w, .82) * W, h = n(o.h, .4) * H;
     const door = o.door || C.paper;
+    const dl = x - w * .18, dr = x + w * .18, dt = y - h * .62;
+    const planks = `<g stroke="${C.ink}" stroke-width="3" opacity=".2" fill="none">
+      ${[-.12, -.06, .06, .12].map((k) => `<path d="M ${x + w * k} ${dt + h * .06} L ${x + w * k} ${y - 2}"/>`).join("")}
+      <path d="M ${dl + 4} ${dt + h * .22} L ${dr - 4} ${dt + h * .22}"/>
+      <path d="M ${dl + 4} ${dt + h * .46} L ${dr - 4} ${dt + h * .46}"/>
+    </g>
+    <g fill="${C.gold}" opacity=".55">
+      ${[[-.1, .14], [.1, .14], [-.1, .32], [.1, .32]].map(([kx, ky]) => `<circle cx="${x + w * kx}" cy="${dt + h * ky}" r="4.5"/>`).join("")}
+    </g>`;
     const body = `
       <rect x="${x - w / 2}" y="${y - h}" width="${w}" height="${h}"/>
-      <rect x="${x - w * .18}" y="${y - h * .62}" width="${w * .36}" height="${h * .62}" fill="${door}"/>
-      <path d="M ${x - w * .18} ${y - h * .62} A ${w * .18} ${h * .2} 0 0 1 ${x + w * .18} ${y - h * .62}" fill="${door}"/>
+      <rect x="${dl}" y="${dt}" width="${w * .36}" height="${h * .62}" fill="${door}"/>
+      <path d="M ${dl} ${dt} A ${w * .18} ${h * .2} 0 0 1 ${dr} ${dt}" fill="${door}"/>
+      ${planks}
       <path d="M ${x - w * .56} ${y - h} Q ${x} ${y - h - 70} ${x + w * .56} ${y - h} L ${x + w * .5} ${y - h + 40} Q ${x} ${y - h - 30} ${x - w * .5} ${y - h + 40} Z" fill="${C.red2}"/>
       ${[-.42, -.28, .28, .42].map((k) => `<rect x="${x + w * k - 8}" y="${y - h - 24}" width="16" height="34"/>`).join("")}
     `;
@@ -648,18 +658,18 @@
     o = o || {};
     const x = n(o.x, .5) * W, y = n(o.y, .52) * H, w = n(o.w, .86) * W, h = n(o.h, .52) * H;
     const L_ = x - w / 2, T_ = y - h / 2;
-    const base = o.color || "#c6a97a";
+    const base = o.color || "#b28f5c";
     const ink = o.line || C.ink;
     const px = (k) => L_ + w * k, py = (k) => T_ + h * k;
-    let body = `<rect x="${L_}" y="${T_}" width="${w}" height="${h}" rx="10" fill="${base}" stroke="${ink}" stroke-width="10"/>`;
+    let body = `<rect x="${L_}" y="${T_}" width="${w}" height="${h}" rx="10" fill="${base}" stroke="${ink}" stroke-width="12"/>`;
     body += `<rect x="${L_ + 15}" y="${T_ + 15}" width="${w - 30}" height="${h - 30}" rx="5" fill="none" stroke="${C.ochre}" stroke-width="3" opacity=".8"/>`;
     // 陆块：两块高地，压深一档把纸面和天空分开
-    body += `<path d="M ${px(.08)} ${py(.42)} Q ${px(.2)} ${py(.2)} ${px(.4)} ${py(.28)} Q ${px(.52)} ${py(.32)} ${px(.6)} ${py(.5)} Q ${px(.5)} ${py(.72)} ${px(.3)} ${py(.74)} Q ${px(.12)} ${py(.68)} ${px(.08)} ${py(.42)} Z" fill="#ac8c5e" stroke="#5b4227" stroke-width="3" opacity=".95"/>`;
-    body += `<path d="M ${px(.64)} ${py(.36)} Q ${px(.76)} ${py(.24)} ${px(.9)} ${py(.34)} Q ${px(.94)} ${py(.52)} ${px(.86)} ${py(.66)} Q ${px(.72)} ${py(.7)} ${px(.66)} ${py(.58)} Z" fill="#ac8c5e" stroke="#5b4227" stroke-width="3" opacity=".9"/>`;
+    body += `<path d="M ${px(.08)} ${py(.42)} Q ${px(.2)} ${py(.2)} ${px(.4)} ${py(.28)} Q ${px(.52)} ${py(.32)} ${px(.6)} ${py(.5)} Q ${px(.5)} ${py(.72)} ${px(.3)} ${py(.74)} Q ${px(.12)} ${py(.68)} ${px(.08)} ${py(.42)} Z" fill="#93743f" stroke="#4d361d" stroke-width="4" opacity=".96"/>`;
+    body += `<path d="M ${px(.64)} ${py(.36)} Q ${px(.76)} ${py(.24)} ${px(.9)} ${py(.34)} Q ${px(.94)} ${py(.52)} ${px(.86)} ${py(.66)} Q ${px(.72)} ${py(.7)} ${px(.66)} ${py(.58)} Z" fill="#93743f" stroke="#4d361d" stroke-width="4" opacity=".92"/>`;
     // 山脉符号
     const mts = [[.18, .38, .09], [.3, .31, .07], [.72, .32, .08], [.82, .42, .09], [.42, .63, .08], [.24, .68, .07], [.7, .62, .07]];
     body += mts.map(([kx, ky, r]) =>
-      `<path d="M ${px(kx - r)} ${py(ky)} L ${px(kx)} ${py(ky - .12)} L ${px(kx + r)} ${py(ky)} Z" fill="none" stroke="${ink}" stroke-width="4" stroke-linejoin="round" opacity=".6"/>`).join("");
+      `<path d="M ${px(kx - r)} ${py(ky)} L ${px(kx)} ${py(ky - .12)} L ${px(kx + r)} ${py(ky)} Z" fill="none" stroke="${ink}" stroke-width="5" stroke-linejoin="round" opacity=".72"/>`).join("");
     // 河流
     body += `<path d="M ${px(.05)} ${py(.18)} Q ${px(.28)} ${py(.3)} ${px(.4)} ${py(.46)} T ${px(.62)} ${py(.62)} Q ${px(.72)} ${py(.7)} ${px(.9)} ${py(.74)}" fill="none" stroke="#3d6470" stroke-width="8" stroke-linecap="round" opacity=".9"/>`;
     body += `<path d="M ${px(.15)} ${py(.9)} Q ${px(.34)} ${py(.78)} ${px(.52)} ${py(.82)} Q ${px(.7)} ${py(.86)} ${px(.9)} ${py(.8)}" fill="none" stroke="#3d6470" stroke-width="6" stroke-linecap="round" opacity=".62"/>`;
@@ -677,6 +687,11 @@
       <path d="M ${cx0} ${cy0 - rr} L ${cx0 + rr * .3} ${cy0} L ${cx0} ${cy0 + rr} L ${cx0 - rr * .3} ${cy0} Z"/>
       <path d="M ${cx0 - rr * .7} ${cy0} L ${cx0 + rr * .7} ${cy0}"/>
     </g>`;
+    // 右下角朱印
+    const sx0 = px(.85), sy0 = py(.86), sr = Math.min(w, h) * .052;
+    body += `<rect x="${sx0 - sr}" y="${sy0 - sr}" width="${sr * 2}" height="${sr * 2}" rx="5" fill="${C.red2}"/>`;
+    body += `<rect x="${sx0 - sr * .78}" y="${sy0 - sr * .78}" width="${sr * 1.56}" height="${sr * 1.56}" fill="none" stroke="${C.paper}" stroke-width="2.5" opacity=".85"/>`;
+    body += `<text x="${sx0}" y="${sy0 + sr * .4}" font-family="PaperKai,serif" font-size="${(sr * 1.05).toFixed(1)}" fill="${C.paper}" text-anchor="middle">舆</text>`;
     // 纸面做旧折痕
     body += `<g fill="none" stroke="${ink}" stroke-width="2" opacity=".1">
       <path d="M ${px(.5)} ${T_ + 15} L ${px(.5)} ${T_ + h - 15}"/>

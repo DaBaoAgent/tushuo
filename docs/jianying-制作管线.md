@@ -1,17 +1,20 @@
-# jianying 管线 · 20 分钟竖版纸雕剪影历史讲解片
+# jianying 管线 · 20 分钟横版纸雕剪影历史讲解片
 
 - 建立日期：2026-10-21
+- 定稿日期：2026-10-23（《两千年422位皇帝》全片交付，参数以本片实测为准）
 - 来源：由 `docs/ditu-制作管线.md` 复制改造
-- 基准形态：1080×1920 竖屏、30 fps、20 分钟级历史长片
+- 基准形态：**1920×1080 横屏、30 fps、20 分钟级历史长片**
 - 视觉风格：**纸雕剪影（layered paper-cut silhouette）**
-- 内容基底：抖音 150 分钟《一口气看完历史上422位皇帝》全量转写 → 重写 20 分钟口播
+- 内容基底：抖音 150 分钟《一口气看完历史上422位皇帝》全量转写 → 重写 22 分钟口播
+- 定稿基准片：`out/3 两千年422位皇帝/tushuo-china-emperors-20min.mp4`
+  （1326.938 s / 39809 帧 / 370 分镜 / 869 条字幕 / −15.8 LUFS / 真峰 −1.3 dBFS）
 
 ## 0. 与 ditu 的关系
 
-ditu 管线的音频、字幕、混音、质检、封面、打包**整链沿用**，只改三处：
+ditu 管线的音频、混音、质检、封面、打包**整链沿用**，主要改三处：
 
-1. 片长与稿量：20 分钟级，口播去标点约 **6800–7200 字**；
-2. 画面：HyperFrames 纸雕剪影视觉系统，每 **3–5 秒**一个分镜；
+1. 片长与稿量：20 分钟级，口播去标点约 **7400–7500 字**（定稿 7465 字）；
+2. 画面：**1920×1080 横屏** HyperFrames 纸雕剪影视觉系统，每 **3–5 秒**一个分镜；
 3. 配音停顿：更自然、更连贯，段内长静音压缩更狠，段间几乎不留空隙。
 
 `tools/jianying/` 是 `tools/ditu/` 的复制品，接口完全一致；ditu 管线保持原样，
@@ -19,16 +22,20 @@ ditu 管线的音频、字幕、混音、质检、封面、打包**整链沿用*
 
 ## 1. 交付硬指标
 
-| 项 | 定稿值 |
+| 项 | 定稿值（2026-10-23 实测） |
 |---|---|
-| 画幅 / 帧率 | 1080×1920 / 30 fps |
-| 片长 | 口播总长 + 片尾卡 5.4 s（20 分钟级约 1200–1260 s） |
-| 分镜节奏 | 每 3–5 s 一个分镜，全片约 240–400 个 |
-| 视频 | H.264，`-q high`，yuv420p |
+| 画幅 / 帧率 | **1920×1080 / 30 fps** |
+| 片长 | 口播总长 + 片尾卡 5.4 s（总尾长 6.0 s）；定稿 1326.938 s（22:06.94），39809 帧 |
+| 稿量 | 口播去标点 7400–7500 字（定稿 7465 字 / 370 段） |
+| 分镜节奏 | 每 3–5 s 一个分镜，全片 330–400 个；定稿 370 个（均值 3.582 s、中位 3.594 s，330/370 在 3–5 s） |
+| 字幕 | ≤16 字/条、去标点（保留《》）；52 px / 900 字重 / 微软雅黑 / 白字黑描边；底边 44 px；定稿 869 条 |
+| 视频 | H.264 **High**，`-q high`，yuv420p，+faststart |
 | 音频 | AAC LC，48 kHz，立体声，320 kb/s |
-| 口播电平 | −16.0 LUFS，真峰值 ≤ −1.5 dBFS |
+| 口播电平 | −16.0 LUFS，真峰值 ≤ −1.5 dBFS（实测 −16.1 / −1.4） |
 | BGM 电平 | −34.0 LUFS |
-| 成品电平 | 约 −15.9 LUFS，真峰值 −1.4 dBFS |
+| 混音限幅 | `alimiter=limit=0.8414`（−1.5 dBFS） |
+| 成品电平 | −15.8 LUFS，真峰值 −1.3 dBFS，LRA 2.1 LU |
+| 音效 | 178 个锚点（定稿）；开场 0.00 重击 / 0.12 鼓点 / 1.00 钟声 |
 | 黑帧 | `blackdetect d=0.1 pix_th=0.10` 未检出 |
 | 封面 | 2048×1536 与 1536×2048 各一张，六字金色毛笔标题由 Seedream 直接画入 |
 | 发布信息 | 第一行标题 ≤25 字、两段式强钩子（问号/冒号/感叹号分隔），数字用阿拉伯数字；第二行恰好 4 个 `#话题` |
@@ -37,14 +44,17 @@ ditu 管线的音频、字幕、混音、质检、封面、打包**整链沿用*
 
 ```
 content/<slug>/          事实底稿.md、分镜与口播.md、口播稿.txt、
-                         源文全量转写.txt、shots.json、cue-map.json、成片数据.md
+                         源文全量转写.txt、director_full.py、shots-full.json、
+                         build_full_film.py、build_sfx.py、make_qa.py
 content/<slug>/covers/   封面源图 jianying-4x3.jpg / jianying-3x4.jpg 与 prompt-4x3/3x4.txt
 films/<slug>/            index.html（唯一 composition）、assets/（含 papercut.js）、vendor/
-output/<slug>/           narration-vN.*、captions-vN.json、audio/、render/、review/
-  audio/                 bgm bed、sfx/、soundtrack-vN.wav、mix-report.md
-  render/                video-vN.mp4、render-vN.log、seg-*.mp4
-  review/                contact sheet、关键帧、cue-vN.json、审阅说明
+  renders/               HyperFrames 分段缓存（.hf-segments），交付后删
+output/<slug>/           narration.*、narration-smooth.*、captions-full.json、audio/、
+                         picture-render.mp4、render-full.log、build/、delivery-staging/
+  audio/                 sfx/、sfx-plan.json、bgm_bed.wav、soundtrack.wav、mix-full.json、
+                         mix-report.md
 out/<NN 主题>/           最终交付：成片 + 两张封面 + 发布信息.txt + 源文件/
+                         （2026-10-23 宝哥定：交付只放 out/，不放 output/ 下）
 assets/bgm/              BGM 源曲
 assets/maps/             备用地图素材
 tools/jianying/          本管线脚本（与 tools/ditu 同接口）
@@ -59,10 +69,14 @@ GPT-SoVITS / HyperFrames 这类运行时允许外部安装。
 - 先做源视频**全量转写**，保存 `content/<slug>/源文全量转写.txt`；改写必须覆盖源片
   的主线、关键人物、关键数字，不凭印象补史实。
 - `事实底稿.md`：逐条列主张、来源、存疑边界；不确定的数字不写成定论。
-- `口播稿.txt`：20 分钟主片去标点 **6800–7200 字**；开头 3 秒内抛钩子；
-  按「总—分—总」立主线，不写皇帝流水账。
+- `口播稿.txt`：20 分钟主片去标点 **7400–7500 字**（定稿 7465 字，22:06.94）；
+  开头 3 秒内抛钩子；按「总—分—总」立主线，不写皇帝流水账。
 - 每 3–5 秒必须有一个可执行的画面动作（人物出场、地图推进、器物特写、战场冲击、
-  数字对比、印章落下），写完口播后在 `shots.json` 里逐条落分镜。
+  数字对比、印章落下），写完口播后在 `shots-full.json` 里逐条落分镜（定稿 370 个）。
+- **时码约定**：`t0_i = 该句起点 − 0.02`、`t1_i = 下一句起点 − 0.01`（相邻镜留 10 ms 重叠，
+  防止取整露黑）；末镜 `t1 = 片尾卡起点 = filmEnd − 5.4`；`filmEnd = 口播结尾 + 6.0`。
+- 分镜节奏分布允许少量刻意插入：定稿 38 个 <2.5 s 快切、1 个 6.04 s 定帧，
+  其余 330 个落在 3–5 s；不要为了卡 3–5 s 把有信息量的镜头硬拆碎。
 - 定稿前过 `humanizer-zh` 与 `verification-before-completion`。
 
 ## 4. 纸雕剪影视觉系统
@@ -103,6 +117,9 @@ GPT-SoVITS / HyperFrames 这类运行时允许外部安装。
 ### 4.4 运镜
 
 - 每个分镜 3–5 s，只做**一个连续运镜**：横移、推近、拉远、绕轴轻转、跟随人物；
+- 每镜在 `shots-full.json` 写 `camera.from / camera.to`（x/y/scale/rot），渲染时走**两段式**：
+  0→58% 用 `power1.inOut` 到中点，58%→100% 用 `sine.inOut` 收束；**缩放走对数空间**
+  （`exp(log(a)*(1-r)+log(b)*r)`），避免速度突变；默认 `scale` 1.02→1.10；
 - 用 `translate3d + scale + rotateX/rotateY` 在层容器上做，不同层给不同速度形成视差；
 - 缓动统一 `power2.out` / `sine.inOut`，起幅落幅都要有，禁止线性硬推；
 - 分镜之间优先用纸片擦除（torn-paper wipe）、纸页翻动、剪影遮挡转场；
@@ -120,11 +137,21 @@ GPT-SoVITS / HyperFrames 这类运行时允许外部安装。
 ### 4.6 HyperFrames 落地
 
 - 唯一 composition：`films/<slug>/index.html`，根节点
-  `data-width="1080" data-height="1920" data-fps="30" data-duration="<filmEnd>"`。
+  `data-width="1920" data-height="1080" data-fps="30" data-duration="<filmEnd>"`。
+  **横版是定稿口径**；改画幅时必须同步改 `data-width/data-height`，并用
+  `ffprobe` 确认成片不是竖版（2026-10-22 曾因正则误删根属性被渲染成 1080×1920）。
 - 所有动画可 seek：GSAP 时间线 + `window.__timelines["<slug>"] = tl`；
   禁止 `onUpdate` 驱动逐帧画面。
-- 分镜数据放 `content/<slug>/shots.json`，由 `assets/papercut.js` 展开成 DOM；
-  每个 shot 至少含：`t0 / t1 / type / title / subtitle / camera / chars / props / sfx`。
+- 分镜数据由 `build_full_film.py` 注入 `index.html` 的三个常量：
+  `SHOTS`（370 个，来自 `shots-full.json`）、`CAPS`（869 条，来自 `captions-full.json`）、
+  `CUE`（`{total: filmEnd-5.4, filmEnd}`）；每个 shot 至少含：
+  `t0 / t1 / type / title / subtitle / camera / chars / props / layers`。
+- 片尾：`endAt = total - 5.4`，0.7 s 淡出舞台与字幕，0.15 s 起片尾卡淡入；
+  末镜必须结束在 `endAt`，否则片尾卡会被最后一镜盖住。
+- 开场：首镜 `hook=true`，1 秒抖动（`a = 14*(1-v)^1.6`，11/7.3 Hz 双频），`v>=1` 归零。
+- **注入脚本两个坑**：改根属性只能用正则替换 `data-duration` 的值，不能整段重写
+  `<div id="root">`；`const CUE = {...};` 在首次注入后是单行，块查找必须用 `";\n"`，
+  不能用 `"\n};"`（否则 `ValueError: substring not found`）。
 - 可选增强：`npx hyperframes add torn-paper-rip`、`paper-collage-reveal`、
   `stop-motion-cadence`（纸片定格节奏）；只在转场/强调处用，不铺满全片。
 - 审核口：`npx --yes hyperframes check` 必须 0 error；先抽 30–40 帧做联系表，
@@ -138,17 +165,19 @@ tools\tts.cmd --text-file content\<slug>\口播稿.txt --out output\<slug>\narra
 
 - 音色与锁定参数同 ditu：dabao 26E、cut1、speed 1.0、repetition_penalty 1.35、
   temperature 0.80、top_p 0.95、top_k 15、seed 666；≤78 字分段。
-- **停顿压紧（jianying 口径）**：段内长静音按 **0.65 倍**压缩、上限 **0.25 s**；
-  段间 **10 ms**；目标听感是连贯朗读，不是逐句播报。
+- **停顿压紧（定稿口径）**：段内长静音按 **0.75 倍**压缩、上限 **0.35 s**、下限 **0.10 s**；
+  段间 **12 ms**、段首留 **18 ms**；目标听感是连贯朗读，不是逐句播报。
+  定稿实测 `1376.488 s → 1320.930 s`，省 **55.6 s**（约 4%），全片 22 分钟不显拖。
 
   ```bash
   PY="D:/@kaifa/tushuo/vendor/gpt-sovits/.venv/Scripts/python.exe"
-  "$PY" tools/jianying/smooth_narration.py --raw-json output/<slug>/narration-v1.json \
-    --chunks-dir output/<slug>/narration-chunks --out output/<slug>/narration-v1 \
-    --pause-scale 0.65 --pause-cap 0.25 --pause-min 0.08 --gap-ms 10
+  "$PY" tools/jianying/smooth_narration.py --raw-json output/<slug>/narration.json \
+    --chunks-dir output/<slug>/narration-chunks --out output/<slug>/narration-smooth \
+    --pause-scale 0.75 --pause-cap 0.35 --pause-min 0.10 --gap-ms 12 --lead-ms 18
   ```
 
-  改完必须用 1 分钟样音试听。
+  压完输出 `narration-smooth.mp3 / .json / .wav`，**后续字幕与分镜一律以 smooth 的
+  json 为准**；改完必须用 1 分钟样音试听。
 - 多音字按 `docs/读音规范.md`；字幕保留原文，只改送合成文本。
 - **读音审计（改 `SPEAK_FIXES` 后必跑）**：`tools/audit_pronunciation.py --slug <slug>`，
   与 TTS 同一条 G2P 路径（78 字分段 + 标点切句），逐条确认「实读」为目标读音；
@@ -156,26 +185,28 @@ tools\tts.cmd --text-file content\<slug>\口播稿.txt --out output\<slug>\narra
 - **1 分钟样音审核**：从定稿口播稿开头连续取约 1 分钟（约 350–380 字），
   单独合成、压停顿、混 BGM 试听，宝哥点头后再配全片。
 
-## 6. 字幕与时间轴（同 ditu）
+## 6. 字幕与时间轴（定稿：build_full_film 一步注入）
 
 ```bash
-"$PY" tools/jianying/build_captions.py --script content/<slug>/口播稿.txt \
-  --narration-json output/<slug>/narration-v1.json --out-dir output/<slug>/review \
-  --variation v1 --cue-map content/<slug>/cue-map.json \
-  --js-prefix output/<slug>/review/_v1
-
-"$PY" tools/jianying/splice_film.py --html films/<slug>/index.html \
-  --caps-js output/<slug>/review/_v1-caps.js --cue-js output/<slug>/review/_v1-cue.js \
-  --cue-json output/<slug>/review/cue-v1.json \
-  --voice-src output/<slug>/narration-v1.mp3 --voice-dest films/<slug>/assets/voice/narration.mp3 \
-  --backup-dir output/<slug>/_backup-v1
+"$PY" content/<slug>/build_full_film.py \
+  --timing output/<slug>/narration-smooth.json --compose
 ```
 
-- 每行口播 = 一个 chunk；字幕按标点切句、≤14 字、去标点，拼接必须与原文逐字一致。
-- `cue-map.json` 用行号声明场景键；`shots.json` 的 `t0/t1` 必须落在字幕时间上，
-  改稿后整链重算。
+- 旧的 `build_captions.py + splice_film.py + cue-map.json` 流程只适用于早期
+  `shots.json` 短片；20 分钟长片一律用 `build_full_film.py`（同时生成
+  `shots-full.json`、`captions-full.json` 并注入 composition）。
 
-## 7. 音轨（同 ditu）
+- 每行口播 = 一个 chunk；字幕按标点切句、**≤16 字**、去标点（只保留《》），
+  拼接必须与原文逐字一致（定稿 869 条）。
+- 字幕样式定稿：**52 px / font-weight 900 / "Microsoft YaHei" / 白色**，
+  `text-shadow` 做黑色外描边（不用 `-webkit-text-stroke`，居中描边会盖住字芯）；
+  容器距底 44 px、高 110 px、`white-space: nowrap`。
+- 注入内容：读 `narration-smooth.json` 的 370 段生成 `shots-full.json`，
+  按标点切字幕写 `build/captions-full.json`，再把 `SHOTS/CAPS/CUE` 与
+  `data-duration` 写进 `index.html`；改稿/改配音后必须重跑，
+  `build_sfx.py` 的锚点也依赖 `shots-full.json`。
+
+## 7. 音轨（BGM/混音同 ditu，音效按分镜自动铺）
 
 ### 7.1 BGM 床
 
@@ -188,51 +219,75 @@ tools\tts.cmd --text-file content\<slug>\口播稿.txt --out output\<slug>\narra
 ### 7.2 混音
 
 ```bash
-"$PY" tools/jianying/mix_audio.py --config output/<slug>/audio/mix-vN.json
+"$PY" tools/jianying/mix_audio.py --config output/<slug>/audio/mix-full.json
 ```
 
 - 口播 −16.0 LUFS；BGM −34.0 LUFS；总混音限幅 −1.5 dBFS；48 kHz 立体声。
-- 音效锚点按当前版**口播行号**重排；20 分钟片建议 60–90 个锚点，
-  开场 0.40 s「开场音效-咚」、片尾「钟声」；同一秒不叠两个大动态音效。
+- 音效锚点用 `content/<slug>/build_sfx.py` 按**分镜类型**自动铺，不要手点：
+  每类场景一个素材池 + 冷却时间（battle 10 s / fire 12 s / water 12 s / wind 18 s /
+  horse 13 s / gong 32 s / gate 22 s / market 24 s / blade 16 s / horn 26 s），
+  同类冷却期内不重复，任意两条锚点间隔 ≥1.2 s；幕标题卡单独上号角。
+- 定稿 **178 个锚点**（20 分钟级 170–190 个）：开场 `0.00` 重击、`0.12` 鼓点、
+  `1.00` 钟声；末锚 `1296.08` 钟声；同一秒不叠两个大动态音效。
+- 输出 `audio/sfx-plan.json`（锚点清单）与 `audio/mix-full.json`（混音配置），
+  再跑 `tools/jianying/mix_audio.py --config output/<slug>/audio/mix-full.json`。
 
 ## 8. 渲染
 
 ```bash
-cd "D:/@kaifa/tushuo/films/<slug>"
-npx --yes hyperframes check
-npx --yes hyperframes render -q high -w 3 \
-  -o "D:/@kaifa/tushuo/output/<slug>/render/video-vN.mp4" \
-  > "D:/@kaifa/tushuo/output/<slug>/render/render-vN.log" 2>&1
+cd "D:/@kaifa/tushuo"
+NODE="D:/@kaifa/aiyouhu/.venv/Lib/site-packages/playwright/driver/node.exe"
+HF="C:/Users/20200/AppData/Local/npm-cache/_npx/702923228c2ce1e6/node_modules/hyperframes/bin/hyperframes.mjs"
+HF_SEGMENTED_CAPTURE=true PRODUCER_PUPPETEER_PROTOCOL_TIMEOUT_MS=900000 \
+nohup "$NODE" "$HF" render films/<slug> -o output/<slug>/picture-render.mp4 \
+  --quality=high --workers=8 --protocol-timeout=900000 \
+  --player-ready-timeout=120000 --browser-timeout=300 --resume --keep-segments \
+  > output/<slug>/render-full.log 2>&1 &
 ```
 
-- 20 分钟 = **约 36000 帧**；基准片 305.955 s 用 3 workers 实测 1034 s，
-  20 分钟预计数小时级，按机器实际情况排。
-- 若单次渲染过长，按章节拆 composition 或用 `--variables` 分段渲染后无损拼接；
-  分段边界必须落在纸片转场或黑场，音频最后统一混。
-- 不要中途 kill；中断会留下缺 moov 的半截 mp4。
-- 日志出现 `Render complete` 且体积稳定后再混音。
+- **定稿基准**：39809 帧（22:06.94），8 workers + 硬编，**63 分 21 秒**跑完；
+  30 秒样片实测 capture ≈ 10.3 fps。20 分钟级按 60–75 分钟排。
+- `HF_SEGMENTED_CAPTURE=true` 是长片必开：每 3000 帧落一个
+  `films/<slug>/renders/.hf-segments/<hash>/segment_XXXXX.mp4`，中断后加 `--resume`
+  只补未完成段；`--keep-segments` 保留缓存供续渲。交付后删 `renders/` 与 `.hyperframes/`。
+- 不要手动拆 composition 分段再拼——分段捕获已经解决；手动拆反而会在边界跳帧。
+- 不要中途 kill；确实中断后用 `--resume` 续渲，缺 moov 的产物直接删掉重跑。
+- 日志出现 `Render complete` 且 mp4 体积稳定后再合音频；合音频用 `-c:v copy`，
+  帧数必须仍是 39809（`ffprobe -count_packets` 核对）。
 
 ## 9. 合成与质检
 
 ```bash
-ffmpeg -y -i output/<slug>/render/video-vN.mp4 -i output/<slug>/audio/soundtrack-vN.wav \
+ffmpeg -y -i output/<slug>/picture-render.mp4 -i output/<slug>/audio/soundtrack.wav \
   -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -ac 2 \
-  -t <filmEnd> -movflags +faststart output/<slug>/tushuo-<slug>-vN.mp4
+  -t <filmEnd> -movflags +faststart output/<slug>/tushuo-<slug>.mp4
 
 "$PY" tools/jianying/qa_film.py --film <成片> --duration <filmEnd> \
+  --width 1920 --height 1080 \
   --cover-4x3 <封面-4比3.jpg> --cover-3x4 <封面-3比4.jpg>
 ```
 
+- 门禁（定稿实测值）：
+  - `ffprobe`：h264 High / 1920×1080 / 30 fps / 39809 帧 / AAC 48k 2ch / +faststart；
+  - 全片解码 `ffmpeg -v error -xerror -i <成片> -f null -` 退出码 0；
+    `-count_packets` 视频包 = 39809；
+  - `ebur128`：I ≈ −15.8 LUFS（−16.5～−15.5 可接受），真峰 −1.3 dBFS（门禁 −3～−0.3）；
+  - `blackdetect d=0.1 pix_th=0.10` 无黑帧；片尾 5.4 s 是片尾卡（亮场，不是黑场）；
+  - 字幕拼接与口播稿去标点后逐字一致；字幕 ≤16 字、52 px、不被片尾卡/人物卡遮挡。
 - 另抽 10–14 帧核对：开场钩子、3 个代表性大场面、人物特写、数字卡、转场、
   片尾卡；确认没有穿帮、文字遮挡、人物重复。
-- 非平凡改动必须跑独立 verification agent，PASS 才交付。
+- 非平凡改动必须跑独立 verification agent，PASS 才交付；核验要贴命令与输出，
+  不接受「应该」「大概」。
 
 ## 10. 封面与发布信息（同 ditu）
 
 - 模型 `doubao-seedream-5-0-flash-260915`；脚本 `tools/jianying/make_covers.py`。
 - 只有一个主标题，恰好 6 个汉字，金色毛笔行楷，由模型直接画进画面；
   不加副标题、不本地叠字、画面内无其它文字/字母/数字/logo/水印。
-- 4:3 = 2048×1536，3:4 = 1536×2048；出图后放大标题区逐字核对。
+- 定稿示例：`四百二十二帝`；4:3 皇帝端坐龙椅剪影 + 左秦俑右紫禁城，
+  3:4 皇帝背对镜头剪影 + 纵向层叠宫阙。
+- 4:3 = 2048×1536，3:4 = 1536×2048；出图后放大标题区逐字核对（六字笔画完整、
+  无多字少字）；AI 出正脸清晰人像的版本与剪影风格不符，弃用重出。
 - `发布信息.txt`：恰好两行。
   1. 第一行标题 **≤25 个字（含标点）**，**两段式**：前半句钩子 + 后半句具体后果/承诺，
      用问号、冒号或感叹号分隔；兵力/数量/年份用**阿拉伯数字**；要夺人眼球、利于点击。
@@ -243,18 +298,24 @@ ffmpeg -y -i output/<slug>/render/video-vN.mp4 -i output/<slug>/audio/soundtrack
 ## 11. 打包
 
 ```bash
-"$PY" tools/jianying/package_delivery.py --job output/<slug>/delivery.json
+"$PY" tools/jianying/package_delivery.py --job output/<slug>/delivery-staging/delivery.json
 ```
 
 脚本会校验：封面尺寸、成片存在，以及发布信息两行/4 话题、标题 ≤25 字且两段式并含阿拉伯数字。
 不合格直接拒绝交付。
 
-交付目录 `out/<NN 主题>/` 顶层只留 4 个文件 + `源文件/`：
+交付目录 **`D:\@kaifa\tushuo\out\<NN 主题>\`**（2026-10-23 宝哥定，编号递增）顶层只留
+4 个文件 + `源文件/`：
 
 1. `tushuo-<slug>.mp4`
 2. `封面-4比3.jpg`
 3. `封面-3比4.jpg`
 4. `发布信息.txt`
+
+`源文件/` 放 18 份：事实底稿、口播稿、分镜脚本、分镜时码、字幕、配音 mp3/json、
+BGM、混音母带、音效计划、混音配置与报告、两个构建脚本、封面源图与提示词/说明。
+打包后删除 `output/<slug>/` 整个制作工作区与 `films/<slug>/renders`、`.hyperframes`；
+`content/<slug>/` 与 `films/<slug>/index.html + assets/vendor` 保留，便于重渲。
 
 ## 12. 审核节点（宝哥定）
 
@@ -267,11 +328,24 @@ ffmpeg -y -i output/<slug>/render/video-vN.mp4 -i output/<slug>/audio/soundtrack
 ## 13. 踩坑
 
 - 20 分钟片稿量是 5 分钟片的 4 倍，**不要直接拉长句子**；按信息密度重排结构。
-- 3–5 秒一个分镜意味着 240–400 个 shot，`shots.json` 必须先过 schema 校验，
+- 3–5 秒一个分镜意味着 330–400 个 shot，`shots-full.json` 必须先过 schema 校验，
   再进 `papercut.js`；缺字段直接报错，不静默用默认值。
 - 纸雕层数多，避免每层都用大面积 `filter: blur`；投影用 `drop-shadow`，
   纸纹用一张可复用的 SVG data URI，不要每帧重绘。
-- 全片渲染时间长，分段渲染的边界要落在转场/黑场，拼接后核对总帧数。
+- **改根节点属性只能用正则替换值**：`re.sub(r'(data-duration=")[0-9.]+(")', ...)`；
+  2026-10-22 曾误用整段 `<div id="root"[^>]*>` 重写，把 width/height 等属性全删掉，
+  HyperFrames 按默认竖版编译，成片变 1080×1920 且被截断。
+- **`const CUE = {...};` 注入后是单行**：块查找用 `html.index(";\n", start)`，
+  用 `"\n};"` 会 `ValueError: substring not found`。
+- 改机位/分镜/时长后必须重渲画面，`--mux-only` 只换音轨；重渲后再跑相机/抽帧/电平。
+- 相邻镜留 **10 ms 重叠**（`t1_i = 下一镜 t0 + 0.01`），末镜结束在片尾卡起点；
+  末镜多留会把片尾卡盖住，少留会露黑。
 - `audio_meta.json` 可能落后于新配音；以 `index.html` 的 `<audio data-duration>`
-  和实际 mp3 时长为准。
+  （定稿 1320.930）和实际 smooth mp3 时长为准。
 - 口播 mp3 与 wav 有 2–3 ms 差异；composition 以 mp3 为准。
+- 成片容器时长会比 filmEnd 多约 0.03 s（39809 帧 = 1326.9667 s，音频 1326.938 s），
+  这是帧数取整，属正常；以 `nb_frames` 与音频流时长核对。
+- 分段捕获缓存（`renders/.hf-segments`，本片约 1 GB）和新版 HyperFrames 的
+  `.hyperframes/` 交付后要删；不删会拖慢下一次渲染并占用磁盘。
+- 交付只进 `out/<NN 主题>/`；`output/<slug>/` 是工作区，打包后整体删除，
+  不要把交付包留在 `output/` 下。

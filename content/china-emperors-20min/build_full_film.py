@@ -75,7 +75,8 @@ def build_shots(mod, chunks: list[dict]) -> tuple[list[dict], float]:
         if not b:
             raise SystemExit("缺第 %d 条分镜" % idx)
         t0 = max(0.0, c["start"] - 0.02) if i else 0.0
-        t1 = (chunks[i + 1]["start"] - 0.01) if i + 1 < len(chunks) else c["end"] + TAIL
+        # 末镜只留到片尾卡起点（filmEnd-5.4），index.html 的 endAt = total-5.4
+        t1 = (chunks[i + 1]["start"] - 0.01) if i + 1 < len(chunks) else c["end"] + TAIL - 5.4
         name = b["scene"][0] if isinstance(b["scene"], tuple) else b["scene"]
         shot = {
             "id": "s%03d" % idx,
@@ -118,8 +119,7 @@ def build_captions(chunks: list[dict]) -> list[dict]:
 
 def replace_block(html: str, name: str, body: str) -> str:
     start = html.index("const %s = " % name)
-    tail = "\n];" if name != "CUE" else "\n};"
-    end = html.index(";\n", html.index(tail, start))
+    end = html.index(";\n", start)
     return html[:start] + "const %s = %s" % (name, body) + html[end:]
 
 
@@ -133,8 +133,8 @@ def compose(shots: list[dict], caps: list[dict], film_end: float, narration: Pat
     html = replace_block(html, "CAPS", cap_body)
     html = replace_block(html, "CUE", json.dumps(
         {"total": round(film_end - 5.4, 3), "filmEnd": film_end}, ensure_ascii=False))
-    html = re.sub(r'id="root"[^>]*data-duration="[0-9.]+"',
-                  'id="root" data-duration="%.3f"' % film_end, html, count=1)
+    html = re.sub(r'(<div id="root"[^>]*?data-duration=")[0-9.]+(")',
+                  r"\g<1>%.3f\g<2>" % film_end, html, count=1)
     html = re.sub(r'(<audio id="vo"[^>]*data-duration=")[0-9.]+(")',
                   r"\g<1>%.3f\g<2>" % narration_dur, html, count=1)
     (FILM / "index.html").write_text(html, encoding="utf-8")

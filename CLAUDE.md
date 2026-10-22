@@ -13,6 +13,12 @@
   BGM −34 LUFS、成品约 −15.9 LUFS / −1.4 dBFS；字幕/停顿时长/拼装/混音/质检/打包脚本
   在 `tools/ditu/`。
   交付到 `out/<NN 主题>/`（顶层 4 文件 + `源文件/`）。
+- **20 分钟横版长片 = `jianying` 管线（2026-10-23 定稿）**：先读
+  `docs/jianying-制作管线.md`，新会话可调用 `/jianying`
+  （`.claude/skills/jianying/SKILL.md`）。基准片 `china-emperors-20min`：
+  1920×1080 / 30 fps / 1326.938 s / 39809 帧 / 370 分镜（3–5 s）/ 869 条字幕 /
+  178 音效锚点 / BGM −34 LUFS / 成品 −15.8 LUFS、真峰 −1.3 dBFS；
+  交付在 `out/3 两千年422位皇帝/`。纸雕剪影视觉、dabao 配音、分段续渲参数见文档。
 - **60 秒片**：先读 `docs/制作管线.md`；新会话可调用项目技能
   `/tushuo-history-video`（`.claude/skills/tushuo-history-video/SKILL.md`）。
 - 基准片是 `mongol-west-1` v4，全部定稿参数、文件大小、哈希和 QA 数据在

@@ -1,0 +1,1086 @@
+{
+ "total": 1326.938,
+ "count": 178,
+ "by_cat": {
+  "battle": 29,
+  "fire": 21,
+  "water": 12,
+  "wind": 24,
+  "horse": 4,
+  "gong": 32,
+  "gate": 17,
+  "market": 12,
+  "blade": 13,
+  "horn": 14
+ },
+ "anchors": [
+  {
+   "t": 0.0,
+   "file": "hook-boom.wav",
+   "cat": "horn",
+   "text": "开场重击"
+  },
+  {
+   "t": 0.12,
+   "file": "hook-drums.wav",
+   "cat": "battle",
+   "text": "开场鼓点"
+  },
+  {
+   "t": 1.0,
+   "file": "hook-bell.wav",
+   "cat": "gong",
+   "text": "开场钟声"
+  },
+  {
+   "t": 5.975,
+   "file": "s001-gate.wav",
+   "cat": "gate",
+   "text": "s003 city"
+  },
+  {
+   "t": 14.017,
+   "file": "s002-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：秦始皇"
+  },
+  {
+   "t": 24.26,
+   "file": "s003-market.wav",
+   "cat": "market",
+   "text": "s009 market"
+  },
+  {
+   "t": 33.01,
+   "file": "s004-wind.wav",
+   "cat": "wind",
+   "text": "s011 pass"
+  },
+  {
+   "t": 36.389,
+   "file": "s005-gong.wav",
+   "cat": "gong",
+   "text": "s012 court"
+  },
+  {
+   "t": 42.957,
+   "file": "s006-battle.wav",
+   "cat": "battle",
+   "text": "s014 battle"
+  },
+  {
+   "t": 60.012,
+   "file": "s007-gate.wav",
+   "cat": "gate",
+   "text": "s019 city"
+  },
+  {
+   "t": 69.951,
+   "file": "s008-gong.wav",
+   "cat": "gong",
+   "text": "s021 court"
+  },
+  {
+   "t": 74.713,
+   "file": "s009-battle.wav",
+   "cat": "battle",
+   "text": "s022 battle"
+  },
+  {
+   "t": 100.748,
+   "file": "s010-wind.wav",
+   "cat": "wind",
+   "text": "s029 wall"
+  },
+  {
+   "t": 112.772,
+   "file": "s011-blade.wav",
+   "cat": "blade",
+   "text": "s032 execution"
+  },
+  {
+   "t": 120.541,
+   "file": "s012-fire.wav",
+   "cat": "fire",
+   "text": "s034 burning"
+  },
+  {
+   "t": 125.052,
+   "file": "s013-water.wav",
+   "cat": "water",
+   "text": "s035 sea"
+  },
+  {
+   "t": 132.708,
+   "file": "s014-wind.wav",
+   "cat": "wind",
+   "text": "s037 tomb"
+  },
+  {
+   "t": 146.898,
+   "file": "s015-gong.wav",
+   "cat": "gong",
+   "text": "s041 court"
+  },
+  {
+   "t": 154.756,
+   "file": "s016-fire.wav",
+   "cat": "fire",
+   "text": "s043 camp"
+  },
+  {
+   "t": 160.11,
+   "file": "s017-battle.wav",
+   "cat": "battle",
+   "text": "s044 battle"
+  },
+  {
+   "t": 169.56,
+   "file": "s018-gate.wav",
+   "cat": "gate",
+   "text": "s046 city"
+  },
+  {
+   "t": 176.31,
+   "file": "s019-fire.wav",
+   "cat": "fire",
+   "text": "s048 burning"
+  },
+  {
+   "t": 180.674,
+   "file": "s020-wind.wav",
+   "cat": "wind",
+   "text": "s049 wall"
+  },
+  {
+   "t": 189.855,
+   "file": "s021-horn.wav",
+   "cat": "horn",
+   "text": "s051 camp"
+  },
+  {
+   "t": 201.073,
+   "file": "s022-gong.wav",
+   "cat": "gong",
+   "text": "s054 court"
+  },
+  {
+   "t": 213.791,
+   "file": "s023-market.wav",
+   "cat": "market",
+   "text": "s058 market"
+  },
+  {
+   "t": 216.416,
+   "file": "s024-battle.wav",
+   "cat": "battle",
+   "text": "s059 battle"
+  },
+  {
+   "t": 218.925,
+   "file": "s025-gate.wav",
+   "cat": "gate",
+   "text": "s060 city"
+  },
+  {
+   "t": 233.424,
+   "file": "s026-wind.wav",
+   "cat": "wind",
+   "text": "s063 pass"
+  },
+  {
+   "t": 241.879,
+   "file": "s027-battle.wav",
+   "cat": "battle",
+   "text": "s065 battle"
+  },
+  {
+   "t": 249.097,
+   "file": "s028-gong.wav",
+   "cat": "gong",
+   "text": "s067 court"
+  },
+  {
+   "t": 252.204,
+   "file": "s029-blade.wav",
+   "cat": "blade",
+   "text": "s068 execution"
+  },
+  {
+   "t": 255.507,
+   "file": "s030-wind.wav",
+   "cat": "wind",
+   "text": "s069 snow"
+  },
+  {
+   "t": 279.104,
+   "file": "s031-wind.wav",
+   "cat": "wind",
+   "text": "s075 plain"
+  },
+  {
+   "t": 283.514,
+   "file": "s032-market.wav",
+   "cat": "market",
+   "text": "s076 market"
+  },
+  {
+   "t": 293.178,
+   "file": "s033-gong.wav",
+   "cat": "gong",
+   "text": "s078 court"
+  },
+  {
+   "t": 295.801,
+   "file": "s034-battle.wav",
+   "cat": "battle",
+   "text": "s079 battle"
+  },
+  {
+   "t": 299.99,
+   "file": "s035-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：汉武帝"
+  },
+  {
+   "t": 308.373,
+   "file": "s036-market.wav",
+   "cat": "market",
+   "text": "s083 market"
+  },
+  {
+   "t": 315.831,
+   "file": "s037-horse.wav",
+   "cat": "horse",
+   "text": "s085 cavalry"
+  },
+  {
+   "t": 318.791,
+   "file": "s038-battle.wav",
+   "cat": "battle",
+   "text": "s086 battle"
+  },
+  {
+   "t": 323.085,
+   "file": "s039-wind.wav",
+   "cat": "wind",
+   "text": "s087 steppe"
+  },
+  {
+   "t": 339.384,
+   "file": "s040-blade.wav",
+   "cat": "blade",
+   "text": "s091 execution"
+  },
+  {
+   "t": 342.542,
+   "file": "s041-gong.wav",
+   "cat": "gong",
+   "text": "s092 court"
+  },
+  {
+   "t": 364.004,
+   "file": "s042-market.wav",
+   "cat": "market",
+   "text": "s098 market"
+  },
+  {
+   "t": 377.184,
+   "file": "s043-gong.wav",
+   "cat": "gong",
+   "text": "s101 court"
+  },
+  {
+   "t": 388.299,
+   "file": "s044-battle.wav",
+   "cat": "battle",
+   "text": "s104 battle"
+  },
+  {
+   "t": 391.863,
+   "file": "s045-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：光武帝"
+  },
+  {
+   "t": 396.28,
+   "file": "s046-wind.wav",
+   "cat": "wind",
+   "text": "s106 plain"
+  },
+  {
+   "t": 403.34,
+   "file": "s047-battle.wav",
+   "cat": "battle",
+   "text": "s108 battle"
+  },
+  {
+   "t": 407.046,
+   "file": "s048-gate.wav",
+   "cat": "gate",
+   "text": "s109 city"
+  },
+  {
+   "t": 411.809,
+   "file": "s049-gong.wav",
+   "cat": "gong",
+   "text": "s110 court"
+  },
+  {
+   "t": 420.095,
+   "file": "s050-wind.wav",
+   "cat": "wind",
+   "text": "s112 pass"
+  },
+  {
+   "t": 444.406,
+   "file": "s051-gong.wav",
+   "cat": "gong",
+   "text": "s119 court"
+  },
+  {
+   "t": 451.359,
+   "file": "s052-blade.wav",
+   "cat": "blade",
+   "text": "s121 execution"
+  },
+  {
+   "t": 459.5,
+   "file": "s053-market.wav",
+   "cat": "market",
+   "text": "s123 market"
+  },
+  {
+   "t": 462.779,
+   "file": "s054-battle.wav",
+   "cat": "battle",
+   "text": "s124 battle"
+  },
+  {
+   "t": 467.536,
+   "file": "s055-fire.wav",
+   "cat": "fire",
+   "text": "s125 camp"
+  },
+  {
+   "t": 479.632,
+   "file": "s056-battle.wav",
+   "cat": "battle",
+   "text": "s128 battle"
+  },
+  {
+   "t": 483.139,
+   "file": "s057-water.wav",
+   "cat": "water",
+   "text": "s129 river"
+  },
+  {
+   "t": 487.723,
+   "file": "s058-gong.wav",
+   "cat": "gong",
+   "text": "s130 court"
+  },
+  {
+   "t": 496.0,
+   "file": "s059-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：三国"
+  },
+  {
+   "t": 499.794,
+   "file": "s060-battle.wav",
+   "cat": "battle",
+   "text": "s133 battle"
+  },
+  {
+   "t": 521.679,
+   "file": "s061-gate.wav",
+   "cat": "gate",
+   "text": "s138 city"
+  },
+  {
+   "t": 529.664,
+   "file": "s062-gong.wav",
+   "cat": "gong",
+   "text": "s140 court"
+  },
+  {
+   "t": 548.167,
+   "file": "s063-battle.wav",
+   "cat": "battle",
+   "text": "s146 battle"
+  },
+  {
+   "t": 550.562,
+   "file": "s064-fire.wav",
+   "cat": "fire",
+   "text": "s147 city"
+  },
+  {
+   "t": 564.197,
+   "file": "s065-gong.wav",
+   "cat": "gong",
+   "text": "s150 court"
+  },
+  {
+   "t": 567.091,
+   "file": "s066-wind.wav",
+   "cat": "wind",
+   "text": "s151 pass"
+  },
+  {
+   "t": 576.032,
+   "file": "s067-water.wav",
+   "cat": "water",
+   "text": "s153 river"
+  },
+  {
+   "t": 583.285,
+   "file": "s068-battle.wav",
+   "cat": "battle",
+   "text": "s155 battle"
+  },
+  {
+   "t": 594.24,
+   "file": "s069-water.wav",
+   "cat": "water",
+   "text": "s159 river"
+  },
+  {
+   "t": 597.532,
+   "file": "s070-gong.wav",
+   "cat": "gong",
+   "text": "s160 court"
+  },
+  {
+   "t": 602.978,
+   "file": "s071-wind.wav",
+   "cat": "wind",
+   "text": "s162 plain"
+  },
+  {
+   "t": 610.304,
+   "file": "s072-battle.wav",
+   "cat": "battle",
+   "text": "s164 battle"
+  },
+  {
+   "t": 614.481,
+   "file": "s073-gate.wav",
+   "cat": "gate",
+   "text": "s165 city"
+  },
+  {
+   "t": 622.425,
+   "file": "s074-wind.wav",
+   "cat": "wind",
+   "text": "s167 pass"
+  },
+  {
+   "t": 626.712,
+   "file": "s075-blade.wav",
+   "cat": "blade",
+   "text": "s168 execution"
+  },
+  {
+   "t": 634.984,
+   "file": "s076-gong.wav",
+   "cat": "gong",
+   "text": "s170 court"
+  },
+  {
+   "t": 643.562,
+   "file": "s077-fire.wav",
+   "cat": "fire",
+   "text": "s173 city"
+  },
+  {
+   "t": 646.611,
+   "file": "s078-wind.wav",
+   "cat": "wind",
+   "text": "s174 tomb"
+  },
+  {
+   "t": 652.905,
+   "file": "s079-water.wav",
+   "cat": "water",
+   "text": "s176 river"
+  },
+  {
+   "t": 656.727,
+   "file": "s080-gate.wav",
+   "cat": "gate",
+   "text": "s177 city"
+  },
+  {
+   "t": 658.814,
+   "file": "s081-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：隋"
+  },
+  {
+   "t": 668.226,
+   "file": "s082-market.wav",
+   "cat": "market",
+   "text": "s181 market"
+  },
+  {
+   "t": 672.716,
+   "file": "s083-water.wav",
+   "cat": "water",
+   "text": "s182 river"
+  },
+  {
+   "t": 676.561,
+   "file": "s084-gong.wav",
+   "cat": "gong",
+   "text": "s183 court"
+  },
+  {
+   "t": 688.354,
+   "file": "s085-battle.wav",
+   "cat": "battle",
+   "text": "s187 battle"
+  },
+  {
+   "t": 694.548,
+   "file": "s086-fire.wav",
+   "cat": "fire",
+   "text": "s189 burning"
+  },
+  {
+   "t": 696.575,
+   "file": "s087-gate.wav",
+   "cat": "gate",
+   "text": "s190 city"
+  },
+  {
+   "t": 703.655,
+   "file": "s088-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：唐"
+  },
+  {
+   "t": 710.623,
+   "file": "s089-battle.wav",
+   "cat": "battle",
+   "text": "s194 battle"
+  },
+  {
+   "t": 715.0,
+   "file": "s090-gong.wav",
+   "cat": "gong",
+   "text": "s195 court"
+  },
+  {
+   "t": 723.373,
+   "file": "s091-gate.wav",
+   "cat": "gate",
+   "text": "s197 city"
+  },
+  {
+   "t": 726.674,
+   "file": "s092-blade.wav",
+   "cat": "blade",
+   "text": "s198 execution"
+  },
+  {
+   "t": 729.48,
+   "file": "s093-wind.wav",
+   "cat": "wind",
+   "text": "s199 steppe"
+  },
+  {
+   "t": 747.53,
+   "file": "s094-blade.wav",
+   "cat": "blade",
+   "text": "s204 execution"
+  },
+  {
+   "t": 753.492,
+   "file": "s095-gong.wav",
+   "cat": "gong",
+   "text": "s206 court"
+  },
+  {
+   "t": 759.799,
+   "file": "s096-wind.wav",
+   "cat": "wind",
+   "text": "s208 tomb"
+  },
+  {
+   "t": 769.171,
+   "file": "s097-gate.wav",
+   "cat": "gate",
+   "text": "s210 city"
+  },
+  {
+   "t": 773.459,
+   "file": "s098-market.wav",
+   "cat": "market",
+   "text": "s211 market"
+  },
+  {
+   "t": 786.057,
+   "file": "s099-fire.wav",
+   "cat": "fire",
+   "text": "s215 camp"
+  },
+  {
+   "t": 797.126,
+   "file": "s100-battle.wav",
+   "cat": "battle",
+   "text": "s218 battle"
+  },
+  {
+   "t": 800.506,
+   "file": "s101-fire.wav",
+   "cat": "fire",
+   "text": "s219 city"
+  },
+  {
+   "t": 803.897,
+   "file": "s102-wind.wav",
+   "cat": "wind",
+   "text": "s220 pass"
+  },
+  {
+   "t": 812.018,
+   "file": "s103-gong.wav",
+   "cat": "gong",
+   "text": "s222 court"
+  },
+  {
+   "t": 821.448,
+   "file": "s104-fire.wav",
+   "cat": "fire",
+   "text": "s225 camp"
+  },
+  {
+   "t": 829.778,
+   "file": "s105-blade.wav",
+   "cat": "blade",
+   "text": "s227 execution"
+  },
+  {
+   "t": 833.043,
+   "file": "s106-battle.wav",
+   "cat": "battle",
+   "text": "s228 battle"
+  },
+  {
+   "t": 835.781,
+   "file": "s107-gate.wav",
+   "cat": "gate",
+   "text": "s229 city"
+  },
+  {
+   "t": 839.139,
+   "file": "s108-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：五代十国"
+  },
+  {
+   "t": 842.843,
+   "file": "s109-fire.wav",
+   "cat": "fire",
+   "text": "s231 camp"
+  },
+  {
+   "t": 846.524,
+   "file": "s110-gong.wav",
+   "cat": "gong",
+   "text": "s232 court"
+  },
+  {
+   "t": 850.487,
+   "file": "s111-battle.wav",
+   "cat": "battle",
+   "text": "s233 battle"
+  },
+  {
+   "t": 858.103,
+   "file": "s112-wind.wav",
+   "cat": "wind",
+   "text": "s235 pass"
+  },
+  {
+   "t": 861.686,
+   "file": "s113-fire.wav",
+   "cat": "fire",
+   "text": "s236 camp"
+  },
+  {
+   "t": 865.181,
+   "file": "s114-horse.wav",
+   "cat": "horse",
+   "text": "s237 cavalry"
+  },
+  {
+   "t": 882.067,
+   "file": "s115-gong.wav",
+   "cat": "gong",
+   "text": "s241 court"
+  },
+  {
+   "t": 884.758,
+   "file": "s116-fire.wav",
+   "cat": "fire",
+   "text": "s242 camp"
+  },
+  {
+   "t": 888.993,
+   "file": "s117-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：宋"
+  },
+  {
+   "t": 903.756,
+   "file": "s118-fire.wav",
+   "cat": "fire",
+   "text": "s247 camp"
+  },
+  {
+   "t": 911.212,
+   "file": "s119-market.wav",
+   "cat": "market",
+   "text": "s249 market"
+  },
+  {
+   "t": 920.429,
+   "file": "s120-fire.wav",
+   "cat": "fire",
+   "text": "s252 camp"
+  },
+  {
+   "t": 923.965,
+   "file": "s121-battle.wav",
+   "cat": "battle",
+   "text": "s253 battle"
+  },
+  {
+   "t": 926.223,
+   "file": "s122-gong.wav",
+   "cat": "gong",
+   "text": "s254 court"
+  },
+  {
+   "t": 929.826,
+   "file": "s123-gate.wav",
+   "cat": "gate",
+   "text": "s255 city"
+  },
+  {
+   "t": 932.906,
+   "file": "s124-wind.wav",
+   "cat": "wind",
+   "text": "s256 wall"
+  },
+  {
+   "t": 952.076,
+   "file": "s125-fire.wav",
+   "cat": "fire",
+   "text": "s261 city"
+  },
+  {
+   "t": 956.625,
+   "file": "s126-wind.wav",
+   "cat": "wind",
+   "text": "s262 snow"
+  },
+  {
+   "t": 964.282,
+   "file": "s127-gong.wav",
+   "cat": "gong",
+   "text": "s264 court"
+  },
+  {
+   "t": 967.924,
+   "file": "s128-gate.wav",
+   "cat": "gate",
+   "text": "s265 city"
+  },
+  {
+   "t": 973.692,
+   "file": "s129-blade.wav",
+   "cat": "blade",
+   "text": "s267 execution"
+  },
+  {
+   "t": 980.502,
+   "file": "s130-water.wav",
+   "cat": "water",
+   "text": "s269 sea"
+  },
+  {
+   "t": 980.822,
+   "file": "s131-battle.wav",
+   "cat": "battle",
+   "text": "s269 海战"
+  },
+  {
+   "t": 985.982,
+   "file": "s132-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：元"
+  },
+  {
+   "t": 992.04,
+   "file": "s133-horse.wav",
+   "cat": "horse",
+   "text": "s273 cavalry"
+  },
+  {
+   "t": 998.139,
+   "file": "s134-gate.wav",
+   "cat": "gate",
+   "text": "s275 city"
+  },
+  {
+   "t": 1000.516,
+   "file": "s135-gong.wav",
+   "cat": "gong",
+   "text": "s276 court"
+  },
+  {
+   "t": 1007.163,
+   "file": "s136-market.wav",
+   "cat": "market",
+   "text": "s278 market"
+  },
+  {
+   "t": 1013.401,
+   "file": "s137-water.wav",
+   "cat": "water",
+   "text": "s280 river"
+  },
+  {
+   "t": 1016.357,
+   "file": "s138-fire.wav",
+   "cat": "fire",
+   "text": "s281 city"
+  },
+  {
+   "t": 1019.633,
+   "file": "s139-wind.wav",
+   "cat": "wind",
+   "text": "s282 steppe"
+  },
+  {
+   "t": 1021.456,
+   "file": "s140-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：明"
+  },
+  {
+   "t": 1024.899,
+   "file": "s141-gate.wav",
+   "cat": "gate",
+   "text": "s284 city"
+  },
+  {
+   "t": 1033.265,
+   "file": "s142-gong.wav",
+   "cat": "gong",
+   "text": "s287 palace"
+  },
+  {
+   "t": 1036.867,
+   "file": "s143-blade.wav",
+   "cat": "blade",
+   "text": "s288 execution"
+  },
+  {
+   "t": 1048.35,
+   "file": "s144-battle.wav",
+   "cat": "battle",
+   "text": "s292 battle"
+  },
+  {
+   "t": 1051.012,
+   "file": "s145-fire.wav",
+   "cat": "fire",
+   "text": "s293 city"
+  },
+  {
+   "t": 1054.246,
+   "file": "s146-water.wav",
+   "cat": "water",
+   "text": "s294 harbor"
+  },
+  {
+   "t": 1068.901,
+   "file": "s147-market.wav",
+   "cat": "market",
+   "text": "s298 market"
+  },
+  {
+   "t": 1073.538,
+   "file": "s148-battle.wav",
+   "cat": "battle",
+   "text": "s299 battle"
+  },
+  {
+   "t": 1076.769,
+   "file": "s149-wind.wav",
+   "cat": "wind",
+   "text": "s300 wall"
+  },
+  {
+   "t": 1079.68,
+   "file": "s150-blade.wav",
+   "cat": "blade",
+   "text": "s301 execution"
+  },
+  {
+   "t": 1081.891,
+   "file": "s151-gong.wav",
+   "cat": "gong",
+   "text": "s302 court"
+  },
+  {
+   "t": 1094.554,
+   "file": "s152-market.wav",
+   "cat": "market",
+   "text": "s306 market"
+  },
+  {
+   "t": 1101.105,
+   "file": "s153-battle.wav",
+   "cat": "battle",
+   "text": "s308 battle"
+  },
+  {
+   "t": 1111.726,
+   "file": "s154-blade.wav",
+   "cat": "blade",
+   "text": "s311 execution"
+  },
+  {
+   "t": 1118.225,
+   "file": "s155-wind.wav",
+   "cat": "wind",
+   "text": "s313 plain"
+  },
+  {
+   "t": 1121.611,
+   "file": "s156-fire.wav",
+   "cat": "fire",
+   "text": "s314 city"
+  },
+  {
+   "t": 1128.801,
+   "file": "s157-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：清"
+  },
+  {
+   "t": 1135.274,
+   "file": "s158-gong.wav",
+   "cat": "gong",
+   "text": "s318 court"
+  },
+  {
+   "t": 1142.54,
+   "file": "s159-battle.wav",
+   "cat": "battle",
+   "text": "s320 battle"
+  },
+  {
+   "t": 1150.502,
+   "file": "s160-horse.wav",
+   "cat": "horse",
+   "text": "s322 cavalry"
+  },
+  {
+   "t": 1178.41,
+   "file": "s161-gong.wav",
+   "cat": "gong",
+   "text": "s330 court"
+  },
+  {
+   "t": 1191.963,
+   "file": "s162-water.wav",
+   "cat": "water",
+   "text": "s334 harbor"
+  },
+  {
+   "t": 1195.406,
+   "file": "s163-blade.wav",
+   "cat": "blade",
+   "text": "s335 execution"
+  },
+  {
+   "t": 1206.926,
+   "file": "s164-battle.wav",
+   "cat": "battle",
+   "text": "s338 battle"
+  },
+  {
+   "t": 1214.225,
+   "file": "s165-water.wav",
+   "cat": "water",
+   "text": "s340 sea"
+  },
+  {
+   "t": 1221.099,
+   "file": "s166-battle.wav",
+   "cat": "battle",
+   "text": "s342 battle"
+  },
+  {
+   "t": 1223.947,
+   "file": "s167-fire.wav",
+   "cat": "fire",
+   "text": "s343 burning"
+  },
+  {
+   "t": 1228.722,
+   "file": "s168-gong.wav",
+   "cat": "gong",
+   "text": "s344 court"
+  },
+  {
+   "t": 1236.424,
+   "file": "s169-water.wav",
+   "cat": "water",
+   "text": "s346 harbor"
+  },
+  {
+   "t": 1249.076,
+   "file": "s170-fire.wav",
+   "cat": "fire",
+   "text": "s349 city"
+  },
+  {
+   "t": 1259.683,
+   "file": "s171-gate.wav",
+   "cat": "gate",
+   "text": "s351 city"
+  },
+  {
+   "t": 1262.88,
+   "file": "s172-gong.wav",
+   "cat": "gong",
+   "text": "s352 court"
+  },
+  {
+   "t": 1266.938,
+   "file": "s173-wind.wav",
+   "cat": "wind",
+   "text": "s353 tomb"
+  },
+  {
+   "t": 1272.053,
+   "file": "s174-horn.wav",
+   "cat": "horn",
+   "text": "幕标题：两千年"
+  },
+  {
+   "t": 1296.084,
+   "file": "s175-gong.wav",
+   "cat": "gong",
+   "text": "s363 court"
+  }
+ ]
+}

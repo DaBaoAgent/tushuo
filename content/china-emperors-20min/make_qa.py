@@ -14,15 +14,14 @@ OUT = ROOT / "output" / SLUG
 
 def replace_block(html, name, body):
     start = html.index("const %s = " % name)
-    tail = "\n];" if name != "CUE" else "\n};"
-    end = html.index(";\n", html.index(tail, start))
+    end = html.index(";\n", start)
     return html[:start] + "const %s = %s" % (name, body) + html[end:]
 
 
 html = (SRC / "index.html").read_text(encoding="utf-8")
 shots = json.loads((ROOT / "content" / SLUG / "shots-full.json").read_text(encoding="utf-8"))
 caps = json.loads((OUT / "build" / "captions-full.json").read_text(encoding="utf-8"))
-film_end = round(shots[-1]["t1"], 3)
+film_end = round(shots[-1]["t1"] + 5.4, 3)
 
 html = replace_block(html, "SHOTS", json.dumps(shots, ensure_ascii=False, indent=1))
 cap_body = "[\n" + ",\n".join(
@@ -30,8 +29,8 @@ cap_body = "[\n" + ",\n".join(
     for c in caps) + "\n]"
 html = replace_block(html, "CAPS", cap_body)
 html = replace_block(html, "CUE", json.dumps({"total": round(film_end - 5.4, 3), "filmEnd": film_end}))
-html = re.sub(r'id="root"[^>]*data-duration="[0-9.]+"',
-              'id="root" data-duration="%.3f"' % film_end, html, count=1)
+html = re.sub(r'(<div id="root"[^>]*?data-duration=")[0-9.]+(")',
+              r"\g<1>%.3f\g<2>" % film_end, html, count=1)
 html = re.sub(r'\s*<audio id="vo"[^>]*></audio>', "", html, count=1)
 
 DST.mkdir(parents=True, exist_ok=True)

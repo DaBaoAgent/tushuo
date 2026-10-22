@@ -1,0 +1,723 @@
+{
+ "narration": "D:\\@kaifa\\tushuo\\output\\china-emperors-20min\\narration-smooth.mp3",
+ "bgm": "D:\\@kaifa\\tushuo\\output\\china-emperors-20min\\audio\\bgm_bed.wav",
+ "sfx_dir": "D:\\@kaifa\\tushuo\\output\\china-emperors-20min\\audio\\sfx",
+ "total": 1326.938,
+ "narration_target_lufs": -16.0,
+ "bgm_target_lufs": -34.0,
+ "output": "D:\\@kaifa\\tushuo\\output\\china-emperors-20min\\audio\\soundtrack.wav",
+ "sfx": [
+  {
+   "t": 0.0,
+   "file": "hook-boom.wav"
+  },
+  {
+   "t": 0.12,
+   "file": "hook-drums.wav"
+  },
+  {
+   "t": 1.0,
+   "file": "hook-bell.wav"
+  },
+  {
+   "t": 5.975,
+   "file": "s001-gate.wav"
+  },
+  {
+   "t": 14.017,
+   "file": "s002-horn.wav"
+  },
+  {
+   "t": 24.26,
+   "file": "s003-market.wav"
+  },
+  {
+   "t": 33.01,
+   "file": "s004-wind.wav"
+  },
+  {
+   "t": 36.389,
+   "file": "s005-gong.wav"
+  },
+  {
+   "t": 42.957,
+   "file": "s006-battle.wav"
+  },
+  {
+   "t": 60.012,
+   "file": "s007-gate.wav"
+  },
+  {
+   "t": 69.951,
+   "file": "s008-gong.wav"
+  },
+  {
+   "t": 74.713,
+   "file": "s009-battle.wav"
+  },
+  {
+   "t": 100.748,
+   "file": "s010-wind.wav"
+  },
+  {
+   "t": 112.772,
+   "file": "s011-blade.wav"
+  },
+  {
+   "t": 120.541,
+   "file": "s012-fire.wav"
+  },
+  {
+   "t": 125.052,
+   "file": "s013-water.wav"
+  },
+  {
+   "t": 132.708,
+   "file": "s014-wind.wav"
+  },
+  {
+   "t": 146.898,
+   "file": "s015-gong.wav"
+  },
+  {
+   "t": 154.756,
+   "file": "s016-fire.wav"
+  },
+  {
+   "t": 160.11,
+   "file": "s017-battle.wav"
+  },
+  {
+   "t": 169.56,
+   "file": "s018-gate.wav"
+  },
+  {
+   "t": 176.31,
+   "file": "s019-fire.wav"
+  },
+  {
+   "t": 180.674,
+   "file": "s020-wind.wav"
+  },
+  {
+   "t": 189.855,
+   "file": "s021-horn.wav"
+  },
+  {
+   "t": 201.073,
+   "file": "s022-gong.wav"
+  },
+  {
+   "t": 213.791,
+   "file": "s023-market.wav"
+  },
+  {
+   "t": 216.416,
+   "file": "s024-battle.wav"
+  },
+  {
+   "t": 218.925,
+   "file": "s025-gate.wav"
+  },
+  {
+   "t": 233.424,
+   "file": "s026-wind.wav"
+  },
+  {
+   "t": 241.879,
+   "file": "s027-battle.wav"
+  },
+  {
+   "t": 249.097,
+   "file": "s028-gong.wav"
+  },
+  {
+   "t": 252.204,
+   "file": "s029-blade.wav"
+  },
+  {
+   "t": 255.507,
+   "file": "s030-wind.wav"
+  },
+  {
+   "t": 279.104,
+   "file": "s031-wind.wav"
+  },
+  {
+   "t": 283.514,
+   "file": "s032-market.wav"
+  },
+  {
+   "t": 293.178,
+   "file": "s033-gong.wav"
+  },
+  {
+   "t": 295.801,
+   "file": "s034-battle.wav"
+  },
+  {
+   "t": 299.99,
+   "file": "s035-horn.wav"
+  },
+  {
+   "t": 308.373,
+   "file": "s036-market.wav"
+  },
+  {
+   "t": 315.831,
+   "file": "s037-horse.wav"
+  },
+  {
+   "t": 318.791,
+   "file": "s038-battle.wav"
+  },
+  {
+   "t": 323.085,
+   "file": "s039-wind.wav"
+  },
+  {
+   "t": 339.384,
+   "file": "s040-blade.wav"
+  },
+  {
+   "t": 342.542,
+   "file": "s041-gong.wav"
+  },
+  {
+   "t": 364.004,
+   "file": "s042-market.wav"
+  },
+  {
+   "t": 377.184,
+   "file": "s043-gong.wav"
+  },
+  {
+   "t": 388.299,
+   "file": "s044-battle.wav"
+  },
+  {
+   "t": 391.863,
+   "file": "s045-horn.wav"
+  },
+  {
+   "t": 396.28,
+   "file": "s046-wind.wav"
+  },
+  {
+   "t": 403.34,
+   "file": "s047-battle.wav"
+  },
+  {
+   "t": 407.046,
+   "file": "s048-gate.wav"
+  },
+  {
+   "t": 411.809,
+   "file": "s049-gong.wav"
+  },
+  {
+   "t": 420.095,
+   "file": "s050-wind.wav"
+  },
+  {
+   "t": 444.406,
+   "file": "s051-gong.wav"
+  },
+  {
+   "t": 451.359,
+   "file": "s052-blade.wav"
+  },
+  {
+   "t": 459.5,
+   "file": "s053-market.wav"
+  },
+  {
+   "t": 462.779,
+   "file": "s054-battle.wav"
+  },
+  {
+   "t": 467.536,
+   "file": "s055-fire.wav"
+  },
+  {
+   "t": 479.632,
+   "file": "s056-battle.wav"
+  },
+  {
+   "t": 483.139,
+   "file": "s057-water.wav"
+  },
+  {
+   "t": 487.723,
+   "file": "s058-gong.wav"
+  },
+  {
+   "t": 496.0,
+   "file": "s059-horn.wav"
+  },
+  {
+   "t": 499.794,
+   "file": "s060-battle.wav"
+  },
+  {
+   "t": 521.679,
+   "file": "s061-gate.wav"
+  },
+  {
+   "t": 529.664,
+   "file": "s062-gong.wav"
+  },
+  {
+   "t": 548.167,
+   "file": "s063-battle.wav"
+  },
+  {
+   "t": 550.562,
+   "file": "s064-fire.wav"
+  },
+  {
+   "t": 564.197,
+   "file": "s065-gong.wav"
+  },
+  {
+   "t": 567.091,
+   "file": "s066-wind.wav"
+  },
+  {
+   "t": 576.032,
+   "file": "s067-water.wav"
+  },
+  {
+   "t": 583.285,
+   "file": "s068-battle.wav"
+  },
+  {
+   "t": 594.24,
+   "file": "s069-water.wav"
+  },
+  {
+   "t": 597.532,
+   "file": "s070-gong.wav"
+  },
+  {
+   "t": 602.978,
+   "file": "s071-wind.wav"
+  },
+  {
+   "t": 610.304,
+   "file": "s072-battle.wav"
+  },
+  {
+   "t": 614.481,
+   "file": "s073-gate.wav"
+  },
+  {
+   "t": 622.425,
+   "file": "s074-wind.wav"
+  },
+  {
+   "t": 626.712,
+   "file": "s075-blade.wav"
+  },
+  {
+   "t": 634.984,
+   "file": "s076-gong.wav"
+  },
+  {
+   "t": 643.562,
+   "file": "s077-fire.wav"
+  },
+  {
+   "t": 646.611,
+   "file": "s078-wind.wav"
+  },
+  {
+   "t": 652.905,
+   "file": "s079-water.wav"
+  },
+  {
+   "t": 656.727,
+   "file": "s080-gate.wav"
+  },
+  {
+   "t": 658.814,
+   "file": "s081-horn.wav"
+  },
+  {
+   "t": 668.226,
+   "file": "s082-market.wav"
+  },
+  {
+   "t": 672.716,
+   "file": "s083-water.wav"
+  },
+  {
+   "t": 676.561,
+   "file": "s084-gong.wav"
+  },
+  {
+   "t": 688.354,
+   "file": "s085-battle.wav"
+  },
+  {
+   "t": 694.548,
+   "file": "s086-fire.wav"
+  },
+  {
+   "t": 696.575,
+   "file": "s087-gate.wav"
+  },
+  {
+   "t": 703.655,
+   "file": "s088-horn.wav"
+  },
+  {
+   "t": 710.623,
+   "file": "s089-battle.wav"
+  },
+  {
+   "t": 715.0,
+   "file": "s090-gong.wav"
+  },
+  {
+   "t": 723.373,
+   "file": "s091-gate.wav"
+  },
+  {
+   "t": 726.674,
+   "file": "s092-blade.wav"
+  },
+  {
+   "t": 729.48,
+   "file": "s093-wind.wav"
+  },
+  {
+   "t": 747.53,
+   "file": "s094-blade.wav"
+  },
+  {
+   "t": 753.492,
+   "file": "s095-gong.wav"
+  },
+  {
+   "t": 759.799,
+   "file": "s096-wind.wav"
+  },
+  {
+   "t": 769.171,
+   "file": "s097-gate.wav"
+  },
+  {
+   "t": 773.459,
+   "file": "s098-market.wav"
+  },
+  {
+   "t": 786.057,
+   "file": "s099-fire.wav"
+  },
+  {
+   "t": 797.126,
+   "file": "s100-battle.wav"
+  },
+  {
+   "t": 800.506,
+   "file": "s101-fire.wav"
+  },
+  {
+   "t": 803.897,
+   "file": "s102-wind.wav"
+  },
+  {
+   "t": 812.018,
+   "file": "s103-gong.wav"
+  },
+  {
+   "t": 821.448,
+   "file": "s104-fire.wav"
+  },
+  {
+   "t": 829.778,
+   "file": "s105-blade.wav"
+  },
+  {
+   "t": 833.043,
+   "file": "s106-battle.wav"
+  },
+  {
+   "t": 835.781,
+   "file": "s107-gate.wav"
+  },
+  {
+   "t": 839.139,
+   "file": "s108-horn.wav"
+  },
+  {
+   "t": 842.843,
+   "file": "s109-fire.wav"
+  },
+  {
+   "t": 846.524,
+   "file": "s110-gong.wav"
+  },
+  {
+   "t": 850.487,
+   "file": "s111-battle.wav"
+  },
+  {
+   "t": 858.103,
+   "file": "s112-wind.wav"
+  },
+  {
+   "t": 861.686,
+   "file": "s113-fire.wav"
+  },
+  {
+   "t": 865.181,
+   "file": "s114-horse.wav"
+  },
+  {
+   "t": 882.067,
+   "file": "s115-gong.wav"
+  },
+  {
+   "t": 884.758,
+   "file": "s116-fire.wav"
+  },
+  {
+   "t": 888.993,
+   "file": "s117-horn.wav"
+  },
+  {
+   "t": 903.756,
+   "file": "s118-fire.wav"
+  },
+  {
+   "t": 911.212,
+   "file": "s119-market.wav"
+  },
+  {
+   "t": 920.429,
+   "file": "s120-fire.wav"
+  },
+  {
+   "t": 923.965,
+   "file": "s121-battle.wav"
+  },
+  {
+   "t": 926.223,
+   "file": "s122-gong.wav"
+  },
+  {
+   "t": 929.826,
+   "file": "s123-gate.wav"
+  },
+  {
+   "t": 932.906,
+   "file": "s124-wind.wav"
+  },
+  {
+   "t": 952.076,
+   "file": "s125-fire.wav"
+  },
+  {
+   "t": 956.625,
+   "file": "s126-wind.wav"
+  },
+  {
+   "t": 964.282,
+   "file": "s127-gong.wav"
+  },
+  {
+   "t": 967.924,
+   "file": "s128-gate.wav"
+  },
+  {
+   "t": 973.692,
+   "file": "s129-blade.wav"
+  },
+  {
+   "t": 980.502,
+   "file": "s130-water.wav"
+  },
+  {
+   "t": 980.822,
+   "file": "s131-battle.wav"
+  },
+  {
+   "t": 985.982,
+   "file": "s132-horn.wav"
+  },
+  {
+   "t": 992.04,
+   "file": "s133-horse.wav"
+  },
+  {
+   "t": 998.139,
+   "file": "s134-gate.wav"
+  },
+  {
+   "t": 1000.516,
+   "file": "s135-gong.wav"
+  },
+  {
+   "t": 1007.163,
+   "file": "s136-market.wav"
+  },
+  {
+   "t": 1013.401,
+   "file": "s137-water.wav"
+  },
+  {
+   "t": 1016.357,
+   "file": "s138-fire.wav"
+  },
+  {
+   "t": 1019.633,
+   "file": "s139-wind.wav"
+  },
+  {
+   "t": 1021.456,
+   "file": "s140-horn.wav"
+  },
+  {
+   "t": 1024.899,
+   "file": "s141-gate.wav"
+  },
+  {
+   "t": 1033.265,
+   "file": "s142-gong.wav"
+  },
+  {
+   "t": 1036.867,
+   "file": "s143-blade.wav"
+  },
+  {
+   "t": 1048.35,
+   "file": "s144-battle.wav"
+  },
+  {
+   "t": 1051.012,
+   "file": "s145-fire.wav"
+  },
+  {
+   "t": 1054.246,
+   "file": "s146-water.wav"
+  },
+  {
+   "t": 1068.901,
+   "file": "s147-market.wav"
+  },
+  {
+   "t": 1073.538,
+   "file": "s148-battle.wav"
+  },
+  {
+   "t": 1076.769,
+   "file": "s149-wind.wav"
+  },
+  {
+   "t": 1079.68,
+   "file": "s150-blade.wav"
+  },
+  {
+   "t": 1081.891,
+   "file": "s151-gong.wav"
+  },
+  {
+   "t": 1094.554,
+   "file": "s152-market.wav"
+  },
+  {
+   "t": 1101.105,
+   "file": "s153-battle.wav"
+  },
+  {
+   "t": 1111.726,
+   "file": "s154-blade.wav"
+  },
+  {
+   "t": 1118.225,
+   "file": "s155-wind.wav"
+  },
+  {
+   "t": 1121.611,
+   "file": "s156-fire.wav"
+  },
+  {
+   "t": 1128.801,
+   "file": "s157-horn.wav"
+  },
+  {
+   "t": 1135.274,
+   "file": "s158-gong.wav"
+  },
+  {
+   "t": 1142.54,
+   "file": "s159-battle.wav"
+  },
+  {
+   "t": 1150.502,
+   "file": "s160-horse.wav"
+  },
+  {
+   "t": 1178.41,
+   "file": "s161-gong.wav"
+  },
+  {
+   "t": 1191.963,
+   "file": "s162-water.wav"
+  },
+  {
+   "t": 1195.406,
+   "file": "s163-blade.wav"
+  },
+  {
+   "t": 1206.926,
+   "file": "s164-battle.wav"
+  },
+  {
+   "t": 1214.225,
+   "file": "s165-water.wav"
+  },
+  {
+   "t": 1221.099,
+   "file": "s166-battle.wav"
+  },
+  {
+   "t": 1223.947,
+   "file": "s167-fire.wav"
+  },
+  {
+   "t": 1228.722,
+   "file": "s168-gong.wav"
+  },
+  {
+   "t": 1236.424,
+   "file": "s169-water.wav"
+  },
+  {
+   "t": 1249.076,
+   "file": "s170-fire.wav"
+  },
+  {
+   "t": 1259.683,
+   "file": "s171-gate.wav"
+  },
+  {
+   "t": 1262.88,
+   "file": "s172-gong.wav"
+  },
+  {
+   "t": 1266.938,
+   "file": "s173-wind.wav"
+  },
+  {
+   "t": 1272.053,
+   "file": "s174-horn.wav"
+  },
+  {
+   "t": 1296.084,
+   "file": "s175-gong.wav"
+  }
+ ]
+}

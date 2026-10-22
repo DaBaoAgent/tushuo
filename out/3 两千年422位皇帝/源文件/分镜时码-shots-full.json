@@ -1,201 +1,8 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1920, height=1080">
-<title>一口气看完422位皇帝 · 20 分钟纸雕剪影版</title>
-<style>
-  :root {
-    --paper: #efe6d2; --paper2: #e2d4b8; --shade: #d9c9a8;
-    --ink: #24211c; --red: #b33a2b; --ochre: #9a6b3f;
-    --teal: #2f4b57; --gold: #c9a24a;
-  }
-  @font-face { font-family: "PaperKai"; src: local("KaiTi"), local("STKaiti"), local("楷体"), local("Noto Serif SC"); }
-  @font-face { font-family: "PaperSong"; src: local("SimSun"), local("宋体"), local("Noto Serif SC"); }
-  @font-face { font-family: "Microsoft YaHei"; src: local("Microsoft YaHei"), local("微软雅黑"); }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; background: #1c1916; overflow: hidden; }
-  #root {
-    position: relative; width: 100%; height: 100%; overflow: hidden;
-    background: var(--paper); color: var(--ink);
-    font-family: "PaperKai", "PaperSong", serif;
-  }
-
-  /* ---------- paper stage ---------- */
-  #stage { position: absolute; inset: 0; z-index: 1; }
-  .shot { position: absolute; inset: 0; visibility: hidden; opacity: 0; overflow: hidden; }
-  .shot-world {
-    position: absolute; left: -6%; top: -6%; width: 112%; height: 112%;
-    transform-origin: 50% 52%; will-change: transform;
-  }
-  .pc-layer { position: absolute; inset: 0; will-change: transform; }
-  .pc-layer svg { display: block; width: 100%; height: 100%; }
-  .pc-layer.pc-far { opacity: .96; filter: saturate(.88) brightness(1.05) blur(.3px); }
-  .pc-layer.pc-mid { filter: drop-shadow(0 10px 12px rgba(36,33,28,.16)); }
-  .pc-layer.pc-action { filter: drop-shadow(0 14px 16px rgba(36,33,28,.22)); }
-  .pc-layer.pc-fore { filter: drop-shadow(0 20px 24px rgba(36,33,28,.32)); }
-  .pc-chars { position: absolute; inset: 0; }
-  .pc-chars svg { display: block; width: 100%; height: 100%; }
-
-  /* ---------- texture / light ---------- */
-  #key-light {
-    position: absolute; inset: 0; z-index: 37; pointer-events: none; opacity: .5;
-    mix-blend-mode: screen;
-    background: radial-gradient(58% 50% at 64% 20%, rgba(255,243,212,.55) 0%, rgba(255,243,212,.15) 46%, rgba(255,243,212,0) 76%);
-  }
-  #paper-grain {
-    position: absolute; inset: 0; z-index: 40; pointer-events: none; opacity: .26;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.5'/%3E%3C/svg%3E");
-  }
-  #paper-fiber {
-    position: absolute; inset: 0; z-index: 39; pointer-events: none; opacity: .22;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(107,90,66,.05) 0 1px, transparent 1px 5px),
-      repeating-linear-gradient(90deg, rgba(107,90,66,.035) 0 1px, transparent 1px 9px);
-  }
-  #vignette {
-    position: absolute; inset: 0; z-index: 41; pointer-events: none;
-    background: radial-gradient(118% 88% at 50% 44%, rgba(0,0,0,0) 46%, rgba(36,33,28,.16) 76%, rgba(36,33,28,.42) 100%);
-  }
-  #light-sweep {
-    position: absolute; top: -30%; left: -20%; width: 160%; height: 160%;
-    z-index: 38; pointer-events: none; opacity: .35;
-    background: linear-gradient(102deg, rgba(255,248,224,0) 30%, rgba(255,248,224,.5) 48%, rgba(255,248,224,0) 64%);
-    mix-blend-mode: screen; transform: rotate(-12deg);
-  }
-  #paper-wipe {
-    position: absolute; top: -10%; left: 0; width: 130%; height: 120%;
-    z-index: 60; pointer-events: none; visibility: hidden;
-    background: linear-gradient(90deg, var(--paper2) 0 82%, var(--paper2) 82%);
-    filter: drop-shadow(-24px 0 24px rgba(36,33,28,.26));
-    clip-path: polygon(0 0, 100% 0, 94% 6%, 100% 13%, 96% 21%, 100% 29%, 95% 38%, 100% 46%, 96% 55%, 100% 63%, 95% 72%, 100% 80%, 96% 89%, 100% 96%, 0 100%);
-  }
-
-  /* ---------- titles ---------- */
-  .shot-title {
-    position: absolute; left: 90px; top: 66px; z-index: 20; max-width: 960px;
-    padding: 16px 34px 18px 20px;
-    background: rgba(239,230,210,.9);
-    clip-path: polygon(0 0, 100% 0, 100% 84%, 97% 91%, 100% 100%, 0 100%);
-    filter: drop-shadow(8px 10px 0 rgba(36,33,28,.12));
-  }
-  .tc-kicker {
-    display: inline-block; padding: 5px 14px; margin-bottom: 12px;
-    background: var(--red); color: var(--paper); font-size: 24px; letter-spacing: 6px;
-    box-shadow: 6px 8px 0 rgba(36,33,28,.14);
-  }
-  .tc-title {
-    font-size: 66px; font-weight: 700; line-height: 1.1; letter-spacing: 3px;
-    color: var(--ink); text-shadow: 4px 5px 0 rgba(217,201,168,.9);
-  }
-  .tc-sub {
-    margin-top: 12px; padding-left: 16px; border-left: 7px solid var(--gold);
-    font-size: 27px; line-height: 1.35; letter-spacing: 3px; color: var(--ochre);
-  }
-
-  /* ---------- 开场钩子 ---------- */
-  .shot[data-shot="s001"] .shot-title {
-    left: 50%; top: 34px; width: max-content; max-width: 1740px;
-    padding: 0; text-align: center; background: none; clip-path: none; filter: none;
-    transform: translateX(-50%);
-  }
-  .shot[data-shot="s001"] .tc-kicker {
-    padding: 7px 24px; margin-bottom: 18px; font-size: 28px; letter-spacing: 10px;
-    background: var(--red); color: #f7ead0; box-shadow: 9px 11px 0 rgba(12,7,4,.4);
-  }
-  .shot[data-shot="s001"] .tc-title {
-    font-size: 150px; line-height: 1; letter-spacing: 8px; color: #f8ecd2;
-    text-shadow: 0 5px 0 #6f1f14, 0 9px 0 rgba(26,14,8,.55),
-                 0 22px 46px rgba(0,0,0,.55), 0 0 58px rgba(255,168,84,.38);
-  }
-  .shot[data-shot="s001"] .tc-sub {
-    margin-top: 24px; padding-left: 0; border-left: 0;
-    font-size: 40px; letter-spacing: 9px; color: #ffd9a0;
-    text-shadow: 0 4px 16px rgba(0,0,0,.55);
-  }
-  #hook-flash {
-    position: absolute; inset: 0; z-index: 58; pointer-events: none; opacity: 0;
-    background: radial-gradient(56% 52% at 50% 36%, #fff7e2 0%, rgba(255,244,214,.92) 30%, rgba(255,244,214,0) 72%);
-  }
-  #hook-ring {
-    position: absolute; left: 50%; top: 29%; width: 940px; height: 940px;
-    margin: -470px 0 0 -470px; z-index: 19; pointer-events: none; opacity: 0;
-    border-radius: 50%; border: 12px solid rgba(255,208,126,.9);
-    box-shadow: 0 0 64px rgba(255,156,66,.6), inset 0 0 64px rgba(255,156,66,.4);
-  }
-
-  /* ---------- captions: zhidiao style（无底板 + 白色加粗 + 2px 黑描边 + 微软雅黑）---------- */
-  #subtitle-veil { display: none; }
-  #caption-wrap { position: absolute; left: 0; right: 0; bottom: 44px; height: 110px; z-index: 26; pointer-events: none; }
-  .cap-line { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); opacity: 0; white-space: nowrap; }
-  .cap-box {
-    display: inline-block; padding: 16px 36px;
-    background: none; border: 0; box-shadow: none;
-    color: #ffffff; font-family: "Microsoft YaHei", sans-serif;
-    font-size: 52px; font-weight: 900; line-height: 1.22; letter-spacing: .05em;
-    /* 外描边用 text-shadow：-webkit-text-stroke 居中描边会盖住字芯，字号小时尤其明显 */
-    text-shadow:
-      -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
-      0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000,
-      0 0 6px rgba(0,0,0,.55);
-    text-align: center; white-space: nowrap;
-  }
-
-  /* ---------- end card ---------- */
-  #endcard {
-    position: absolute; inset: 0; z-index: 70; opacity: 0; pointer-events: none;
-    background: radial-gradient(90% 70% at 50% 42%, #f3ead8 0%, #e6d8bd 70%, #d7c5a4 100%);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-  }
-  .ec-seal {
-    width: 124px; height: 124px; border: 6px double var(--red); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--red); font-size: 50px; font-weight: 700; letter-spacing: 4px;
-    transform: rotate(-6deg); background: rgba(239,230,210,.5);
-    box-shadow: 8px 10px 0 rgba(36,33,28,.10);
-  }
-  .ec-kicker { margin-top: 30px; font-size: 22px; letter-spacing: 11px; color: var(--ochre); }
-  .ec-title { margin-top: 16px; font-size: 74px; font-weight: 700; letter-spacing: 8px; color: var(--ink); }
-  .ec-sub { margin-top: 16px; font-size: 24px; letter-spacing: 5px; color: var(--ochre); }
-  .ec-next { margin-top: 34px; padding: 10px 30px; border: 2px solid var(--red); font-size: 22px; letter-spacing: 5px; color: var(--red); }
-  .ec-brand { margin-top: 28px; font-size: 17px; letter-spacing: 9px; color: #6f4a2a; }
-</style>
-</head>
-<body>
-<div id="root" data-duration="1406.411">
-
-  <div id="stage"></div>
-  <div id="key-light"></div>
-  <div id="light-sweep"></div>
-  <div id="paper-fiber"></div>
-  <div id="paper-grain"></div>
-  <div id="vignette"></div>
-  <div id="paper-wipe"></div>
-  <div id="hook-ring"></div>
-  <div id="hook-flash"></div>
-
-  <div id="subtitle-veil"></div>
-  <div id="caption-wrap"></div>
-
-  <div id="endcard">
-    <div class="ec-seal">史</div>
-    <div class="ec-kicker">上下五千年</div>
-    <div class="ec-title">四百二十二帝</div>
-    <div class="ec-sub">兴亡皆在一纸之间</div>
-    <div class="ec-next">下一部 · 敬请期待</div>
-    <div class="ec-brand">TUSHUO · 纸雕历史</div>
-  </div>
-
-  <script src="vendor/gsap.min.js"></script>
-  <script src="assets/papercut.js"></script>
-  <script>
-/* ---------------- 分镜数据（由 content/<slug>/shots.json 注入） ---------------- */
-const SHOTS = [
+[
  {
   "id": "s001",
   "t0": 0.0,
-  "t1": 3.76,
+  "t1": 3.258,
   "type": "hook",
   "camera": {
    "from": {
@@ -431,8 +238,8 @@ const SHOTS = [
  },
  {
   "id": "s002",
-  "t0": 3.75,
-  "t1": 6.771,
+  "t0": 3.248,
+  "t1": 5.805,
   "type": "twothrones",
   "camera": {
    "from": {
@@ -587,8 +394,8 @@ const SHOTS = [
  },
  {
   "id": "s003",
-  "t0": 6.761,
-  "t1": 13.115,
+  "t0": 5.795,
+  "t1": 10.704,
   "type": "city",
   "camera": {
    "from": {
@@ -747,8 +554,8 @@ const SHOTS = [
  },
  {
   "id": "s004",
-  "t0": 13.105,
-  "t1": 16.867,
+  "t0": 10.694,
+  "t1": 13.827,
   "type": "object",
   "camera": {
    "from": {
@@ -870,8 +677,8 @@ const SHOTS = [
  },
  {
   "id": "s005",
-  "t0": 16.857,
-  "t1": 18.581,
+  "t0": 13.817,
+  "t1": 15.256,
   "type": "portrait",
   "camera": {
    "from": {
@@ -1028,8 +835,8 @@ const SHOTS = [
  },
  {
   "id": "s006",
-  "t0": 18.571,
-  "t1": 21.963,
+  "t0": 15.246,
+  "t1": 18.189,
   "type": "city",
   "camera": {
    "from": {
@@ -1172,8 +979,8 @@ const SHOTS = [
  },
  {
   "id": "s007",
-  "t0": 21.953,
-  "t1": 25.714,
+  "t0": 18.179,
+  "t1": 21.471,
   "type": "city",
   "camera": {
    "from": {
@@ -1324,8 +1131,8 @@ const SHOTS = [
  },
  {
   "id": "s008",
-  "t0": 25.704,
-  "t1": 28.911,
+  "t0": 21.461,
+  "t1": 24.09,
   "type": "city",
   "camera": {
    "from": {
@@ -1486,8 +1293,8 @@ const SHOTS = [
  },
  {
   "id": "s009",
-  "t0": 28.901,
-  "t1": 33.403,
+  "t0": 24.08,
+  "t1": 28.106,
   "type": "market",
   "camera": {
    "from": {
@@ -1678,8 +1485,8 @@ const SHOTS = [
  },
  {
   "id": "s010",
-  "t0": 33.393,
-  "t1": 39.192,
+  "t0": 28.096,
+  "t1": 32.84,
   "type": "feast",
   "camera": {
    "from": {
@@ -1871,8 +1678,8 @@ const SHOTS = [
  },
  {
   "id": "s011",
-  "t0": 39.182,
-  "t1": 42.388,
+  "t0": 32.83,
+  "t1": 36.219,
   "type": "pass",
   "camera": {
    "from": {
@@ -2040,8 +1847,8 @@ const SHOTS = [
  },
  {
   "id": "s012",
-  "t0": 42.378,
-  "t1": 45.214,
+  "t0": 36.209,
+  "t1": 38.93,
   "type": "court",
   "camera": {
    "from": {
@@ -2241,8 +2048,8 @@ const SHOTS = [
  },
  {
   "id": "s013",
-  "t0": 45.204,
-  "t1": 49.336,
+  "t0": 38.92,
+  "t1": 42.787,
   "type": "court",
   "camera": {
    "from": {
@@ -2451,8 +2258,8 @@ const SHOTS = [
  },
  {
   "id": "s014",
-  "t0": 49.326,
-  "t1": 53.458,
+  "t0": 42.777,
+  "t1": 46.574,
   "type": "battle",
   "camera": {
    "from": {
@@ -2642,8 +2449,8 @@ const SHOTS = [
  },
  {
   "id": "s015",
-  "t0": 53.448,
-  "t1": 57.209,
+  "t0": 46.564,
+  "t1": 49.98,
   "type": "court",
   "camera": {
    "from": {
@@ -2843,8 +2650,8 @@ const SHOTS = [
  },
  {
   "id": "s016",
-  "t0": 57.199,
-  "t1": 60.22,
+  "t0": 49.97,
+  "t1": 52.963,
   "type": "map",
   "camera": {
    "from": {
@@ -2909,9 +2716,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -3015,8 +2822,8 @@ const SHOTS = [
  },
  {
   "id": "s017",
-  "t0": 60.21,
-  "t1": 63.787,
+  "t0": 52.953,
+  "t1": 56.563,
   "type": "battle",
   "camera": {
    "from": {
@@ -3199,8 +3006,8 @@ const SHOTS = [
  },
  {
   "id": "s018",
-  "t0": 63.777,
-  "t1": 66.983,
+  "t0": 56.553,
+  "t1": 59.842,
   "type": "map",
   "camera": {
    "from": {
@@ -3265,9 +3072,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -3357,8 +3164,8 @@ const SHOTS = [
  },
  {
   "id": "s019",
-  "t0": 66.973,
-  "t1": 71.661,
+  "t0": 59.832,
+  "t1": 64.96,
   "type": "city",
   "camera": {
    "from": {
@@ -3491,8 +3298,8 @@ const SHOTS = [
  },
  {
   "id": "s020",
-  "t0": 71.651,
-  "t1": 76.709,
+  "t0": 64.95,
+  "t1": 69.781,
   "type": "court",
   "camera": {
    "from": {
@@ -3694,8 +3501,8 @@ const SHOTS = [
  },
  {
   "id": "s021",
-  "t0": 76.699,
-  "t1": 81.942,
+  "t0": 69.771,
+  "t1": 74.543,
   "type": "court",
   "camera": {
    "from": {
@@ -3896,8 +3703,8 @@ const SHOTS = [
  },
  {
   "id": "s022",
-  "t0": 81.932,
-  "t1": 86.805,
+  "t0": 74.533,
+  "t1": 79.214,
   "type": "battle",
   "camera": {
    "from": {
@@ -4080,8 +3887,8 @@ const SHOTS = [
  },
  {
   "id": "s023",
-  "t0": 86.795,
-  "t1": 90.556,
+  "t0": 79.204,
+  "t1": 82.386,
   "type": "portrait",
   "camera": {
    "from": {
@@ -4235,8 +4042,8 @@ const SHOTS = [
  },
  {
   "id": "s024",
-  "t0": 90.546,
-  "t1": 93.197,
+  "t0": 82.376,
+  "t1": 84.718,
   "type": "object",
   "camera": {
    "from": {
@@ -4359,8 +4166,8 @@ const SHOTS = [
  },
  {
   "id": "s025",
-  "t0": 93.187,
-  "t1": 98.06,
+  "t0": 84.708,
+  "t1": 89.14,
   "type": "court",
   "camera": {
    "from": {
@@ -4552,8 +4359,8 @@ const SHOTS = [
  },
  {
   "id": "s026",
-  "t0": 98.05,
-  "t1": 101.441,
+  "t0": 89.13,
+  "t1": 92.66,
   "type": "map",
   "camera": {
    "from": {
@@ -4618,9 +4425,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -4724,8 +4531,8 @@ const SHOTS = [
  },
  {
   "id": "s027",
-  "t0": 101.431,
-  "t1": 105.563,
+  "t0": 92.65,
+  "t1": 96.738,
   "type": "court",
   "camera": {
    "from": {
@@ -4908,8 +4715,8 @@ const SHOTS = [
  },
  {
   "id": "s028",
-  "t0": 105.553,
-  "t1": 109.871,
+  "t0": 96.728,
+  "t1": 100.578,
   "type": "study",
   "camera": {
    "from": {
@@ -5036,8 +4843,8 @@ const SHOTS = [
  },
  {
   "id": "s029",
-  "t0": 109.861,
-  "t1": 114.363,
+  "t0": 100.568,
+  "t1": 105.021,
   "type": "wall",
   "camera": {
    "from": {
@@ -5176,8 +4983,8 @@ const SHOTS = [
  },
  {
   "id": "s030",
-  "t0": 114.353,
-  "t1": 119.041,
+  "t0": 105.011,
+  "t1": 109.687,
   "type": "plain",
   "camera": {
    "from": {
@@ -5263,16 +5070,52 @@ const SHOTS = [
       "color": "#2b2620"
      },
      {
-      "shape": "tree",
-      "x": 0.16,
+      "shape": "pine",
+      "x": 0.1,
       "y": 0.9,
-      "s": 0.9
+      "s": 0.6
      },
      {
       "shape": "pine",
-      "x": 0.86,
-      "y": 0.92,
-      "s": 0.8
+      "x": 0.2142857142857143,
+      "y": 0.915,
+      "s": 0.6799999999999999
+     },
+     {
+      "shape": "pine",
+      "x": 0.3285714285714286,
+      "y": 0.9,
+      "s": 0.76
+     },
+     {
+      "shape": "pine",
+      "x": 0.44285714285714284,
+      "y": 0.915,
+      "s": 0.6
+     },
+     {
+      "shape": "pine",
+      "x": 0.5571428571428572,
+      "y": 0.9,
+      "s": 0.6799999999999999
+     },
+     {
+      "shape": "pine",
+      "x": 0.6714285714285715,
+      "y": 0.915,
+      "s": 0.76
+     },
+     {
+      "shape": "pine",
+      "x": 0.7857142857142857,
+      "y": 0.9,
+      "s": 0.6
+     },
+     {
+      "shape": "pine",
+      "x": 0.9,
+      "y": 0.915,
+      "s": 0.6799999999999999
      }
     ]
    },
@@ -5293,8 +5136,8 @@ const SHOTS = [
  },
  {
   "id": "s031",
-  "t0": 119.031,
-  "t1": 122.422,
+  "t0": 109.677,
+  "t1": 112.602,
   "type": "study",
   "camera": {
    "from": {
@@ -5425,8 +5268,8 @@ const SHOTS = [
  },
  {
   "id": "s032",
-  "t0": 122.412,
-  "t1": 126.544,
+  "t0": 112.592,
+  "t1": 116.429,
   "type": "execution",
   "camera": {
    "from": {
@@ -5487,7 +5330,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -5577,8 +5421,8 @@ const SHOTS = [
  },
  {
   "id": "s033",
-  "t0": 126.534,
-  "t1": 131.222,
+  "t0": 116.419,
+  "t1": 120.371,
   "type": "portrait",
   "camera": {
    "from": {
@@ -5732,8 +5576,8 @@ const SHOTS = [
  },
  {
   "id": "s034",
-  "t0": 131.212,
-  "t1": 136.27,
+  "t0": 120.361,
+  "t1": 124.882,
   "type": "burning",
   "camera": {
    "from": {
@@ -5873,8 +5717,8 @@ const SHOTS = [
  },
  {
   "id": "s035",
-  "t0": 136.26,
-  "t1": 140.392,
+  "t0": 124.872,
+  "t1": 128.763,
   "type": "sea",
   "camera": {
    "from": {
@@ -6031,8 +5875,8 @@ const SHOTS = [
  },
  {
   "id": "s036",
-  "t0": 140.382,
-  "t1": 144.329,
+  "t0": 128.753,
+  "t1": 132.538,
   "type": "sea",
   "camera": {
    "from": {
@@ -6164,8 +6008,8 @@ const SHOTS = [
  },
  {
   "id": "s037",
-  "t0": 144.319,
-  "t1": 148.451,
+  "t0": 132.528,
+  "t1": 136.362,
   "type": "tomb",
   "camera": {
    "from": {
@@ -6294,8 +6138,8 @@ const SHOTS = [
  },
  {
   "id": "s038",
-  "t0": 148.441,
-  "t1": 153.313,
+  "t0": 136.352,
+  "t1": 140.946,
   "type": "pass",
   "camera": {
    "from": {
@@ -6471,8 +6315,8 @@ const SHOTS = [
  },
  {
   "id": "s039",
-  "t0": 153.303,
-  "t1": 157.065,
+  "t0": 140.936,
+  "t1": 144.706,
   "type": "study",
   "camera": {
    "from": {
@@ -6611,8 +6455,8 @@ const SHOTS = [
  },
  {
   "id": "s040",
-  "t0": 157.055,
-  "t1": 159.521,
+  "t0": 144.696,
+  "t1": 146.728,
   "type": "study",
   "camera": {
    "from": {
@@ -6744,8 +6588,8 @@ const SHOTS = [
  },
  {
   "id": "s041",
-  "t0": 159.511,
-  "t1": 163.457,
+  "t0": 146.718,
+  "t1": 150.724,
   "type": "court",
   "camera": {
    "from": {
@@ -6953,8 +6797,8 @@ const SHOTS = [
  },
  {
   "id": "s042",
-  "t0": 163.447,
-  "t1": 167.024,
+  "t0": 150.714,
+  "t1": 154.586,
   "type": "court",
   "camera": {
    "from": {
@@ -7154,8 +6998,8 @@ const SHOTS = [
  },
  {
   "id": "s043",
-  "t0": 167.014,
-  "t1": 172.072,
+  "t0": 154.576,
+  "t1": 159.94,
   "type": "camp",
   "camera": {
    "from": {
@@ -7320,8 +7164,8 @@ const SHOTS = [
  },
  {
   "id": "s044",
-  "t0": 172.062,
-  "t1": 177.12,
+  "t0": 159.93,
+  "t1": 164.437,
   "type": "battle",
   "camera": {
    "from": {
@@ -7514,8 +7358,8 @@ const SHOTS = [
  },
  {
   "id": "s045",
-  "t0": 177.11,
-  "t1": 182.538,
+  "t0": 164.427,
+  "t1": 169.39,
   "type": "map",
   "camera": {
    "from": {
@@ -7580,9 +7424,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -7665,8 +7509,8 @@ const SHOTS = [
  },
  {
   "id": "s046",
-  "t0": 182.528,
-  "t1": 186.105,
+  "t0": 169.38,
+  "t1": 173.98,
   "type": "city",
   "camera": {
    "from": {
@@ -7816,8 +7660,8 @@ const SHOTS = [
  },
  {
   "id": "s047",
-  "t0": 186.095,
-  "t1": 188.19,
+  "t0": 173.97,
+  "t1": 176.14,
   "type": "object",
   "camera": {
    "from": {
@@ -7939,8 +7783,8 @@ const SHOTS = [
  },
  {
   "id": "s048",
-  "t0": 188.18,
-  "t1": 192.868,
+  "t0": 176.13,
+  "t1": 180.504,
   "type": "burning",
   "camera": {
    "from": {
@@ -8080,8 +7924,8 @@ const SHOTS = [
  },
  {
   "id": "s049",
-  "t0": 192.858,
-  "t1": 197.545,
+  "t0": 180.494,
+  "t1": 185.755,
   "type": "wall",
   "camera": {
    "from": {
@@ -8220,8 +8064,8 @@ const SHOTS = [
  },
  {
   "id": "s050",
-  "t0": 197.535,
-  "t1": 201.297,
+  "t0": 185.745,
+  "t1": 189.685,
   "type": "tomb",
   "camera": {
    "from": {
@@ -8341,8 +8185,8 @@ const SHOTS = [
  },
  {
   "id": "s051",
-  "t0": 201.287,
-  "t1": 205.049,
+  "t0": 189.675,
+  "t1": 193.085,
   "type": "camp",
   "camera": {
    "from": {
@@ -8480,8 +8324,8 @@ const SHOTS = [
  },
  {
   "id": "s052",
-  "t0": 205.039,
-  "t1": 209.541,
+  "t0": 193.075,
+  "t1": 196.994,
   "type": "wall",
   "camera": {
    "from": {
@@ -8620,8 +8464,8 @@ const SHOTS = [
  },
  {
   "id": "s053",
-  "t0": 209.531,
-  "t1": 213.848,
+  "t0": 196.984,
+  "t1": 200.903,
   "type": "wall",
   "camera": {
    "from": {
@@ -8760,8 +8604,8 @@ const SHOTS = [
  },
  {
   "id": "s054",
-  "t0": 213.838,
-  "t1": 217.97,
+  "t0": 200.893,
+  "t1": 204.577,
   "type": "court",
   "camera": {
    "from": {
@@ -8944,8 +8788,8 @@ const SHOTS = [
  },
  {
   "id": "s055",
-  "t0": 217.96,
-  "t1": 220.981,
+  "t0": 204.567,
+  "t1": 207.256,
   "type": "court",
   "camera": {
    "from": {
@@ -9128,8 +8972,8 @@ const SHOTS = [
  },
  {
   "id": "s056",
-  "t0": 220.971,
-  "t1": 226.215,
+  "t0": 207.246,
+  "t1": 212.294,
   "type": "object",
   "camera": {
    "from": {
@@ -9252,8 +9096,8 @@ const SHOTS = [
  },
  {
   "id": "s057",
-  "t0": 226.205,
-  "t1": 228.114,
+  "t0": 212.284,
+  "t1": 213.621,
   "type": "portrait",
   "camera": {
    "from": {
@@ -9410,8 +9254,8 @@ const SHOTS = [
  },
  {
   "id": "s058",
-  "t0": 228.104,
-  "t1": 230.94,
+  "t0": 213.611,
+  "t1": 216.246,
   "type": "market",
   "camera": {
    "from": {
@@ -9594,8 +9438,8 @@ const SHOTS = [
  },
  {
   "id": "s059",
-  "t0": 230.93,
-  "t1": 233.581,
+  "t0": 216.236,
+  "t1": 218.755,
   "type": "battle",
   "camera": {
    "from": {
@@ -9785,8 +9629,8 @@ const SHOTS = [
  },
  {
   "id": "s060",
-  "t0": 233.571,
-  "t1": 238.629,
+  "t0": 218.745,
+  "t1": 223.769,
   "type": "city",
   "camera": {
    "from": {
@@ -9921,8 +9765,8 @@ const SHOTS = [
  },
  {
   "id": "s061",
-  "t0": 238.619,
-  "t1": 243.306,
+  "t0": 223.759,
+  "t1": 228.293,
   "type": "feast",
   "camera": {
    "from": {
@@ -10116,8 +9960,8 @@ const SHOTS = [
  },
  {
   "id": "s062",
-  "t0": 243.296,
-  "t1": 248.169,
+  "t0": 228.283,
+  "t1": 233.254,
   "type": "map",
   "camera": {
    "from": {
@@ -10182,9 +10026,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -10260,8 +10104,8 @@ const SHOTS = [
  },
  {
   "id": "s063",
-  "t0": 248.159,
-  "t1": 253.588,
+  "t0": 233.244,
+  "t1": 237.778,
   "type": "pass",
   "camera": {
    "from": {
@@ -10433,8 +10277,8 @@ const SHOTS = [
  },
  {
   "id": "s064",
-  "t0": 253.578,
-  "t1": 257.895,
+  "t0": 237.768,
+  "t1": 241.709,
   "type": "object",
   "camera": {
    "from": {
@@ -10573,8 +10417,8 @@ const SHOTS = [
  },
  {
   "id": "s065",
-  "t0": 257.885,
-  "t1": 262.387,
+  "t0": 241.699,
+  "t1": 246.149,
   "type": "battle",
   "camera": {
    "from": {
@@ -10767,8 +10611,8 @@ const SHOTS = [
  },
  {
   "id": "s066",
-  "t0": 262.377,
-  "t1": 265.213,
+  "t0": 246.139,
+  "t1": 248.927,
   "type": "portrait",
   "camera": {
    "from": {
@@ -10928,8 +10772,8 @@ const SHOTS = [
  },
  {
   "id": "s067",
-  "t0": 265.203,
-  "t1": 269.15,
+  "t0": 248.917,
+  "t1": 252.034,
   "type": "court",
   "camera": {
    "from": {
@@ -11112,8 +10956,8 @@ const SHOTS = [
  },
  {
   "id": "s068",
-  "t0": 269.14,
-  "t1": 272.346,
+  "t0": 252.024,
+  "t1": 255.337,
   "type": "execution",
   "camera": {
    "from": {
@@ -11174,7 +11018,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -11273,8 +11118,8 @@ const SHOTS = [
  },
  {
   "id": "s069",
-  "t0": 272.336,
-  "t1": 276.653,
+  "t0": 255.327,
+  "t1": 259.163,
   "type": "snow",
   "camera": {
    "from": {
@@ -11409,8 +11254,8 @@ const SHOTS = [
  },
  {
   "id": "s070",
-  "t0": 276.643,
-  "t1": 279.664,
+  "t0": 259.153,
+  "t1": 261.884,
   "type": "steppe",
   "camera": {
    "from": {
@@ -11545,8 +11390,8 @@ const SHOTS = [
  },
  {
   "id": "s071",
-  "t0": 279.654,
-  "t1": 282.86,
+  "t0": 261.874,
+  "t1": 265.122,
   "type": "steppe",
   "camera": {
    "from": {
@@ -11679,8 +11524,8 @@ const SHOTS = [
  },
  {
   "id": "s072",
-  "t0": 282.85,
-  "t1": 287.168,
+  "t0": 265.112,
+  "t1": 269.286,
   "type": "feast",
   "camera": {
    "from": {
@@ -11856,8 +11701,8 @@ const SHOTS = [
  },
  {
   "id": "s073",
-  "t0": 287.158,
-  "t1": 292.216,
+  "t0": 269.276,
+  "t1": 274.321,
   "type": "court",
   "camera": {
    "from": {
@@ -12065,8 +11910,8 @@ const SHOTS = [
  },
  {
   "id": "s074",
-  "t0": 292.206,
-  "t1": 297.079,
+  "t0": 274.311,
+  "t1": 278.934,
   "type": "court",
   "camera": {
    "from": {
@@ -12266,8 +12111,8 @@ const SHOTS = [
  },
  {
   "id": "s075",
-  "t0": 297.069,
-  "t1": 301.386,
+  "t0": 278.924,
+  "t1": 283.344,
   "type": "plain",
   "camera": {
    "from": {
@@ -12383,8 +12228,8 @@ const SHOTS = [
  },
  {
   "id": "s076",
-  "t0": 301.376,
-  "t1": 306.434,
+  "t0": 283.334,
+  "t1": 287.624,
   "type": "market",
   "camera": {
    "from": {
@@ -12558,8 +12403,8 @@ const SHOTS = [
  },
  {
   "id": "s077",
-  "t0": 306.424,
-  "t1": 312.037,
+  "t0": 287.614,
+  "t1": 293.008,
   "type": "study",
   "camera": {
    "from": {
@@ -12685,8 +12530,8 @@ const SHOTS = [
  },
  {
   "id": "s078",
-  "t0": 312.027,
-  "t1": 314.863,
+  "t0": 292.998,
+  "t1": 295.631,
   "type": "court",
   "camera": {
    "from": {
@@ -12886,8 +12731,8 @@ const SHOTS = [
  },
  {
   "id": "s079",
-  "t0": 314.853,
-  "t1": 318.8,
+  "t0": 295.621,
+  "t1": 299.8,
   "type": "battle",
   "camera": {
    "from": {
@@ -13067,8 +12912,8 @@ const SHOTS = [
  },
  {
   "id": "s080",
-  "t0": 318.79,
-  "t1": 321.996,
+  "t0": 299.79,
+  "t1": 302.285,
   "type": "portrait",
   "camera": {
    "from": {
@@ -13225,8 +13070,8 @@ const SHOTS = [
  },
  {
   "id": "s081",
-  "t0": 321.986,
-  "t1": 325.933,
+  "t0": 302.275,
+  "t1": 305.571,
   "type": "battle",
   "camera": {
    "from": {
@@ -13409,8 +13254,8 @@ const SHOTS = [
  },
  {
   "id": "s082",
-  "t0": 325.923,
-  "t1": 328.944,
+  "t0": 305.561,
+  "t1": 308.203,
   "type": "map",
   "camera": {
    "from": {
@@ -13475,9 +13320,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -13595,8 +13440,8 @@ const SHOTS = [
  },
  {
   "id": "s083",
-  "t0": 328.934,
-  "t1": 332.325,
+  "t0": 308.193,
+  "t1": 311.676,
   "type": "market",
   "camera": {
    "from": {
@@ -13779,8 +13624,8 @@ const SHOTS = [
  },
  {
   "id": "s084",
-  "t0": 332.315,
-  "t1": 336.077,
+  "t0": 311.666,
+  "t1": 315.661,
   "type": "study",
   "camera": {
    "from": {
@@ -13914,8 +13759,8 @@ const SHOTS = [
  },
  {
   "id": "s085",
-  "t0": 336.067,
-  "t1": 339.644,
+  "t0": 315.651,
+  "t1": 318.621,
   "type": "cavalry",
   "camera": {
    "from": {
@@ -14058,8 +13903,8 @@ const SHOTS = [
  },
  {
   "id": "s086",
-  "t0": 339.634,
-  "t1": 344.506,
+  "t0": 318.611,
+  "t1": 322.915,
   "type": "battle",
   "camera": {
    "from": {
@@ -14230,8 +14075,8 @@ const SHOTS = [
  },
  {
   "id": "s087",
-  "t0": 344.496,
-  "t1": 347.517,
+  "t0": 322.905,
+  "t1": 325.718,
   "type": "steppe",
   "camera": {
    "from": {
@@ -14361,8 +14206,8 @@ const SHOTS = [
  },
  {
   "id": "s088",
-  "t0": 347.507,
-  "t1": 352.565,
+  "t0": 325.708,
+  "t1": 330.688,
   "type": "steppe",
   "camera": {
    "from": {
@@ -14497,8 +14342,8 @@ const SHOTS = [
  },
  {
   "id": "s089",
-  "t0": 352.555,
-  "t1": 356.873,
+  "t0": 330.678,
+  "t1": 334.959,
   "type": "map",
   "camera": {
    "from": {
@@ -14563,9 +14408,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -14663,8 +14508,8 @@ const SHOTS = [
  },
  {
   "id": "s090",
-  "t0": 356.863,
-  "t1": 361.18,
+  "t0": 334.949,
+  "t1": 339.214,
   "type": "plain",
   "camera": {
    "from": {
@@ -14780,8 +14625,8 @@ const SHOTS = [
  },
  {
   "id": "s091",
-  "t0": 361.17,
-  "t1": 364.932,
+  "t0": 339.204,
+  "t1": 342.372,
   "type": "execution",
   "camera": {
    "from": {
@@ -14842,7 +14687,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#202623"
+      "color": "#202623",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -14913,8 +14759,8 @@ const SHOTS = [
  },
  {
   "id": "s092",
-  "t0": 364.922,
-  "t1": 369.424,
+  "t0": 342.362,
+  "t1": 346.979,
   "type": "court",
   "camera": {
    "from": {
@@ -15122,8 +14968,8 @@ const SHOTS = [
  },
  {
   "id": "s093",
-  "t0": 369.414,
-  "t1": 374.472,
+  "t0": 346.969,
+  "t1": 351.541,
   "type": "court",
   "camera": {
    "from": {
@@ -15331,8 +15177,8 @@ const SHOTS = [
  },
  {
   "id": "s094",
-  "t0": 374.462,
-  "t1": 378.594,
+  "t0": 351.531,
+  "t1": 355.447,
   "type": "study",
   "camera": {
    "from": {
@@ -15463,8 +15309,8 @@ const SHOTS = [
  },
  {
   "id": "s095",
-  "t0": 378.584,
-  "t1": 381.605,
+  "t0": 355.437,
+  "t1": 358.478,
   "type": "court",
   "camera": {
    "from": {
@@ -15657,8 +15503,8 @@ const SHOTS = [
  },
  {
   "id": "s096",
-  "t0": 381.595,
-  "t1": 384.431,
+  "t0": 358.468,
+  "t1": 361.013,
   "type": "court",
   "camera": {
    "from": {
@@ -15858,8 +15704,8 @@ const SHOTS = [
  },
  {
   "id": "s097",
-  "t0": 384.421,
-  "t1": 388.183,
+  "t0": 361.003,
+  "t1": 363.834,
   "type": "court",
   "camera": {
    "from": {
@@ -16059,8 +15905,8 @@ const SHOTS = [
  },
  {
   "id": "s098",
-  "t0": 388.173,
-  "t1": 393.231,
+  "t0": 363.824,
+  "t1": 368.019,
   "type": "market",
   "camera": {
    "from": {
@@ -16251,8 +16097,8 @@ const SHOTS = [
  },
  {
   "id": "s099",
-  "t0": 393.221,
-  "t1": 396.797,
+  "t0": 368.009,
+  "t1": 372.234,
   "type": "court",
   "camera": {
    "from": {
@@ -16460,8 +16306,8 @@ const SHOTS = [
  },
  {
   "id": "s100",
-  "t0": 396.787,
-  "t1": 402.215,
+  "t0": 372.224,
+  "t1": 377.014,
   "type": "court",
   "camera": {
    "from": {
@@ -16653,8 +16499,8 @@ const SHOTS = [
  },
  {
   "id": "s101",
-  "t0": 402.205,
-  "t1": 404.856,
+  "t0": 377.004,
+  "t1": 379.705,
   "type": "court",
   "camera": {
    "from": {
@@ -16847,8 +16693,8 @@ const SHOTS = [
  },
  {
   "id": "s102",
-  "t0": 404.846,
-  "t1": 408.978,
+  "t0": 379.695,
+  "t1": 384.371,
   "type": "study",
   "camera": {
    "from": {
@@ -16975,8 +16821,8 @@ const SHOTS = [
  },
  {
   "id": "s103",
-  "t0": 408.968,
-  "t1": 413.656,
+  "t0": 384.361,
+  "t1": 388.129,
   "type": "object",
   "camera": {
    "from": {
@@ -17099,8 +16945,8 @@ const SHOTS = [
  },
  {
   "id": "s104",
-  "t0": 413.646,
-  "t1": 417.407,
+  "t0": 388.119,
+  "t1": 391.673,
   "type": "battle",
   "camera": {
    "from": {
@@ -17283,8 +17129,8 @@ const SHOTS = [
  },
  {
   "id": "s105",
-  "t0": 417.397,
-  "t1": 421.344,
+  "t0": 391.663,
+  "t1": 396.11,
   "type": "portrait",
   "camera": {
    "from": {
@@ -17441,8 +17287,8 @@ const SHOTS = [
  },
  {
   "id": "s106",
-  "t0": 421.334,
-  "t1": 425.652,
+  "t0": 396.1,
+  "t1": 399.846,
   "type": "plain",
   "camera": {
    "from": {
@@ -17567,8 +17413,8 @@ const SHOTS = [
  },
  {
   "id": "s107",
-  "t0": 425.642,
-  "t1": 428.848,
+  "t0": 399.836,
+  "t1": 403.17,
   "type": "plain",
   "camera": {
    "from": {
@@ -17701,8 +17547,8 @@ const SHOTS = [
  },
  {
   "id": "s108",
-  "t0": 428.838,
-  "t1": 432.599,
+  "t0": 403.16,
+  "t1": 406.876,
   "type": "battle",
   "camera": {
    "from": {
@@ -17891,8 +17737,8 @@ const SHOTS = [
  },
  {
   "id": "s109",
-  "t0": 432.589,
-  "t1": 436.907,
+  "t0": 406.866,
+  "t1": 411.639,
   "type": "city",
   "camera": {
    "from": {
@@ -18018,8 +17864,8 @@ const SHOTS = [
  },
  {
   "id": "s110",
-  "t0": 436.897,
-  "t1": 441.769,
+  "t0": 411.629,
+  "t1": 416.069,
   "type": "court",
   "camera": {
    "from": {
@@ -18202,8 +18048,8 @@ const SHOTS = [
  },
  {
   "id": "s111",
-  "t0": 441.759,
-  "t1": 445.521,
+  "t0": 416.059,
+  "t1": 419.925,
   "type": "court",
   "camera": {
    "from": {
@@ -18386,8 +18232,8 @@ const SHOTS = [
  },
  {
   "id": "s112",
-  "t0": 445.511,
-  "t1": 450.384,
+  "t0": 419.915,
+  "t1": 424.545,
   "type": "pass",
   "camera": {
    "from": {
@@ -18547,8 +18393,8 @@ const SHOTS = [
  },
  {
   "id": "s113",
-  "t0": 450.374,
-  "t1": 454.506,
+  "t0": 424.535,
+  "t1": 428.419,
   "type": "study",
   "camera": {
    "from": {
@@ -18667,8 +18513,8 @@ const SHOTS = [
  },
  {
   "id": "s114",
-  "t0": 454.496,
-  "t1": 456.961,
+  "t0": 428.409,
+  "t1": 430.653,
   "type": "court",
   "camera": {
    "from": {
@@ -18868,8 +18714,8 @@ const SHOTS = [
  },
  {
   "id": "s115",
-  "t0": 456.951,
-  "t1": 461.454,
+  "t0": 430.643,
+  "t1": 435.145,
   "type": "court",
   "camera": {
    "from": {
@@ -19077,8 +18923,8 @@ const SHOTS = [
  },
  {
   "id": "s116",
-  "t0": 461.444,
-  "t1": 464.65,
+  "t0": 435.135,
+  "t1": 437.827,
   "type": "tomb",
   "camera": {
    "from": {
@@ -19207,8 +19053,8 @@ const SHOTS = [
  },
  {
   "id": "s117",
-  "t0": 464.64,
-  "t1": 467.291,
+  "t0": 437.817,
+  "t1": 440.645,
   "type": "court",
   "camera": {
    "from": {
@@ -19408,8 +19254,8 @@ const SHOTS = [
  },
  {
   "id": "s118",
-  "t0": 467.281,
-  "t1": 470.857,
+  "t0": 440.635,
+  "t1": 444.236,
   "type": "court",
   "camera": {
    "from": {
@@ -19609,8 +19455,8 @@ const SHOTS = [
  },
  {
   "id": "s119",
-  "t0": 470.847,
-  "t1": 473.683,
+  "t0": 444.226,
+  "t1": 446.925,
   "type": "court",
   "camera": {
    "from": {
@@ -19793,8 +19639,8 @@ const SHOTS = [
  },
  {
   "id": "s120",
-  "t0": 473.673,
-  "t1": 478.731,
+  "t0": 446.915,
+  "t1": 451.189,
   "type": "study",
   "camera": {
    "from": {
@@ -19936,8 +19782,8 @@ const SHOTS = [
  },
  {
   "id": "s121",
-  "t0": 478.721,
-  "t1": 482.668,
+  "t0": 451.179,
+  "t1": 455.065,
   "type": "execution",
   "camera": {
    "from": {
@@ -19998,7 +19844,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -20087,8 +19934,8 @@ const SHOTS = [
  },
  {
   "id": "s122",
-  "t0": 482.658,
-  "t1": 487.345,
+  "t0": 455.055,
+  "t1": 459.33,
   "type": "court",
   "camera": {
    "from": {
@@ -20288,8 +20135,8 @@ const SHOTS = [
  },
  {
   "id": "s123",
-  "t0": 487.335,
-  "t1": 490.727,
+  "t0": 459.32,
+  "t1": 462.609,
   "type": "market",
   "camera": {
    "from": {
@@ -20472,8 +20319,8 @@ const SHOTS = [
  },
  {
   "id": "s124",
-  "t0": 490.717,
-  "t1": 495.034,
+  "t0": 462.599,
+  "t1": 467.366,
   "type": "battle",
   "camera": {
    "from": {
@@ -20667,8 +20514,8 @@ const SHOTS = [
  },
  {
   "id": "s125",
-  "t0": 495.024,
-  "t1": 498.971,
+  "t0": 467.356,
+  "t1": 471.002,
   "type": "camp",
   "camera": {
    "from": {
@@ -20831,8 +20678,8 @@ const SHOTS = [
  },
  {
   "id": "s126",
-  "t0": 498.961,
-  "t1": 503.463,
+  "t0": 470.992,
+  "t1": 475.838,
   "type": "city",
   "camera": {
    "from": {
@@ -20991,8 +20838,8 @@ const SHOTS = [
  },
  {
   "id": "s127",
-  "t0": 503.453,
-  "t1": 507.585,
+  "t0": 475.828,
+  "t1": 479.462,
   "type": "court",
   "camera": {
    "from": {
@@ -21192,8 +21039,8 @@ const SHOTS = [
  },
  {
   "id": "s128",
-  "t0": 507.575,
-  "t1": 511.522,
+  "t0": 479.452,
+  "t1": 482.969,
   "type": "battle",
   "camera": {
    "from": {
@@ -21377,8 +21224,8 @@ const SHOTS = [
  },
  {
   "id": "s129",
-  "t0": 511.512,
-  "t1": 516.57,
+  "t0": 482.959,
+  "t1": 487.553,
   "type": "river",
   "camera": {
    "from": {
@@ -21550,8 +21397,8 @@ const SHOTS = [
  },
  {
   "id": "s130",
-  "t0": 516.56,
-  "t1": 521.248,
+  "t0": 487.543,
+  "t1": 492.037,
   "type": "court",
   "camera": {
    "from": {
@@ -21759,8 +21606,8 @@ const SHOTS = [
  },
  {
   "id": "s131",
-  "t0": 521.238,
-  "t1": 525.0,
+  "t0": 492.027,
+  "t1": 495.81,
   "type": "court",
   "camera": {
    "from": {
@@ -21960,8 +21807,8 @@ const SHOTS = [
  },
  {
   "id": "s132",
-  "t0": 524.99,
-  "t1": 528.937,
+  "t0": 495.8,
+  "t1": 499.624,
   "type": "portrait",
   "camera": {
    "from": {
@@ -22118,8 +21965,8 @@ const SHOTS = [
  },
  {
   "id": "s133",
-  "t0": 528.927,
-  "t1": 534.725,
+  "t0": 499.614,
+  "t1": 504.742,
   "type": "battle",
   "camera": {
    "from": {
@@ -22312,8 +22159,8 @@ const SHOTS = [
  },
  {
   "id": "s134",
-  "t0": 534.715,
-  "t1": 537.921,
+  "t0": 504.732,
+  "t1": 508.531,
   "type": "court",
   "camera": {
    "from": {
@@ -22521,8 +22368,8 @@ const SHOTS = [
  },
  {
   "id": "s135",
-  "t0": 537.911,
-  "t1": 542.229,
+  "t0": 508.521,
+  "t1": 512.598,
   "type": "court",
   "camera": {
    "from": {
@@ -22714,8 +22561,8 @@ const SHOTS = [
  },
  {
   "id": "s136",
-  "t0": 542.219,
-  "t1": 546.536,
+  "t0": 512.588,
+  "t1": 516.867,
   "type": "court",
   "camera": {
    "from": {
@@ -22907,8 +22754,8 @@ const SHOTS = [
  },
  {
   "id": "s137",
-  "t0": 546.526,
-  "t1": 551.584,
+  "t0": 516.857,
+  "t1": 521.509,
   "type": "court",
   "camera": {
    "from": {
@@ -23109,8 +22956,8 @@ const SHOTS = [
  },
  {
   "id": "s138",
-  "t0": 551.574,
-  "t1": 554.965,
+  "t0": 521.499,
+  "t1": 524.77,
   "type": "city",
   "camera": {
    "from": {
@@ -23260,8 +23107,8 @@ const SHOTS = [
  },
  {
   "id": "s139",
-  "t0": 554.955,
-  "t1": 560.384,
+  "t0": 524.76,
+  "t1": 529.494,
   "type": "portrait",
   "camera": {
    "from": {
@@ -23415,8 +23262,8 @@ const SHOTS = [
  },
  {
   "id": "s140",
-  "t0": 560.374,
-  "t1": 562.654,
+  "t0": 529.484,
+  "t1": 531.497,
   "type": "court",
   "camera": {
    "from": {
@@ -23609,8 +23456,8 @@ const SHOTS = [
  },
  {
   "id": "s141",
-  "t0": 562.644,
-  "t1": 565.48,
+  "t0": 531.487,
+  "t1": 534.362,
   "type": "map",
   "camera": {
    "from": {
@@ -23675,9 +23522,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -23774,8 +23621,8 @@ const SHOTS = [
  },
  {
   "id": "s142",
-  "t0": 565.47,
-  "t1": 567.38,
+  "t0": 534.352,
+  "t1": 535.838,
   "type": "object",
   "camera": {
    "from": {
@@ -23897,8 +23744,8 @@ const SHOTS = [
  },
  {
   "id": "s143",
-  "t0": 567.37,
-  "t1": 571.131,
+  "t0": 535.828,
+  "t1": 539.395,
   "type": "court",
   "camera": {
    "from": {
@@ -24081,8 +23928,8 @@ const SHOTS = [
  },
  {
   "id": "s144",
-  "t0": 571.121,
-  "t1": 575.624,
+  "t0": 539.385,
+  "t1": 543.808,
   "type": "palace",
   "camera": {
    "from": {
@@ -24264,8 +24111,8 @@ const SHOTS = [
  },
  {
   "id": "s145",
-  "t0": 575.614,
-  "t1": 580.116,
+  "t0": 543.798,
+  "t1": 547.997,
   "type": "feast",
   "camera": {
    "from": {
@@ -24449,8 +24296,8 @@ const SHOTS = [
  },
  {
   "id": "s146",
-  "t0": 580.106,
-  "t1": 582.757,
+  "t0": 547.987,
+  "t1": 550.392,
   "type": "battle",
   "camera": {
    "from": {
@@ -24630,8 +24477,8 @@ const SHOTS = [
  },
  {
   "id": "s147",
-  "t0": 582.747,
-  "t1": 587.249,
+  "t0": 550.382,
+  "t1": 555.239,
   "type": "city",
   "camera": {
    "from": {
@@ -24791,8 +24638,8 @@ const SHOTS = [
  },
  {
   "id": "s148",
-  "t0": 587.239,
-  "t1": 592.112,
+  "t0": 555.229,
+  "t1": 561.272,
   "type": "battle",
   "camera": {
    "from": {
@@ -24963,8 +24810,8 @@ const SHOTS = [
  },
  {
   "id": "s149",
-  "t0": 592.102,
-  "t1": 594.753,
+  "t0": 561.262,
+  "t1": 564.027,
   "type": "city",
   "camera": {
    "from": {
@@ -25123,8 +24970,8 @@ const SHOTS = [
  },
  {
   "id": "s150",
-  "t0": 594.743,
-  "t1": 598.134,
+  "t0": 564.017,
+  "t1": 566.921,
   "type": "court",
   "camera": {
    "from": {
@@ -25316,8 +25163,8 @@ const SHOTS = [
  },
  {
   "id": "s151",
-  "t0": 598.124,
-  "t1": 601.145,
+  "t0": 566.911,
+  "t1": 570.08,
   "type": "pass",
   "camera": {
    "from": {
@@ -25503,8 +25350,8 @@ const SHOTS = [
  },
  {
   "id": "s152",
-  "t0": 601.135,
-  "t1": 607.119,
+  "t0": 570.07,
+  "t1": 575.862,
   "type": "court",
   "camera": {
    "from": {
@@ -25704,8 +25551,8 @@ const SHOTS = [
  },
  {
   "id": "s153",
-  "t0": 607.109,
-  "t1": 611.796,
+  "t0": 575.852,
+  "t1": 580.588,
   "type": "river",
   "camera": {
    "from": {
@@ -25837,8 +25684,8 @@ const SHOTS = [
  },
  {
   "id": "s154",
-  "t0": 611.786,
-  "t1": 614.807,
+  "t0": 580.578,
+  "t1": 583.115,
   "type": "court",
   "camera": {
    "from": {
@@ -26021,8 +25868,8 @@ const SHOTS = [
  },
  {
   "id": "s155",
-  "t0": 614.797,
-  "t1": 618.004,
+  "t0": 583.105,
+  "t1": 586.205,
   "type": "battle",
   "camera": {
    "from": {
@@ -26191,8 +26038,8 @@ const SHOTS = [
  },
  {
   "id": "s156",
-  "t0": 617.994,
-  "t1": 620.829,
+  "t0": 586.195,
+  "t1": 589.042,
   "type": "river",
   "camera": {
    "from": {
@@ -26364,8 +26211,8 @@ const SHOTS = [
  },
  {
   "id": "s157",
-  "t0": 620.819,
-  "t1": 624.025,
+  "t0": 589.032,
+  "t1": 591.941,
   "type": "map",
   "camera": {
    "from": {
@@ -26430,9 +26277,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -26536,8 +26383,8 @@ const SHOTS = [
  },
  {
   "id": "s158",
-  "t0": 624.015,
-  "t1": 626.296,
+  "t0": 591.931,
+  "t1": 594.07,
   "type": "battle",
   "camera": {
    "from": {
@@ -26705,8 +26552,8 @@ const SHOTS = [
  },
  {
   "id": "s159",
-  "t0": 626.286,
-  "t1": 630.418,
+  "t0": 594.06,
+  "t1": 597.362,
   "type": "river",
   "camera": {
    "from": {
@@ -26829,8 +26676,8 @@ const SHOTS = [
  },
  {
   "id": "s160",
-  "t0": 630.408,
-  "t1": 633.058,
+  "t0": 597.352,
+  "t1": 599.816,
   "type": "court",
   "camera": {
    "from": {
@@ -27023,8 +26870,8 @@ const SHOTS = [
  },
  {
   "id": "s161",
-  "t0": 633.048,
-  "t1": 636.069,
+  "t0": 599.806,
+  "t1": 602.808,
   "type": "map",
   "camera": {
    "from": {
@@ -27089,9 +26936,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -27181,8 +27028,8 @@ const SHOTS = [
  },
  {
   "id": "s162",
-  "t0": 636.059,
-  "t1": 639.636,
+  "t0": 602.798,
+  "t1": 605.97,
   "type": "plain",
   "camera": {
    "from": {
@@ -27307,8 +27154,8 @@ const SHOTS = [
  },
  {
   "id": "s163",
-  "t0": 639.626,
-  "t1": 643.943,
+  "t0": 605.96,
+  "t1": 610.134,
   "type": "river",
   "camera": {
    "from": {
@@ -27431,8 +27278,8 @@ const SHOTS = [
  },
  {
   "id": "s164",
-  "t0": 643.933,
-  "t1": 648.806,
+  "t0": 610.124,
+  "t1": 614.311,
   "type": "battle",
   "camera": {
    "from": {
@@ -27600,8 +27447,8 @@ const SHOTS = [
  },
  {
   "id": "s165",
-  "t0": 648.796,
-  "t1": 652.002,
+  "t0": 614.301,
+  "t1": 617.415,
   "type": "city",
   "camera": {
    "from": {
@@ -27727,8 +27574,8 @@ const SHOTS = [
  },
  {
   "id": "s166",
-  "t0": 651.992,
-  "t1": 656.309,
+  "t0": 617.405,
+  "t1": 622.255,
   "type": "court",
   "camera": {
    "from": {
@@ -27936,8 +27783,8 @@ const SHOTS = [
  },
  {
   "id": "s167",
-  "t0": 656.299,
-  "t1": 660.987,
+  "t0": 622.245,
+  "t1": 626.542,
   "type": "pass",
   "camera": {
    "from": {
@@ -28107,8 +27954,8 @@ const SHOTS = [
  },
  {
   "id": "s168",
-  "t0": 660.977,
-  "t1": 665.665,
+  "t0": 626.532,
+  "t1": 630.909,
   "type": "execution",
   "camera": {
    "from": {
@@ -28169,7 +28016,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -28241,8 +28089,8 @@ const SHOTS = [
  },
  {
   "id": "s169",
-  "t0": 665.655,
-  "t1": 669.416,
+  "t0": 630.899,
+  "t1": 634.814,
   "type": "map",
   "camera": {
    "from": {
@@ -28307,9 +28155,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -28399,8 +28247,8 @@ const SHOTS = [
  },
  {
   "id": "s170",
-  "t0": 669.406,
-  "t1": 672.612,
+  "t0": 634.804,
+  "t1": 637.364,
   "type": "court",
   "camera": {
    "from": {
@@ -28583,8 +28431,8 @@ const SHOTS = [
  },
  {
   "id": "s171",
-  "t0": 672.602,
-  "t1": 675.809,
+  "t0": 637.354,
+  "t1": 640.398,
   "type": "temple",
   "camera": {
    "from": {
@@ -28739,8 +28587,8 @@ const SHOTS = [
  },
  {
   "id": "s172",
-  "t0": 675.799,
-  "t1": 679.19,
+  "t0": 640.388,
+  "t1": 643.392,
   "type": "temple",
   "camera": {
    "from": {
@@ -28887,8 +28735,8 @@ const SHOTS = [
  },
  {
   "id": "s173",
-  "t0": 679.18,
-  "t1": 682.016,
+  "t0": 643.382,
+  "t1": 646.441,
   "type": "city",
   "camera": {
    "from": {
@@ -29048,8 +28896,8 @@ const SHOTS = [
  },
  {
   "id": "s174",
-  "t0": 682.006,
-  "t1": 684.471,
+  "t0": 646.431,
+  "t1": 648.674,
   "type": "tomb",
   "camera": {
    "from": {
@@ -29178,8 +29026,8 @@ const SHOTS = [
  },
  {
   "id": "s175",
-  "t0": 684.461,
-  "t1": 688.964,
+  "t0": 648.664,
+  "t1": 652.735,
   "type": "temple",
   "camera": {
    "from": {
@@ -29317,8 +29165,8 @@ const SHOTS = [
  },
  {
   "id": "s176",
-  "t0": 688.954,
-  "t1": 692.9,
+  "t0": 652.725,
+  "t1": 656.557,
   "type": "river",
   "camera": {
    "from": {
@@ -29446,8 +29294,8 @@ const SHOTS = [
  },
  {
   "id": "s177",
-  "t0": 692.89,
-  "t1": 695.541,
+  "t0": 656.547,
+  "t1": 658.624,
   "type": "city",
   "camera": {
    "from": {
@@ -29604,8 +29452,8 @@ const SHOTS = [
  },
  {
   "id": "s178",
-  "t0": 695.531,
-  "t1": 697.441,
+  "t0": 658.614,
+  "t1": 660.109,
   "type": "object",
   "camera": {
    "from": {
@@ -29730,8 +29578,8 @@ const SHOTS = [
  },
  {
   "id": "s179",
-  "t0": 697.431,
-  "t1": 700.822,
+  "t0": 660.099,
+  "t1": 663.451,
   "type": "court",
   "camera": {
    "from": {
@@ -29923,8 +29771,8 @@ const SHOTS = [
  },
  {
   "id": "s180",
-  "t0": 700.812,
-  "t1": 705.685,
+  "t0": 663.441,
+  "t1": 668.056,
   "type": "study",
   "camera": {
    "from": {
@@ -30051,8 +29899,8 @@ const SHOTS = [
  },
  {
   "id": "s181",
-  "t0": 705.675,
-  "t1": 709.992,
+  "t0": 668.046,
+  "t1": 672.546,
   "type": "market",
   "camera": {
    "from": {
@@ -30226,8 +30074,8 @@ const SHOTS = [
  },
  {
   "id": "s182",
-  "t0": 709.982,
-  "t1": 714.3,
+  "t0": 672.536,
+  "t1": 676.391,
   "type": "river",
   "camera": {
    "from": {
@@ -30350,8 +30198,8 @@ const SHOTS = [
  },
  {
   "id": "s183",
-  "t0": 714.29,
-  "t1": 717.866,
+  "t0": 676.381,
+  "t1": 679.602,
   "type": "court",
   "camera": {
    "from": {
@@ -30559,8 +30407,8 @@ const SHOTS = [
  },
  {
   "id": "s184",
-  "t0": 717.856,
-  "t1": 719.581,
+  "t0": 679.592,
+  "t1": 680.99,
   "type": "court",
   "camera": {
    "from": {
@@ -30753,8 +30601,8 @@ const SHOTS = [
  },
  {
   "id": "s185",
-  "t0": 719.571,
-  "t1": 723.147,
+  "t0": 680.98,
+  "t1": 684.258,
   "type": "river",
   "camera": {
    "from": {
@@ -30877,8 +30725,8 @@ const SHOTS = [
  },
  {
   "id": "s186",
-  "t0": 723.137,
-  "t1": 727.084,
+  "t0": 684.248,
+  "t1": 688.184,
   "type": "study",
   "camera": {
    "from": {
@@ -31004,8 +30852,8 @@ const SHOTS = [
  },
  {
   "id": "s187",
-  "t0": 727.074,
-  "t1": 730.836,
+  "t0": 688.174,
+  "t1": 691.832,
   "type": "battle",
   "camera": {
    "from": {
@@ -31193,8 +31041,8 @@ const SHOTS = [
  },
  {
   "id": "s188",
-  "t0": 730.826,
-  "t1": 734.032,
+  "t0": 691.822,
+  "t1": 694.378,
   "type": "battle",
   "camera": {
    "from": {
@@ -31365,8 +31213,8 @@ const SHOTS = [
  },
  {
   "id": "s189",
-  "t0": 734.022,
-  "t1": 735.932,
+  "t0": 694.368,
+  "t1": 696.405,
   "type": "burning",
   "camera": {
    "from": {
@@ -31505,8 +31353,8 @@ const SHOTS = [
  },
  {
   "id": "s190",
-  "t0": 735.922,
-  "t1": 739.684,
+  "t0": 696.395,
+  "t1": 700.134,
   "type": "city",
   "camera": {
    "from": {
@@ -31654,8 +31502,8 @@ const SHOTS = [
  },
  {
   "id": "s191",
-  "t0": 739.674,
-  "t1": 742.88,
+  "t0": 700.124,
+  "t1": 703.465,
   "type": "study",
   "camera": {
    "from": {
@@ -31786,8 +31634,8 @@ const SHOTS = [
  },
  {
   "id": "s192",
-  "t0": 742.87,
-  "t1": 746.076,
+  "t0": 703.455,
+  "t1": 706.267,
   "type": "portrait",
   "camera": {
    "from": {
@@ -31944,8 +31792,8 @@ const SHOTS = [
  },
  {
   "id": "s193",
-  "t0": 746.066,
-  "t1": 751.124,
+  "t0": 706.257,
+  "t1": 710.453,
   "type": "city",
   "camera": {
    "from": {
@@ -32088,8 +31936,8 @@ const SHOTS = [
  },
  {
   "id": "s194",
-  "t0": 751.114,
-  "t1": 755.987,
+  "t0": 710.443,
+  "t1": 714.83,
   "type": "battle",
   "camera": {
    "from": {
@@ -32270,8 +32118,8 @@ const SHOTS = [
  },
  {
   "id": "s195",
-  "t0": 755.977,
-  "t1": 760.294,
+  "t0": 714.82,
+  "t1": 718.689,
   "type": "court",
   "camera": {
    "from": {
@@ -32463,8 +32311,8 @@ const SHOTS = [
  },
  {
   "id": "s196",
-  "t0": 760.284,
-  "t1": 764.786,
+  "t0": 718.679,
+  "t1": 723.203,
   "type": "court",
   "camera": {
    "from": {
@@ -32664,8 +32512,8 @@ const SHOTS = [
  },
  {
   "id": "s197",
-  "t0": 764.776,
-  "t1": 768.723,
+  "t0": 723.193,
+  "t1": 726.504,
   "type": "city",
   "camera": {
    "from": {
@@ -32791,8 +32639,8 @@ const SHOTS = [
  },
  {
   "id": "s198",
-  "t0": 768.713,
-  "t1": 771.919,
+  "t0": 726.494,
+  "t1": 729.31,
   "type": "execution",
   "camera": {
    "from": {
@@ -32853,7 +32701,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#2b2620"
+      "color": "#2b2620",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -32917,8 +32766,8 @@ const SHOTS = [
  },
  {
   "id": "s199",
-  "t0": 771.909,
-  "t1": 776.227,
+  "t0": 729.3,
+  "t1": 733.522,
   "type": "steppe",
   "camera": {
    "from": {
@@ -33067,8 +32916,8 @@ const SHOTS = [
  },
  {
   "id": "s200",
-  "t0": 776.217,
-  "t1": 779.423,
+  "t0": 733.512,
+  "t1": 736.456,
   "type": "court",
   "camera": {
    "from": {
@@ -33268,8 +33117,8 @@ const SHOTS = [
  },
  {
   "id": "s201",
-  "t0": 779.413,
-  "t1": 783.73,
+  "t0": 736.446,
+  "t1": 740.389,
   "type": "portrait",
   "camera": {
    "from": {
@@ -33424,8 +33273,8 @@ const SHOTS = [
  },
  {
   "id": "s202",
-  "t0": 783.72,
-  "t1": 786.371,
+  "t0": 740.379,
+  "t1": 742.383,
   "type": "portrait",
   "camera": {
    "from": {
@@ -33579,8 +33428,8 @@ const SHOTS = [
  },
  {
   "id": "s203",
-  "t0": 786.361,
-  "t1": 791.604,
+  "t0": 742.373,
+  "t1": 747.36,
   "type": "palace",
   "camera": {
    "from": {
@@ -33754,8 +33603,8 @@ const SHOTS = [
  },
  {
   "id": "s204",
-  "t0": 791.594,
-  "t1": 794.8,
+  "t0": 747.35,
+  "t1": 750.295,
   "type": "execution",
   "camera": {
    "from": {
@@ -33816,7 +33665,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -33887,8 +33737,8 @@ const SHOTS = [
  },
  {
   "id": "s205",
-  "t0": 794.79,
-  "t1": 798.552,
+  "t0": 750.285,
+  "t1": 753.322,
   "type": "study",
   "camera": {
    "from": {
@@ -34022,8 +33872,8 @@ const SHOTS = [
  },
  {
   "id": "s206",
-  "t0": 798.542,
-  "t1": 801.933,
+  "t0": 753.312,
+  "t1": 756.114,
   "type": "court",
   "camera": {
    "from": {
@@ -34223,8 +34073,8 @@ const SHOTS = [
  },
  {
   "id": "s207",
-  "t0": 801.923,
-  "t1": 805.685,
+  "t0": 756.104,
+  "t1": 759.629,
   "type": "court",
   "camera": {
    "from": {
@@ -34424,8 +34274,8 @@ const SHOTS = [
  },
  {
   "id": "s208",
-  "t0": 805.675,
-  "t1": 810.918,
+  "t0": 759.619,
+  "t1": 764.049,
   "type": "tomb",
   "camera": {
    "from": {
@@ -34545,8 +34395,8 @@ const SHOTS = [
  },
  {
   "id": "s209",
-  "t0": 810.908,
-  "t1": 815.781,
+  "t0": 764.039,
+  "t1": 769.001,
   "type": "court",
   "camera": {
    "from": {
@@ -34754,8 +34604,8 @@ const SHOTS = [
  },
  {
   "id": "s210",
-  "t0": 815.771,
-  "t1": 819.903,
+  "t0": 768.991,
+  "t1": 773.289,
   "type": "city",
   "camera": {
    "from": {
@@ -34882,8 +34732,8 @@ const SHOTS = [
  },
  {
   "id": "s211",
-  "t0": 819.893,
-  "t1": 824.21,
+  "t0": 773.279,
+  "t1": 777.352,
   "type": "market",
   "camera": {
    "from": {
@@ -35057,8 +34907,8 @@ const SHOTS = [
  },
  {
   "id": "s212",
-  "t0": 824.2,
-  "t1": 827.406,
+  "t0": 777.342,
+  "t1": 780.775,
   "type": "study",
   "camera": {
    "from": {
@@ -35200,8 +35050,8 @@ const SHOTS = [
  },
  {
   "id": "s213",
-  "t0": 827.396,
-  "t1": 831.528,
+  "t0": 780.765,
+  "t1": 784.504,
   "type": "market",
   "camera": {
    "from": {
@@ -35375,8 +35225,8 @@ const SHOTS = [
  },
  {
   "id": "s214",
-  "t0": 831.518,
-  "t1": 833.243,
+  "t0": 784.494,
+  "t1": 785.887,
   "type": "object",
   "camera": {
    "from": {
@@ -35498,8 +35348,8 @@ const SHOTS = [
  },
  {
   "id": "s215",
-  "t0": 833.233,
-  "t1": 835.143,
+  "t0": 785.877,
+  "t1": 787.736,
   "type": "camp",
   "camera": {
    "from": {
@@ -35654,8 +35504,8 @@ const SHOTS = [
  },
  {
   "id": "s216",
-  "t0": 835.133,
-  "t1": 839.82,
+  "t0": 787.726,
+  "t1": 791.993,
   "type": "map",
   "camera": {
    "from": {
@@ -35720,9 +35570,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -35854,8 +35704,8 @@ const SHOTS = [
  },
  {
   "id": "s217",
-  "t0": 839.81,
-  "t1": 844.498,
+  "t0": 791.983,
+  "t1": 796.956,
   "type": "camp",
   "camera": {
    "from": {
@@ -36014,8 +35864,8 @@ const SHOTS = [
  },
  {
   "id": "s218",
-  "t0": 844.488,
-  "t1": 848.25,
+  "t0": 796.946,
+  "t1": 800.336,
   "type": "battle",
   "camera": {
    "from": {
@@ -36208,8 +36058,8 @@ const SHOTS = [
  },
  {
   "id": "s219",
-  "t0": 848.24,
-  "t1": 851.446,
+  "t0": 800.326,
+  "t1": 803.727,
   "type": "city",
   "camera": {
    "from": {
@@ -36368,8 +36218,8 @@ const SHOTS = [
  },
  {
   "id": "s220",
-  "t0": 851.436,
-  "t1": 855.383,
+  "t0": 803.717,
+  "t1": 807.6,
   "type": "pass",
   "camera": {
    "from": {
@@ -36545,8 +36395,8 @@ const SHOTS = [
  },
  {
   "id": "s221",
-  "t0": 855.373,
-  "t1": 859.69,
+  "t0": 807.59,
+  "t1": 811.848,
   "type": "camp",
   "camera": {
    "from": {
@@ -36708,8 +36558,8 @@ const SHOTS = [
  },
  {
   "id": "s222",
-  "t0": 859.68,
-  "t1": 863.627,
+  "t0": 811.838,
+  "t1": 815.03,
   "type": "court",
   "camera": {
    "from": {
@@ -36910,8 +36760,8 @@ const SHOTS = [
  },
  {
   "id": "s223",
-  "t0": 863.617,
-  "t1": 867.008,
+  "t0": 815.02,
+  "t1": 818.054,
   "type": "tomb",
   "camera": {
    "from": {
@@ -37031,8 +36881,8 @@ const SHOTS = [
  },
  {
   "id": "s224",
-  "t0": 866.998,
-  "t1": 870.39,
+  "t0": 818.044,
+  "t1": 821.278,
   "type": "plain",
   "camera": {
    "from": {
@@ -37148,8 +36998,8 @@ const SHOTS = [
  },
  {
   "id": "s225",
-  "t0": 870.38,
-  "t1": 873.956,
+  "t0": 821.268,
+  "t1": 825.015,
   "type": "camp",
   "camera": {
    "from": {
@@ -37316,8 +37166,8 @@ const SHOTS = [
  },
  {
   "id": "s226",
-  "t0": 873.946,
-  "t1": 878.634,
+  "t0": 825.005,
+  "t1": 829.608,
   "type": "court",
   "camera": {
    "from": {
@@ -37517,8 +37367,8 @@ const SHOTS = [
  },
  {
   "id": "s227",
-  "t0": 878.624,
-  "t1": 882.2,
+  "t0": 829.598,
+  "t1": 832.873,
   "type": "execution",
   "camera": {
    "from": {
@@ -37579,7 +37429,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#0e1518"
+      "color": "#0e1518",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -37650,8 +37501,8 @@ const SHOTS = [
  },
  {
   "id": "s228",
-  "t0": 882.19,
-  "t1": 885.211,
+  "t0": 832.863,
+  "t1": 835.611,
   "type": "battle",
   "camera": {
    "from": {
@@ -37834,8 +37685,8 @@ const SHOTS = [
  },
  {
   "id": "s229",
-  "t0": 885.201,
-  "t1": 888.407,
+  "t0": 835.601,
+  "t1": 838.949,
   "type": "city",
   "camera": {
    "from": {
@@ -37975,8 +37826,8 @@ const SHOTS = [
  },
  {
   "id": "s230",
-  "t0": 888.397,
-  "t1": 892.715,
+  "t0": 838.939,
+  "t1": 842.673,
   "type": "map",
   "camera": {
    "from": {
@@ -38041,9 +37892,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -38143,8 +37994,8 @@ const SHOTS = [
  },
  {
   "id": "s231",
-  "t0": 892.705,
-  "t1": 896.466,
+  "t0": 842.663,
+  "t1": 846.354,
   "type": "camp",
   "camera": {
    "from": {
@@ -38314,8 +38165,8 @@ const SHOTS = [
  },
  {
   "id": "s232",
-  "t0": 896.456,
-  "t1": 900.959,
+  "t0": 846.344,
+  "t1": 850.317,
   "type": "court",
   "camera": {
    "from": {
@@ -38507,8 +38358,8 @@ const SHOTS = [
  },
  {
   "id": "s233",
-  "t0": 900.949,
-  "t1": 906.007,
+  "t0": 850.307,
+  "t1": 854.851,
   "type": "battle",
   "camera": {
    "from": {
@@ -38684,8 +38535,8 @@ const SHOTS = [
  },
  {
   "id": "s234",
-  "t0": 905.997,
-  "t1": 909.573,
+  "t0": 854.841,
+  "t1": 857.933,
   "type": "map",
   "camera": {
    "from": {
@@ -38750,9 +38601,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -38835,8 +38686,8 @@ const SHOTS = [
  },
  {
   "id": "s235",
-  "t0": 909.563,
-  "t1": 913.14,
+  "t0": 857.923,
+  "t1": 861.516,
   "type": "pass",
   "camera": {
    "from": {
@@ -38986,8 +38837,8 @@ const SHOTS = [
  },
  {
   "id": "s236",
-  "t0": 913.13,
-  "t1": 916.706,
+  "t0": 861.506,
+  "t1": 865.011,
   "type": "camp",
   "camera": {
    "from": {
@@ -39141,8 +38992,8 @@ const SHOTS = [
  },
  {
   "id": "s237",
-  "t0": 916.696,
-  "t1": 919.903,
+  "t0": 865.001,
+  "t1": 868.033,
   "type": "cavalry",
   "camera": {
    "from": {
@@ -39285,8 +39136,8 @@ const SHOTS = [
  },
  {
   "id": "s238",
-  "t0": 919.893,
-  "t1": 924.58,
+  "t0": 868.023,
+  "t1": 873.288,
   "type": "study",
   "camera": {
    "from": {
@@ -39412,8 +39263,8 @@ const SHOTS = [
  },
  {
   "id": "s239",
-  "t0": 924.57,
-  "t1": 927.961,
+  "t0": 873.278,
+  "t1": 876.44,
   "type": "tomb",
   "camera": {
    "from": {
@@ -39533,8 +39384,8 @@ const SHOTS = [
  },
  {
   "id": "s240",
-  "t0": 927.951,
-  "t1": 933.565,
+  "t0": 876.43,
+  "t1": 881.897,
   "type": "study",
   "camera": {
    "from": {
@@ -39660,8 +39511,8 @@ const SHOTS = [
  },
  {
   "id": "s241",
-  "t0": 933.555,
-  "t1": 936.761,
+  "t0": 881.887,
+  "t1": 884.588,
   "type": "court",
   "camera": {
    "from": {
@@ -39861,8 +39712,8 @@ const SHOTS = [
  },
  {
   "id": "s242",
-  "t0": 936.751,
-  "t1": 940.883,
+  "t0": 884.578,
+  "t1": 888.803,
   "type": "camp",
   "camera": {
    "from": {
@@ -40022,8 +39873,8 @@ const SHOTS = [
  },
  {
   "id": "s243",
-  "t0": 940.873,
-  "t1": 943.894,
+  "t0": 888.793,
+  "t1": 891.545,
   "type": "portrait",
   "camera": {
    "from": {
@@ -40179,8 +40030,8 @@ const SHOTS = [
  },
  {
   "id": "s244",
-  "t0": 943.884,
-  "t1": 947.831,
+  "t0": 891.535,
+  "t1": 896.333,
   "type": "feast",
   "camera": {
    "from": {
@@ -40372,8 +40223,8 @@ const SHOTS = [
  },
  {
   "id": "s245",
-  "t0": 947.821,
-  "t1": 950.842,
+  "t0": 896.323,
+  "t1": 899.499,
   "type": "court",
   "camera": {
    "from": {
@@ -40573,8 +40424,8 @@ const SHOTS = [
  },
  {
   "id": "s246",
-  "t0": 950.832,
-  "t1": 955.149,
+  "t0": 899.489,
+  "t1": 903.586,
   "type": "court",
   "camera": {
    "from": {
@@ -40774,8 +40625,8 @@ const SHOTS = [
  },
  {
   "id": "s247",
-  "t0": 955.139,
-  "t1": 959.457,
+  "t0": 903.576,
+  "t1": 907.916,
   "type": "camp",
   "camera": {
    "from": {
@@ -40920,8 +40771,8 @@ const SHOTS = [
  },
  {
   "id": "s248",
-  "t0": 959.447,
-  "t1": 962.838,
+  "t0": 907.906,
+  "t1": 911.042,
   "type": "study",
   "camera": {
    "from": {
@@ -41047,8 +40898,8 @@ const SHOTS = [
  },
  {
   "id": "s249",
-  "t0": 962.828,
-  "t1": 967.701,
+  "t0": 911.032,
+  "t1": 915.378,
   "type": "market",
   "camera": {
    "from": {
@@ -41222,8 +41073,8 @@ const SHOTS = [
  },
  {
   "id": "s250",
-  "t0": 967.691,
-  "t1": 970.897,
+  "t0": 915.368,
+  "t1": 917.756,
   "type": "market",
   "camera": {
    "from": {
@@ -41397,8 +41248,8 @@ const SHOTS = [
  },
  {
   "id": "s251",
-  "t0": 970.887,
-  "t1": 973.723,
+  "t0": 917.746,
+  "t1": 920.259,
   "type": "market",
   "camera": {
    "from": {
@@ -41572,8 +41423,8 @@ const SHOTS = [
  },
  {
   "id": "s252",
-  "t0": 973.713,
-  "t1": 977.474,
+  "t0": 920.249,
+  "t1": 923.795,
   "type": "camp",
   "camera": {
    "from": {
@@ -41718,8 +41569,8 @@ const SHOTS = [
  },
  {
   "id": "s253",
-  "t0": 977.464,
-  "t1": 979.93,
+  "t0": 923.785,
+  "t1": 926.053,
   "type": "battle",
   "camera": {
    "from": {
@@ -41887,8 +41738,8 @@ const SHOTS = [
  },
  {
   "id": "s254",
-  "t0": 979.92,
-  "t1": 984.237,
+  "t0": 926.043,
+  "t1": 929.656,
   "type": "court",
   "camera": {
    "from": {
@@ -42071,8 +41922,8 @@ const SHOTS = [
  },
  {
   "id": "s255",
-  "t0": 984.227,
-  "t1": 987.063,
+  "t0": 929.646,
+  "t1": 932.736,
   "type": "city",
   "camera": {
    "from": {
@@ -42199,8 +42050,8 @@ const SHOTS = [
  },
  {
   "id": "s256",
-  "t0": 987.053,
-  "t1": 989.889,
+  "t0": 932.726,
+  "t1": 935.737,
   "type": "wall",
   "camera": {
    "from": {
@@ -42356,8 +42207,8 @@ const SHOTS = [
  },
  {
   "id": "s257",
-  "t0": 989.879,
-  "t1": 994.751,
+  "t0": 935.727,
+  "t1": 940.333,
   "type": "object",
   "camera": {
    "from": {
@@ -42479,8 +42330,8 @@ const SHOTS = [
  },
  {
   "id": "s258",
-  "t0": 994.741,
-  "t1": 999.429,
+  "t0": 940.323,
+  "t1": 945.309,
   "type": "study",
   "camera": {
    "from": {
@@ -42606,8 +42457,8 @@ const SHOTS = [
  },
  {
   "id": "s259",
-  "t0": 999.419,
-  "t1": 1002.81,
+  "t0": 945.299,
+  "t1": 948.334,
   "type": "court",
   "camera": {
    "from": {
@@ -42807,8 +42658,8 @@ const SHOTS = [
  },
  {
   "id": "s260",
-  "t0": 1002.8,
-  "t1": 1006.377,
+  "t0": 948.324,
+  "t1": 951.906,
   "type": "court",
   "camera": {
    "from": {
@@ -42991,8 +42842,8 @@ const SHOTS = [
  },
  {
   "id": "s261",
-  "t0": 1006.367,
-  "t1": 1010.869,
+  "t0": 951.896,
+  "t1": 956.455,
   "type": "city",
   "camera": {
    "from": {
@@ -43152,8 +43003,8 @@ const SHOTS = [
  },
  {
   "id": "s262",
-  "t0": 1010.859,
-  "t1": 1014.991,
+  "t0": 956.445,
+  "t1": 960.82,
   "type": "snow",
   "camera": {
    "from": {
@@ -43277,8 +43128,8 @@ const SHOTS = [
  },
  {
   "id": "s263",
-  "t0": 1014.981,
-  "t1": 1018.558,
+  "t0": 960.81,
+  "t1": 964.112,
   "type": "market",
   "camera": {
    "from": {
@@ -43464,8 +43315,8 @@ const SHOTS = [
  },
  {
   "id": "s264",
-  "t0": 1018.548,
-  "t1": 1021.939,
+  "t0": 964.102,
+  "t1": 967.754,
   "type": "court",
   "camera": {
    "from": {
@@ -43657,8 +43508,8 @@ const SHOTS = [
  },
  {
   "id": "s265",
-  "t0": 1021.929,
-  "t1": 1023.839,
+  "t0": 967.744,
+  "t1": 969.56,
   "type": "city",
   "camera": {
    "from": {
@@ -43784,8 +43635,8 @@ const SHOTS = [
  },
  {
   "id": "s266",
-  "t0": 1023.829,
-  "t1": 1028.332,
+  "t0": 969.55,
+  "t1": 973.522,
   "type": "court",
   "camera": {
    "from": {
@@ -43968,8 +43819,8 @@ const SHOTS = [
  },
  {
   "id": "s267",
-  "t0": 1028.322,
-  "t1": 1031.157,
+  "t0": 973.512,
+  "t1": 976.621,
   "type": "execution",
   "camera": {
    "from": {
@@ -44030,7 +43881,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -44111,8 +43963,8 @@ const SHOTS = [
  },
  {
   "id": "s268",
-  "t0": 1031.147,
-  "t1": 1034.909,
+  "t0": 976.611,
+  "t1": 980.332,
   "type": "execution",
   "camera": {
    "from": {
@@ -44173,7 +44025,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#0e1518"
+      "color": "#0e1518",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -44246,8 +44099,8 @@ const SHOTS = [
  },
  {
   "id": "s269",
-  "t0": 1034.899,
-  "t1": 1039.401,
+  "t0": 980.322,
+  "t1": 984.864,
   "type": "sea",
   "camera": {
    "from": {
@@ -44433,8 +44286,8 @@ const SHOTS = [
  },
  {
   "id": "s270",
-  "t0": 1039.391,
-  "t1": 1040.649,
+  "t0": 984.854,
+  "t1": 985.792,
   "type": "sea",
   "camera": {
    "from": {
@@ -44566,8 +44419,8 @@ const SHOTS = [
  },
  {
   "id": "s271",
-  "t0": 1040.639,
-  "t1": 1043.29,
+  "t0": 985.782,
+  "t1": 988.943,
   "type": "portrait",
   "camera": {
    "from": {
@@ -44724,8 +44577,8 @@ const SHOTS = [
  },
  {
   "id": "s272",
-  "t0": 1043.28,
-  "t1": 1045.931,
+  "t0": 988.933,
+  "t1": 991.87,
   "type": "map",
   "camera": {
    "from": {
@@ -44790,9 +44643,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -44882,8 +44735,8 @@ const SHOTS = [
  },
  {
   "id": "s273",
-  "t0": 1045.921,
-  "t1": 1049.127,
+  "t0": 991.86,
+  "t1": 994.958,
   "type": "cavalry",
   "camera": {
    "from": {
@@ -45034,8 +44887,8 @@ const SHOTS = [
  },
  {
   "id": "s274",
-  "t0": 1049.117,
-  "t1": 1052.879,
+  "t0": 994.948,
+  "t1": 997.969,
   "type": "court",
   "camera": {
    "from": {
@@ -45227,8 +45080,8 @@ const SHOTS = [
  },
  {
   "id": "s275",
-  "t0": 1052.869,
-  "t1": 1055.704,
+  "t0": 997.959,
+  "t1": 1000.346,
   "type": "city",
   "camera": {
    "from": {
@@ -45354,8 +45207,8 @@ const SHOTS = [
  },
  {
   "id": "s276",
-  "t0": 1055.694,
-  "t1": 1060.012,
+  "t0": 1000.336,
+  "t1": 1004.142,
   "type": "court",
   "camera": {
    "from": {
@@ -45538,8 +45391,8 @@ const SHOTS = [
  },
  {
   "id": "s277",
-  "t0": 1060.002,
-  "t1": 1063.393,
+  "t0": 1004.132,
+  "t1": 1006.993,
   "type": "map",
   "camera": {
    "from": {
@@ -45604,9 +45457,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -45710,8 +45563,8 @@ const SHOTS = [
  },
  {
   "id": "s278",
-  "t0": 1063.383,
-  "t1": 1067.885,
+  "t0": 1006.983,
+  "t1": 1011.045,
   "type": "market",
   "camera": {
    "from": {
@@ -45902,8 +45755,8 @@ const SHOTS = [
  },
  {
   "id": "s279",
-  "t0": 1067.875,
-  "t1": 1069.97,
+  "t0": 1011.035,
+  "t1": 1013.231,
   "type": "court",
   "camera": {
    "from": {
@@ -46086,8 +45939,8 @@ const SHOTS = [
  },
  {
   "id": "s280",
-  "t0": 1069.96,
-  "t1": 1072.981,
+  "t0": 1013.221,
+  "t1": 1016.187,
   "type": "river",
   "camera": {
    "from": {
@@ -46259,8 +46112,8 @@ const SHOTS = [
  },
  {
   "id": "s281",
-  "t0": 1072.971,
-  "t1": 1076.177,
+  "t0": 1016.177,
+  "t1": 1019.463,
   "type": "city",
   "camera": {
    "from": {
@@ -46419,8 +46272,8 @@ const SHOTS = [
  },
  {
   "id": "s282",
-  "t0": 1076.167,
-  "t1": 1077.892,
+  "t0": 1019.453,
+  "t1": 1021.266,
   "type": "steppe",
   "camera": {
    "from": {
@@ -46552,8 +46405,8 @@ const SHOTS = [
  },
  {
   "id": "s283",
-  "t0": 1077.882,
-  "t1": 1081.273,
+  "t0": 1021.256,
+  "t1": 1024.729,
   "type": "portrait",
   "camera": {
    "from": {
@@ -46710,8 +46563,8 @@ const SHOTS = [
  },
  {
   "id": "s284",
-  "t0": 1081.263,
-  "t1": 1083.544,
+  "t0": 1024.719,
+  "t1": 1027.072,
   "type": "city",
   "camera": {
    "from": {
@@ -46862,8 +46715,8 @@ const SHOTS = [
  },
  {
   "id": "s285",
-  "t0": 1083.534,
-  "t1": 1087.851,
+  "t0": 1027.062,
+  "t1": 1031.007,
   "type": "camp",
   "camera": {
    "from": {
@@ -47026,8 +46879,8 @@ const SHOTS = [
  },
  {
   "id": "s286",
-  "t0": 1087.841,
-  "t1": 1089.936,
+  "t0": 1030.997,
+  "t1": 1033.095,
   "type": "court",
   "camera": {
    "from": {
@@ -47219,8 +47072,8 @@ const SHOTS = [
  },
  {
   "id": "s287",
-  "t0": 1089.926,
-  "t1": 1093.873,
+  "t0": 1033.085,
+  "t1": 1036.697,
   "type": "palace",
   "camera": {
    "from": {
@@ -47394,8 +47247,8 @@ const SHOTS = [
  },
  {
   "id": "s288",
-  "t0": 1093.863,
-  "t1": 1096.884,
+  "t0": 1036.687,
+  "t1": 1039.663,
   "type": "execution",
   "camera": {
    "from": {
@@ -47456,7 +47309,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -47527,8 +47381,8 @@ const SHOTS = [
  },
  {
   "id": "s289",
-  "t0": 1096.874,
-  "t1": 1099.71,
+  "t0": 1039.653,
+  "t1": 1042.337,
   "type": "execution",
   "camera": {
    "from": {
@@ -47589,7 +47443,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#0e1518"
+      "color": "#0e1518",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -47660,8 +47515,8 @@ const SHOTS = [
  },
  {
   "id": "s290",
-  "t0": 1099.7,
-  "t1": 1103.832,
+  "t0": 1042.327,
+  "t1": 1045.866,
   "type": "study",
   "camera": {
    "from": {
@@ -47787,8 +47642,8 @@ const SHOTS = [
  },
  {
   "id": "s291",
-  "t0": 1103.822,
-  "t1": 1106.657,
+  "t0": 1045.856,
+  "t1": 1048.18,
   "type": "court",
   "camera": {
    "from": {
@@ -47971,8 +47826,8 @@ const SHOTS = [
  },
  {
   "id": "s292",
-  "t0": 1106.647,
-  "t1": 1109.298,
+  "t0": 1048.17,
+  "t1": 1050.842,
   "type": "battle",
   "camera": {
    "from": {
@@ -48156,8 +48011,8 @@ const SHOTS = [
  },
  {
   "id": "s293",
-  "t0": 1109.288,
-  "t1": 1112.679,
+  "t0": 1050.832,
+  "t1": 1054.076,
   "type": "city",
   "camera": {
    "from": {
@@ -48316,8 +48171,8 @@ const SHOTS = [
  },
  {
   "id": "s294",
-  "t0": 1112.669,
-  "t1": 1116.616,
+  "t0": 1054.066,
+  "t1": 1058.146,
   "type": "harbor",
   "camera": {
    "from": {
@@ -48449,8 +48304,8 @@ const SHOTS = [
  },
  {
   "id": "s295",
-  "t0": 1116.606,
-  "t1": 1120.924,
+  "t0": 1058.136,
+  "t1": 1062.113,
   "type": "sea",
   "camera": {
    "from": {
@@ -48577,8 +48432,8 @@ const SHOTS = [
  },
  {
   "id": "s296",
-  "t0": 1120.914,
-  "t1": 1123.009,
+  "t0": 1062.103,
+  "t1": 1063.828,
   "type": "map",
   "camera": {
    "from": {
@@ -48643,9 +48498,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -48736,8 +48591,8 @@ const SHOTS = [
  },
  {
   "id": "s297",
-  "t0": 1122.999,
-  "t1": 1128.242,
+  "t0": 1063.818,
+  "t1": 1068.731,
   "type": "harbor",
   "camera": {
    "from": {
@@ -48869,8 +48724,8 @@ const SHOTS = [
  },
  {
   "id": "s298",
-  "t0": 1128.232,
-  "t1": 1133.29,
+  "t0": 1068.721,
+  "t1": 1073.368,
   "type": "market",
   "camera": {
    "from": {
@@ -49044,8 +48899,8 @@ const SHOTS = [
  },
  {
   "id": "s299",
-  "t0": 1133.28,
-  "t1": 1136.856,
+  "t0": 1073.358,
+  "t1": 1076.599,
   "type": "battle",
   "camera": {
    "from": {
@@ -49217,8 +49072,8 @@ const SHOTS = [
  },
  {
   "id": "s300",
-  "t0": 1136.846,
-  "t1": 1140.423,
+  "t0": 1076.589,
+  "t1": 1079.51,
   "type": "wall",
   "camera": {
    "from": {
@@ -49366,8 +49221,8 @@ const SHOTS = [
  },
  {
   "id": "s301",
-  "t0": 1140.413,
-  "t1": 1142.693,
+  "t0": 1079.5,
+  "t1": 1081.721,
   "type": "execution",
   "camera": {
    "from": {
@@ -49428,7 +49283,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -49508,8 +49364,8 @@ const SHOTS = [
  },
  {
   "id": "s302",
-  "t0": 1142.683,
-  "t1": 1146.63,
+  "t0": 1081.711,
+  "t1": 1085.27,
   "type": "court",
   "camera": {
    "from": {
@@ -49709,8 +49565,8 @@ const SHOTS = [
  },
  {
   "id": "s303",
-  "t0": 1146.62,
-  "t1": 1148.345,
+  "t0": 1085.26,
+  "t1": 1086.601,
   "type": "palace",
   "camera": {
    "from": {
@@ -49855,8 +49711,8 @@ const SHOTS = [
  },
  {
   "id": "s304",
-  "t0": 1148.335,
-  "t1": 1152.467,
+  "t0": 1086.591,
+  "t1": 1090.424,
   "type": "court",
   "camera": {
    "from": {
@@ -50056,8 +49912,8 @@ const SHOTS = [
  },
  {
   "id": "s305",
-  "t0": 1152.457,
-  "t1": 1156.033,
+  "t0": 1090.414,
+  "t1": 1094.384,
   "type": "court",
   "camera": {
    "from": {
@@ -50257,8 +50113,8 @@ const SHOTS = [
  },
  {
   "id": "s306",
-  "t0": 1156.023,
-  "t1": 1159.6,
+  "t0": 1094.374,
+  "t1": 1097.961,
   "type": "market",
   "camera": {
    "from": {
@@ -50432,8 +50288,8 @@ const SHOTS = [
  },
  {
   "id": "s307",
-  "t0": 1159.59,
-  "t1": 1162.981,
+  "t0": 1097.951,
+  "t1": 1100.935,
   "type": "palace",
   "camera": {
    "from": {
@@ -50578,8 +50434,8 @@ const SHOTS = [
  },
  {
   "id": "s308",
-  "t0": 1162.971,
-  "t1": 1167.659,
+  "t0": 1100.925,
+  "t1": 1105.122,
   "type": "battle",
   "camera": {
    "from": {
@@ -50751,8 +50607,8 @@ const SHOTS = [
  },
  {
   "id": "s309",
-  "t0": 1167.649,
-  "t1": 1170.67,
+  "t0": 1105.112,
+  "t1": 1107.953,
   "type": "court",
   "camera": {
    "from": {
@@ -50952,8 +50808,8 @@ const SHOTS = [
  },
  {
   "id": "s310",
-  "t0": 1170.66,
-  "t1": 1175.162,
+  "t0": 1107.943,
+  "t1": 1111.556,
   "type": "court",
   "camera": {
    "from": {
@@ -51145,8 +51001,8 @@ const SHOTS = [
  },
  {
   "id": "s311",
-  "t0": 1175.152,
-  "t1": 1177.617,
+  "t0": 1111.546,
+  "t1": 1113.867,
   "type": "execution",
   "camera": {
    "from": {
@@ -51207,7 +51063,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -51278,8 +51135,8 @@ const SHOTS = [
  },
  {
   "id": "s312",
-  "t0": 1177.607,
-  "t1": 1181.74,
+  "t0": 1113.857,
+  "t1": 1118.055,
   "type": "study",
   "camera": {
    "from": {
@@ -51410,8 +51267,8 @@ const SHOTS = [
  },
  {
   "id": "s313",
-  "t0": 1181.73,
-  "t1": 1184.936,
+  "t0": 1118.045,
+  "t1": 1121.441,
   "type": "plain",
   "camera": {
    "from": {
@@ -51527,8 +51384,8 @@ const SHOTS = [
  },
  {
   "id": "s314",
-  "t0": 1184.926,
-  "t1": 1188.873,
+  "t0": 1121.431,
+  "t1": 1125.2,
   "type": "city",
   "camera": {
    "from": {
@@ -51687,8 +51544,8 @@ const SHOTS = [
  },
  {
   "id": "s315",
-  "t0": 1188.863,
-  "t1": 1192.624,
+  "t0": 1125.19,
+  "t1": 1128.611,
   "type": "tomb",
   "camera": {
    "from": {
@@ -51808,8 +51665,8 @@ const SHOTS = [
  },
  {
   "id": "s316",
-  "t0": 1192.614,
-  "t1": 1194.524,
+  "t0": 1128.601,
+  "t1": 1130.497,
   "type": "pass",
   "camera": {
    "from": {
@@ -51962,8 +51819,8 @@ const SHOTS = [
  },
  {
   "id": "s317",
-  "t0": 1194.514,
-  "t1": 1199.572,
+  "t0": 1130.487,
+  "t1": 1135.104,
   "type": "pass",
   "camera": {
    "from": {
@@ -52131,8 +51988,8 @@ const SHOTS = [
  },
  {
   "id": "s318",
-  "t0": 1199.562,
-  "t1": 1203.509,
+  "t0": 1135.094,
+  "t1": 1138.467,
   "type": "court",
   "camera": {
    "from": {
@@ -52332,8 +52189,8 @@ const SHOTS = [
  },
  {
   "id": "s319",
-  "t0": 1203.499,
-  "t1": 1207.076,
+  "t0": 1138.457,
+  "t1": 1142.37,
   "type": "court",
   "camera": {
    "from": {
@@ -52533,8 +52390,8 @@ const SHOTS = [
  },
  {
   "id": "s320",
-  "t0": 1207.066,
-  "t1": 1211.012,
+  "t0": 1142.36,
+  "t1": 1146.352,
   "type": "battle",
   "camera": {
    "from": {
@@ -52723,8 +52580,8 @@ const SHOTS = [
  },
  {
   "id": "s321",
-  "t0": 1211.002,
-  "t1": 1215.505,
+  "t0": 1146.342,
+  "t1": 1150.332,
   "type": "study",
   "camera": {
    "from": {
@@ -52843,8 +52700,8 @@ const SHOTS = [
  },
  {
   "id": "s322",
-  "t0": 1215.495,
-  "t1": 1218.516,
+  "t0": 1150.322,
+  "t1": 1153.115,
   "type": "cavalry",
   "camera": {
    "from": {
@@ -52995,8 +52852,8 @@ const SHOTS = [
  },
  {
   "id": "s323",
-  "t0": 1218.506,
-  "t1": 1221.897,
+  "t0": 1153.105,
+  "t1": 1156.511,
   "type": "study",
   "camera": {
    "from": {
@@ -53130,8 +52987,8 @@ const SHOTS = [
  },
  {
   "id": "s324",
-  "t0": 1221.887,
-  "t1": 1225.464,
+  "t0": 1156.501,
+  "t1": 1160.003,
   "type": "map",
   "camera": {
    "from": {
@@ -53196,9 +53053,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -53302,8 +53159,8 @@ const SHOTS = [
  },
  {
   "id": "s325",
-  "t0": 1225.454,
-  "t1": 1229.215,
+  "t0": 1159.993,
+  "t1": 1162.959,
   "type": "portrait",
   "camera": {
    "from": {
@@ -53457,8 +53314,8 @@ const SHOTS = [
  },
  {
   "id": "s326",
-  "t0": 1229.205,
-  "t1": 1231.856,
+  "t0": 1162.949,
+  "t1": 1165.639,
   "type": "court",
   "camera": {
    "from": {
@@ -53651,8 +53508,8 @@ const SHOTS = [
  },
  {
   "id": "s327",
-  "t0": 1231.846,
-  "t1": 1237.274,
+  "t0": 1165.629,
+  "t1": 1170.983,
   "type": "court",
   "camera": {
    "from": {
@@ -53860,8 +53717,8 @@ const SHOTS = [
  },
  {
   "id": "s328",
-  "t0": 1237.264,
-  "t1": 1240.1,
+  "t0": 1170.973,
+  "t1": 1173.708,
   "type": "study",
   "camera": {
    "from": {
@@ -53992,8 +53849,8 @@ const SHOTS = [
  },
  {
   "id": "s329",
-  "t0": 1240.09,
-  "t1": 1245.148,
+  "t0": 1173.698,
+  "t1": 1178.24,
   "type": "study",
   "camera": {
    "from": {
@@ -54117,8 +53974,8 @@ const SHOTS = [
  },
  {
   "id": "s330",
-  "t0": 1245.138,
-  "t1": 1247.789,
+  "t0": 1178.23,
+  "t1": 1180.987,
   "type": "court",
   "camera": {
    "from": {
@@ -54310,8 +54167,8 @@ const SHOTS = [
  },
  {
   "id": "s331",
-  "t0": 1247.779,
-  "t1": 1250.8,
+  "t0": 1180.977,
+  "t1": 1184.224,
   "type": "map",
   "camera": {
    "from": {
@@ -54376,9 +54233,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -54496,8 +54353,8 @@ const SHOTS = [
  },
  {
   "id": "s332",
-  "t0": 1250.79,
-  "t1": 1254.922,
+  "t0": 1184.214,
+  "t1": 1187.725,
   "type": "map",
   "camera": {
    "from": {
@@ -54562,9 +54419,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -54682,8 +54539,8 @@ const SHOTS = [
  },
  {
   "id": "s333",
-  "t0": 1254.912,
-  "t1": 1258.303,
+  "t0": 1187.715,
+  "t1": 1191.793,
   "type": "court",
   "camera": {
    "from": {
@@ -54891,8 +54748,8 @@ const SHOTS = [
  },
  {
   "id": "s334",
-  "t0": 1258.293,
-  "t1": 1262.425,
+  "t0": 1191.783,
+  "t1": 1195.236,
   "type": "harbor",
   "camera": {
    "from": {
@@ -55024,8 +54881,8 @@ const SHOTS = [
  },
  {
   "id": "s335",
-  "t0": 1262.415,
-  "t1": 1266.918,
+  "t0": 1195.226,
+  "t1": 1199.384,
   "type": "execution",
   "camera": {
    "from": {
@@ -55086,7 +54943,8 @@ const SHOTS = [
       "y": 0.9,
       "w": 0.58,
       "h": 0.3,
-      "color": "#231f1a"
+      "color": "#231f1a",
+      "door": "#3a352d"
      },
      {
       "shape": "spears",
@@ -55166,8 +55024,8 @@ const SHOTS = [
  },
  {
   "id": "s336",
-  "t0": 1266.908,
-  "t1": 1271.78,
+  "t0": 1199.374,
+  "t1": 1203.729,
   "type": "harbor",
   "camera": {
    "from": {
@@ -55299,8 +55157,8 @@ const SHOTS = [
  },
  {
   "id": "s337",
-  "t0": 1271.77,
-  "t1": 1274.606,
+  "t0": 1203.719,
+  "t1": 1206.756,
   "type": "court",
   "camera": {
    "from": {
@@ -55492,8 +55350,8 @@ const SHOTS = [
  },
  {
   "id": "s338",
-  "t0": 1274.596,
-  "t1": 1277.988,
+  "t0": 1206.746,
+  "t1": 1210.237,
   "type": "battle",
   "camera": {
    "from": {
@@ -55673,8 +55531,8 @@ const SHOTS = [
  },
  {
   "id": "s339",
-  "t0": 1277.978,
-  "t1": 1282.295,
+  "t0": 1210.227,
+  "t1": 1214.055,
   "type": "court",
   "camera": {
    "from": {
@@ -55866,8 +55724,8 @@ const SHOTS = [
  },
  {
   "id": "s340",
-  "t0": 1282.285,
-  "t1": 1286.047,
+  "t0": 1214.045,
+  "t1": 1217.344,
   "type": "sea",
   "camera": {
    "from": {
@@ -56032,8 +55890,8 @@ const SHOTS = [
  },
  {
   "id": "s341",
-  "t0": 1286.037,
-  "t1": 1289.798,
+  "t0": 1217.334,
+  "t1": 1220.929,
   "type": "object",
   "camera": {
    "from": {
@@ -56156,8 +56014,8 @@ const SHOTS = [
  },
  {
   "id": "s342",
-  "t0": 1289.788,
-  "t1": 1292.809,
+  "t0": 1220.919,
+  "t1": 1223.777,
   "type": "battle",
   "camera": {
    "from": {
@@ -56340,8 +56198,8 @@ const SHOTS = [
  },
  {
   "id": "s343",
-  "t0": 1292.799,
-  "t1": 1297.302,
+  "t0": 1223.767,
+  "t1": 1228.552,
   "type": "burning",
   "camera": {
    "from": {
@@ -56481,8 +56339,8 @@ const SHOTS = [
  },
  {
   "id": "s344",
-  "t0": 1297.292,
-  "t1": 1302.164,
+  "t0": 1228.542,
+  "t1": 1232.933,
   "type": "court",
   "camera": {
    "from": {
@@ -56690,8 +56548,8 @@ const SHOTS = [
  },
  {
   "id": "s345",
-  "t0": 1302.154,
-  "t1": 1305.731,
+  "t0": 1232.923,
+  "t1": 1236.254,
   "type": "court",
   "camera": {
    "from": {
@@ -56883,8 +56741,8 @@ const SHOTS = [
  },
  {
   "id": "s346",
-  "t0": 1305.721,
-  "t1": 1309.668,
+  "t0": 1236.244,
+  "t1": 1239.875,
   "type": "harbor",
   "camera": {
    "from": {
@@ -57016,8 +56874,8 @@ const SHOTS = [
  },
  {
   "id": "s347",
-  "t0": 1309.658,
-  "t1": 1314.531,
+  "t0": 1239.865,
+  "t1": 1244.164,
   "type": "sea",
   "camera": {
    "from": {
@@ -57181,8 +57039,8 @@ const SHOTS = [
  },
  {
   "id": "s348",
-  "t0": 1314.521,
-  "t1": 1319.393,
+  "t0": 1244.154,
+  "t1": 1248.906,
   "type": "palace",
   "camera": {
    "from": {
@@ -57344,8 +57202,8 @@ const SHOTS = [
  },
  {
   "id": "s349",
-  "t0": 1319.383,
-  "t1": 1324.812,
+  "t0": 1248.896,
+  "t1": 1254.131,
   "type": "city",
   "camera": {
    "from": {
@@ -57497,8 +57355,8 @@ const SHOTS = [
  },
  {
   "id": "s350",
-  "t0": 1324.802,
-  "t1": 1329.489,
+  "t0": 1254.121,
+  "t1": 1259.513,
   "type": "study",
   "camera": {
    "from": {
@@ -57608,8 +57466,8 @@ const SHOTS = [
  },
  {
   "id": "s351",
-  "t0": 1329.479,
-  "t1": 1332.686,
+  "t0": 1259.503,
+  "t1": 1262.71,
   "type": "city",
   "camera": {
    "from": {
@@ -57735,8 +57593,8 @@ const SHOTS = [
  },
  {
   "id": "s352",
-  "t0": 1332.676,
-  "t1": 1336.623,
+  "t0": 1262.7,
+  "t1": 1266.768,
   "type": "court",
   "camera": {
    "from": {
@@ -57936,8 +57794,8 @@ const SHOTS = [
  },
  {
   "id": "s353",
-  "t0": 1336.613,
-  "t1": 1340.004,
+  "t0": 1266.758,
+  "t1": 1269.681,
   "type": "tomb",
   "camera": {
    "from": {
@@ -58057,8 +57915,8 @@ const SHOTS = [
  },
  {
   "id": "s354",
-  "t0": 1339.994,
-  "t1": 1342.459,
+  "t0": 1269.671,
+  "t1": 1271.863,
   "type": "object",
   "camera": {
    "from": {
@@ -58181,8 +58039,8 @@ const SHOTS = [
  },
  {
   "id": "s355",
-  "t0": 1342.449,
-  "t1": 1346.952,
+  "t0": 1271.853,
+  "t1": 1275.787,
   "type": "finale",
   "camera": {
    "from": {
@@ -58343,8 +58201,8 @@ const SHOTS = [
  },
  {
   "id": "s356",
-  "t0": 1346.942,
-  "t1": 1350.889,
+  "t0": 1275.777,
+  "t1": 1279.085,
   "type": "court",
   "camera": {
    "from": {
@@ -58527,8 +58385,8 @@ const SHOTS = [
  },
  {
   "id": "s357",
-  "t0": 1350.879,
-  "t1": 1354.455,
+  "t0": 1279.075,
+  "t1": 1281.839,
   "type": "twothrones",
   "camera": {
    "from": {
@@ -58683,8 +58541,8 @@ const SHOTS = [
  },
  {
   "id": "s358",
-  "t0": 1354.445,
-  "t1": 1359.503,
+  "t0": 1281.829,
+  "t1": 1286.441,
   "type": "tomb",
   "camera": {
    "from": {
@@ -58838,8 +58696,8 @@ const SHOTS = [
  },
  {
   "id": "s359",
-  "t0": 1359.493,
-  "t1": 1363.44,
+  "t0": 1286.431,
+  "t1": 1289.651,
   "type": "court",
   "camera": {
    "from": {
@@ -59022,8 +58880,8 @@ const SHOTS = [
  },
  {
   "id": "s360",
-  "t0": 1363.43,
-  "t1": 1366.821,
+  "t0": 1289.641,
+  "t1": 1292.267,
   "type": "study",
   "camera": {
    "from": {
@@ -59140,8 +58998,8 @@ const SHOTS = [
  },
  {
   "id": "s361",
-  "t0": 1366.811,
-  "t1": 1368.536,
+  "t0": 1292.257,
+  "t1": 1293.281,
   "type": "study",
   "camera": {
    "from": {
@@ -59251,8 +59109,8 @@ const SHOTS = [
  },
  {
   "id": "s362",
-  "t0": 1368.526,
-  "t1": 1371.547,
+  "t0": 1293.271,
+  "t1": 1295.914,
   "type": "map",
   "camera": {
    "from": {
@@ -59317,9 +59175,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -59417,8 +59275,8 @@ const SHOTS = [
  },
  {
   "id": "s363",
-  "t0": 1371.537,
-  "t1": 1374.188,
+  "t0": 1295.904,
+  "t1": 1298.645,
   "type": "court",
   "camera": {
    "from": {
@@ -59618,8 +59476,8 @@ const SHOTS = [
  },
  {
   "id": "s364",
-  "t0": 1374.178,
-  "t1": 1376.643,
+  "t0": 1298.635,
+  "t1": 1300.738,
   "type": "finale",
   "camera": {
    "from": {
@@ -59763,8 +59621,8 @@ const SHOTS = [
  },
  {
   "id": "s365",
-  "t0": 1376.633,
-  "t1": 1379.654,
+  "t0": 1300.728,
+  "t1": 1303.275,
   "type": "finale",
   "camera": {
    "from": {
@@ -59915,8 +59773,8 @@ const SHOTS = [
  },
  {
   "id": "s366",
-  "t0": 1379.644,
-  "t1": 1383.035,
+  "t0": 1303.265,
+  "t1": 1306.167,
   "type": "finale",
   "camera": {
    "from": {
@@ -60074,8 +59932,8 @@ const SHOTS = [
  },
  {
   "id": "s367",
-  "t0": 1383.025,
-  "t1": 1388.268,
+  "t0": 1306.157,
+  "t1": 1310.916,
   "type": "map",
   "camera": {
    "from": {
@@ -60140,9 +59998,9 @@ const SHOTS = [
      {
       "shape": "map",
       "x": 0.5,
-      "y": 0.56,
-      "w": 0.9,
-      "h": 0.54
+      "y": 0.58,
+      "w": 0.72,
+      "h": 0.46
      }
     ]
    },
@@ -60246,8 +60104,8 @@ const SHOTS = [
  },
  {
   "id": "s368",
-  "t0": 1388.258,
-  "t1": 1391.094,
+  "t0": 1310.906,
+  "t1": 1313.445,
   "type": "object",
   "camera": {
    "from": {
@@ -60370,8 +60228,8 @@ const SHOTS = [
  },
  {
   "id": "s369",
-  "t0": 1391.084,
-  "t1": 1394.661,
+  "t0": 1313.435,
+  "t1": 1316.209,
   "type": "object",
   "camera": {
    "from": {
@@ -60494,8 +60352,8 @@ const SHOTS = [
  },
  {
   "id": "s370",
-  "t0": 1394.651,
-  "t1": 1406.411,
+  "t0": 1316.199,
+  "t1": 1321.538,
   "type": "finale",
   "camera": {
    "from": {
@@ -60651,1225 +60509,4 @@ const SHOTS = [
   ],
   "chars": []
  }
-];
-
-/* ---------------- 字幕（由 splice_film.py 注入） ---------------- */
-const CAPS = [
-  { t: 0.018, end: 0.841, text: "两千年里" },
-  { t: 0.841, end: 3.722, text: "四百二十二个人抢过同一把椅子" },
-  { t: 3.77, end: 5.252, text: "第一个是秦始皇" },
-  { t: 5.252, end: 6.733, text: "最后一个叫溥仪" },
-  { t: 6.781, end: 8.301, text: "四百二十二人里" },
-  { t: 8.301, end: 8.952, text: "有明君" },
-  { t: 8.952, end: 9.603, text: "有昏君" },
-  { t: 9.603, end: 10.255, text: "有暴君" },
-  { t: 10.255, end: 13.077, text: "也有什么都没来得及做的孩子" },
-  { t: 13.125, end: 14.565, text: "这不是一份工作" },
-  { t: 14.565, end: 16.829, text: "是一场持续两千年的赌局" },
-  { t: 16.877, end: 18.067, text: "先说第一个" },
-  { t: 18.067, end: 18.543, text: "嬴政" },
-  { t: 18.591, end: 20.05, text: "公元前二五九年" },
-  { t: 20.05, end: 21.925, text: "他出生在赵国的邯郸" },
-  { t: 21.973, end: 24.03, text: "父亲异人在赵国当人质" },
-  { t: 24.03, end: 25.676, text: "他一出生也是人质" },
-  { t: 25.724, end: 27.613, text: "赵国人欺负他们母子" },
-  { t: 27.613, end: 28.873, text: "日子过得很苦" },
-  { t: 28.921, end: 30.826, text: "有个大商人叫吕不韦" },
-  { t: 30.826, end: 31.884, text: "看中了异人" },
-  { t: 31.884, end: 33.365, text: "说这是一件奇货" },
-  { t: 33.413, end: 36.382, text: "他花钱把异人扶上秦国太子的位子" },
-  { t: 36.382, end: 39.154, text: "还把自己的姬妾赵姬送给了异人" },
-  { t: 39.202, end: 40.881, text: "九岁那年秦赵讲和" },
-  { t: 40.881, end: 42.35, text: "嬴政才回到秦国" },
-  { t: 42.398, end: 44.535, text: "十三岁父亲庄襄王去世" },
-  { t: 44.535, end: 45.176, text: "他即位" },
-  { t: 45.224, end: 47.261, text: "朝政把持在吕不韦手里" },
-  { t: 47.261, end: 49.298, text: "太后赵姬又跟嫪毐私通" },
-  { t: 49.346, end: 50.976, text: "二十二岁嬴政亲政" },
-  { t: 50.976, end: 53.42, text: "第一件事就是平定嫪毐叛乱" },
-  { t: 53.468, end: 55.114, text: "第二年罢免吕不韦" },
-  { t: 55.114, end: 57.171, text: "把权力收回到自己手里" },
-  { t: 57.219, end: 59.124, text: "从公元前二三零年起" },
-  { t: 59.124, end: 60.182, text: "十年灭六国" },
-  { t: 60.23, end: 61.886, text: "前二三零年先灭韩" },
-  { t: 61.886, end: 63.749, text: "两年后攻破赵都邯郸" },
-  { t: 63.797, end: 65.146, text: "又过三年灭魏" },
-  { t: 65.146, end: 66.046, text: "再过两年" },
-  { t: 66.046, end: 66.945, text: "楚国也亡" },
-  { t: 66.993, end: 68.316, text: "燕王退守辽东" },
-  { t: 68.316, end: 69.639, text: "齐国不战而降" },
-  { t: 69.639, end: 70.741, text: "前二二一年" },
-  { t: 70.741, end: 71.623, text: "六国归秦" },
-  { t: 71.671, end: 73.471, text: "这十年里最险的一次" },
-  { t: 73.471, end: 76.671, text: "是前二二七年燕太子丹派荆轲刺秦王" },
-  { t: 76.719, end: 78.879, text: "荆轲捧着督亢地图上殿" },
-  { t: 78.879, end: 79.744, text: "图穷匕见" },
-  { t: 79.744, end: 80.824, text: "绕着柱子追" },
-  { t: 80.824, end: 81.904, text: "还是没刺中" },
-  { t: 81.952, end: 82.827, text: "嬴政大怒" },
-  { t: 82.827, end: 83.703, text: "加兵攻燕" },
-  { t: 83.703, end: 85.016, text: "燕王逃到辽东" },
-  { t: 85.016, end: 86.767, text: "献上太子丹的人头" },
-  { t: 86.815, end: 88.666, text: "三十九岁他统一天下" },
-  { t: 88.666, end: 90.518, text: "觉得王这个字不够用" },
-  { t: 90.566, end: 92.295, text: "三皇五帝各取一字" },
-  { t: 92.295, end: 93.159, text: "他叫皇帝" },
-  { t: 93.207, end: 94.463, text: "自己是第一个" },
-  { t: 94.463, end: 95.719, text: "所以叫始皇帝" },
-  { t: 95.719, end: 98.022, text: "后代从二世三世排到万世" },
-  { t: 98.07, end: 99.625, text: "他废分封行郡县" },
-  { t: 99.625, end: 101.403, text: "天下分成三十六郡" },
-  { t: 101.451, end: 102.952, text: "中央设三公九卿" },
-  { t: 102.952, end: 104.667, text: "地方官由皇帝任免" },
-  { t: 104.667, end: 105.525, text: "不再世袭" },
-  { t: 105.573, end: 107.064, text: "文字统一成小篆" },
-  { t: 107.064, end: 108.342, text: "车轨统一宽度" },
-  { t: 108.342, end: 109.833, text: "度量衡统一标准" },
-  { t: 109.881, end: 111.362, text: "北修长城挡匈奴" },
-  { t: 111.362, end: 112.844, text: "南开灵渠通粮道" },
-  { t: 112.844, end: 114.325, text: "修驰道直通天下" },
-  { t: 114.373, end: 115.636, text: "驰道宽五十步" },
-  { t: 115.636, end: 117.53, text: "每隔三丈种一棵松树" },
-  { t: 117.53, end: 119.003, text: "从咸阳修到燕齐" },
-  { t: 119.051, end: 120.718, text: "他每天用秤称奏章" },
-  { t: 120.718, end: 122.384, text: "批不完一石不休息" },
-  { t: 122.432, end: 125.08, text: "秦法细到在路上倒灰都要受罚" },
-  { t: 125.08, end: 126.506, text: "老百姓动辄得咎" },
-  { t: 126.554, end: 128.768, text: "这些事后来每个王朝都做" },
-  { t: 128.768, end: 131.184, text: "但第一个做的要挨最多的骂" },
-  { t: 131.232, end: 132.632, text: "前二一三年焚书" },
-  { t: 132.632, end: 135.832, text: "前二一二年坑杀四百六十多个方士和" },
-  { t: 135.832, end: 136.232, text: "儒生" },
-  { t: 136.28, end: 137.298, text: "他想要长生" },
-  { t: 137.298, end: 140.354, text: "派徐福带三千童男童女出海找仙药" },
-  { t: 140.402, end: 142.449, text: "方士说海上有三座仙山" },
-  { t: 142.449, end: 144.291, text: "徐福一去就没了消息" },
-  { t: 144.339, end: 145.411, text: "他一边求仙" },
-  { t: 145.411, end: 146.912, text: "一边给自己修陵" },
-  { t: 146.912, end: 148.413, text: "两件事都没耽误" },
-  { t: 148.461, end: 149.993, text: "他五次巡游天下" },
-  { t: 149.993, end: 151.743, text: "最后一次走到沙丘" },
-  { t: 151.743, end: 152.4, text: "病死了" },
-  { t: 152.4, end: 153.275, text: "四十九岁" },
-  { t: 153.323, end: 155.381, text: "死前他写信给长子扶苏" },
-  { t: 155.381, end: 157.027, text: "让他回咸阳办丧事" },
-  { t: 157.075, end: 158.388, text: "信还没发出去" },
-  { t: 158.388, end: 159.483, text: "赵高扣下了" },
-  { t: 159.531, end: 161.043, text: "赵高和李斯合谋" },
-  { t: 161.043, end: 161.691, text: "立胡亥" },
-  { t: 161.691, end: 163.419, text: "逼扶苏和蒙恬自杀" },
-  { t: 163.467, end: 164.347, text: "胡亥即位" },
-  { t: 164.347, end: 165.227, text: "赵高掌权" },
-  { t: 165.227, end: 166.986, text: "在朝堂上指鹿为马" },
-  { t: 167.034, end: 170.034, text: "前二零九年陈胜吴广在大泽乡起义" },
-  { t: 170.034, end: 172.034, text: "喊出王侯将相宁有种乎" },
-  { t: 172.082, end: 173.957, text: "六国旧贵族跟着起兵" },
-  { t: 173.957, end: 175.832, text: "项羽在巨鹿破釜沉舟" },
-  { t: 175.832, end: 177.082, text: "打垮秦军主力" },
-  { t: 177.13, end: 179.608, text: "秦军主力一支在北边防匈奴" },
-  { t: 179.608, end: 181.261, text: "一支在南边守岭南" },
-  { t: 181.261, end: 182.5, text: "关中反而空虚" },
-  { t: 182.548, end: 184.747, text: "前二零七年刘邦进咸阳" },
-  { t: 184.747, end: 185.627, text: "子婴投降" },
-  { t: 185.627, end: 186.067, text: "秦亡" },
-  { t: 186.115, end: 187.473, text: "从统一到灭亡" },
-  { t: 187.473, end: 188.152, text: "十五年" },
-  { t: 188.2, end: 189.042, text: "秦亡得快" },
-  { t: 189.042, end: 191.146, text: "不是因为它什么都没做" },
-  { t: 191.146, end: 192.83, text: "而是因为做得太绝" },
-  { t: 192.878, end: 196.118, text: "修长城修驰道修阿房宫修骊山陵" },
-  { t: 196.118, end: 197.507, text: "每一件都要人" },
-  { t: 197.555, end: 199.407, text: "骊山陵修了三十多年" },
-  { t: 199.407, end: 201.259, text: "前后征发七十多万人" },
-  { t: 201.307, end: 203.365, text: "陵里用水银做江河湖海" },
-  { t: 203.365, end: 205.011, text: "用兵马俑守在地下" },
-  { t: 205.059, end: 206.877, text: "长城从临洮修到辽东" },
-  { t: 206.877, end: 209.503, text: "把秦赵燕三家的旧墙连成一条" },
-  { t: 209.551, end: 212.39, text: "这道墙后来成了中原王朝的北墙" },
-  { t: 212.39, end: 213.81, text: "一代一代往下修" },
-  { t: 213.858, end: 214.93, text: "更要命的是" },
-  { t: 214.93, end: 216.645, text: "秦始皇没有立皇后" },
-  { t: 216.645, end: 217.932, text: "也没明确太子" },
-  { t: 217.98, end: 218.615, text: "他一死" },
-  { t: 218.615, end: 220.943, text: "继承就成了一场宫廷政变" },
-  { t: 220.991, end: 223.697, text: "秦的制度却被继承了两千年" },
-  { t: 223.697, end: 225.275, text: "郡县文字度量衡" },
-  { t: 225.275, end: 226.177, text: "一样没丢" },
-  { t: 226.225, end: 228.076, text: "接下来上场的是刘邦" },
-  { t: 228.124, end: 228.979, text: "沛县亭长" },
-  { t: 228.979, end: 230.902, text: "四十多岁还在混日子" },
-  { t: 230.95, end: 231.893, text: "秦末大乱" },
-  { t: 231.893, end: 232.6, text: "他起兵" },
-  { t: 232.6, end: 233.543, text: "先入咸阳" },
-  { t: 233.591, end: 234.461, text: "进了咸阳" },
-  { t: 234.461, end: 236.417, text: "他跟老百姓约法三章" },
-  { t: 236.417, end: 237.287, text: "杀人者死" },
-  { t: 237.287, end: 238.591, text: "伤人及盗抵罪" },
-  { t: 238.639, end: 239.691, text: "项羽进了关" },
-  { t: 239.691, end: 240.743, text: "摆下鸿门宴" },
-  { t: 240.743, end: 243.268, text: "刘邦低头认错才捡回一条命" },
-  { t: 243.316, end: 245.067, text: "后来楚汉相争四年" },
-  { t: 245.067, end: 246.161, text: "萧何管后方" },
-  { t: 246.161, end: 247.256, text: "张良出主意" },
-  { t: 247.256, end: 248.131, text: "韩信带兵" },
-  { t: 248.179, end: 250.865, text: "韩信本来在项羽手下不受重用" },
-  { t: 250.865, end: 251.691, text: "跑到汉中" },
-  { t: 251.691, end: 253.55, text: "萧何连夜把他追回来" },
-  { t: 253.598, end: 254.876, text: "刘邦筑坛拜将" },
-  { t: 254.876, end: 256.153, text: "把兵权交给他" },
-  { t: 256.153, end: 257.857, text: "这才有了还定三秦" },
-  { t: 257.905, end: 260.233, text: "公元前二零二年垓下之战" },
-  { t: 260.233, end: 261.079, text: "四面楚歌" },
-  { t: 261.079, end: 262.349, text: "项羽自刎乌江" },
-  { t: 262.397, end: 263.323, text: "一个平民" },
-  { t: 263.323, end: 264.249, text: "七年时间" },
-  { t: 264.249, end: 265.175, text: "成了天子" },
-  { t: 265.223, end: 267.27, text: "他坐上去才知道椅子烫" },
-  { t: 267.27, end: 269.112, text: "异姓王一个接一个反" },
-  { t: 269.16, end: 270.613, text: "韩信彭越英布" },
-  { t: 270.613, end: 272.308, text: "最后都被他除掉" },
-  { t: 272.356, end: 274.587, text: "公元前二零零年亲征匈奴" },
-  { t: 274.587, end: 276.615, text: "在白登被围了七天七夜" },
-  { t: 276.663, end: 278.568, text: "靠陈平贿赂单于阏氏" },
-  { t: 278.568, end: 279.626, text: "才脱身回来" },
-  { t: 279.674, end: 281.773, text: "从那以后他不提打匈奴" },
-  { t: 281.773, end: 282.822, text: "改成了和亲" },
-  { t: 282.87, end: 284.787, text: "刘邦死前杀白马盟誓" },
-  { t: 284.787, end: 286.065, text: "说非刘氏而王" },
-  { t: 286.065, end: 287.13, text: "天下共击之" },
-  { t: 287.178, end: 288.011, text: "刘邦死后" },
-  { t: 288.011, end: 289.47, text: "吕后掌权十五年" },
-  { t: 289.47, end: 292.178, text: "差点把刘家天下变成吕家天下" },
-  { t: 292.226, end: 294.415, text: "老臣周勃陈平发动政变" },
-  { t: 294.415, end: 295.728, text: "才把吕氏除掉" },
-  { t: 295.728, end: 297.041, text: "迎回代王刘恒" },
-  { t: 297.089, end: 299.644, text: "文景两代黄老无为轻徭薄赋" },
-  { t: 299.644, end: 301.348, text: "老百姓终于能喘气" },
-  { t: 301.396, end: 302.438, text: "到武帝初年" },
-  { t: 302.438, end: 304.521, text: "国库里的钱串绳都烂了" },
-  { t: 304.521, end: 306.396, text: "粮仓的谷子堆到发霉" },
-  { t: 306.444, end: 308.367, text: "文帝自己穿粗布衣服" },
-  { t: 308.367, end: 309.435, text: "想修个露台" },
-  { t: 309.435, end: 311.572, text: "一算要花十户人家的钱" },
-  { t: 311.572, end: 311.999, text: "算了" },
-  { t: 312.047, end: 313.329, text: "缇萦上书救父" },
-  { t: 313.329, end: 314.825, text: "文帝就废了肉刑" },
-  { t: 314.873, end: 317.739, text: "景帝时公元前一五四年七国之乱" },
-  { t: 317.739, end: 318.762, text: "三个月平定" },
-  { t: 318.81, end: 321.958, text: "真正把汉朝推到顶点的是汉武帝刘彻" },
-  { t: 322.006, end: 323.086, text: "十六岁即位" },
-  { t: 323.086, end: 324.383, text: "在位五十四年" },
-  { t: 324.383, end: 325.895, text: "打了四十四年仗" },
-  { t: 325.943, end: 326.578, text: "推恩令" },
-  { t: 326.578, end: 328.906, text: "让诸侯王的封地越分越小" },
-  { t: 328.954, end: 330.732, text: "盐铁官营均输平准" },
-  { t: 330.732, end: 332.287, text: "把财政抓回中央" },
-  { t: 332.335, end: 333.207, text: "独尊儒术" },
-  { t: 333.207, end: 333.86, text: "设太学" },
-  { t: 333.86, end: 336.039, text: "给帝国一套统一的说法" },
-  { t: 336.087, end: 338.066, text: "派卫青霍去病打匈奴" },
-  { t: 338.066, end: 339.606, text: "把战线推到漠北" },
-  { t: 339.654, end: 341.538, text: "前一一九年漠北之战" },
-  { t: 341.538, end: 343.212, text: "两人各带五万骑兵" },
-  { t: 343.212, end: 344.468, text: "出塞两千多里" },
-  { t: 344.516, end: 345.998, text: "霍去病封狼居胥" },
-  { t: 345.998, end: 347.479, text: "那年才二十出头" },
-  { t: 347.527, end: 348.777, text: "张骞出使西域" },
-  { t: 348.777, end: 350.235, text: "被匈奴扣了十年" },
-  { t: 350.235, end: 352.527, text: "回来时一百多人只剩两个" },
-  { t: 352.575, end: 354.604, text: "丝绸之路从这时候开始" },
-  { t: 354.604, end: 356.835, text: "中国的丝绸一直卖到罗马" },
-  { t: 356.883, end: 357.78, text: "代价也重" },
-  { t: 357.78, end: 358.676, text: "连年用兵" },
-  { t: 358.676, end: 359.573, text: "国库空了" },
-  { t: 359.573, end: 361.142, text: "登记的户口减半" },
-  { t: 361.19, end: 362.715, text: "老百姓交不起税" },
-  { t: 362.715, end: 363.587, text: "流民遍地" },
-  { t: 363.587, end: 364.894, text: "各地起义不断" },
-  { t: 364.942, end: 366.212, text: "晚年巫蛊之祸" },
-  { t: 366.212, end: 367.905, text: "太子刘据被逼自杀" },
-  { t: 367.905, end: 369.386, text: "皇后卫子夫自尽" },
-  { t: 369.434, end: 370.892, text: "他立幼子刘弗陵" },
-  { t: 370.892, end: 373.184, text: "又杀了孩子母亲钩弋夫人" },
-  { t: 373.184, end: 374.434, text: "防止太后干政" },
-  { t: 374.482, end: 377.334, text: "公元前八十九年他下轮台罪己诏" },
-  { t: 377.334, end: 378.556, text: "承认自己错了" },
-  { t: 378.604, end: 379.744, text: "汉武帝之后" },
-  { t: 379.744, end: 380.655, text: "霍光辅政" },
-  { t: 380.655, end: 381.567, text: "昭宣中兴" },
-  { t: 381.615, end: 382.897, text: "昭帝八岁即位" },
-  { t: 382.897, end: 384.393, text: "霍光掌权二十年" },
-  { t: 384.441, end: 386.196, text: "霍光废过一个只当了" },
-  { t: 386.196, end: 388.145, text: "二十七天皇帝的昌邑王" },
-  { t: 388.193, end: 390.901, text: "汉宣帝是从民间找回来的皇孙" },
-  { t: 390.901, end: 391.526, text: "坐过牢" },
-  { t: 391.526, end: 393.193, text: "知道老百姓的难处" },
-  { t: 393.241, end: 395.352, text: "再往后元帝成帝哀帝" },
-  { t: 395.352, end: 396.759, text: "一代不如一代" },
-  { t: 396.807, end: 398.046, text: "外戚王氏掌权" },
-  { t: 398.046, end: 400.525, text: "王莽装了几十年的谦谦君子" },
-  { t: 400.525, end: 402.177, text: "朝野都说他是圣人" },
-  { t: 402.225, end: 403.954, text: "公元八年王莽代汉" },
-  { t: 403.954, end: 404.818, text: "建立新朝" },
-  { t: 404.866, end: 405.825, text: "王莽改制" },
-  { t: 405.825, end: 407.981, text: "改地名改币制改土地" },
-  { t: 407.981, end: 408.94, text: "越改越乱" },
-  { t: 408.988, end: 411.605, text: "他把全国的官名地名改了一遍" },
-  { t: 411.605, end: 413.618, text: "连匈奴单于的印都换了" },
-  { t: 413.666, end: 415.191, text: "十五年天下大乱" },
-  { t: 415.191, end: 416.498, text: "绿林赤眉起义" },
-  { t: 416.498, end: 417.369, text: "新朝灭亡" },
-  { t: 417.417, end: 419.578, text: "公元二十五年刘秀称帝" },
-  { t: 419.578, end: 420.442, text: "重建汉朝" },
-  { t: 420.442, end: 421.306, text: "史称东汉" },
-  { t: 421.354, end: 422.977, text: "他是刘邦的九世孙" },
-  { t: 422.977, end: 425.614, text: "到他那辈已经是个种地的宗室" },
-  { t: 425.662, end: 427.551, text: "起兵时穷得买不起马" },
-  { t: 427.551, end: 428.81, text: "只能骑牛上阵" },
-  { t: 428.858, end: 429.681, text: "昆阳之战" },
-  { t: 429.681, end: 432.561, text: "一万多人打败王莽四十二万大军" },
-  { t: 432.609, end: 435.972, text: "当皇帝后他释放奴婢度田裁并郡县" },
-  { t: 435.972, end: 436.869, text: "光武中兴" },
-  { t: 436.917, end: 438.173, text: "跟刘邦不一样" },
-  { t: 438.173, end: 439.429, text: "他没有杀功臣" },
-  { t: 439.429, end: 441.731, text: "云台二十八将都得了善终" },
-  { t: 441.779, end: 443.168, text: "明帝章帝接手" },
-  { t: 443.168, end: 444.094, text: "吏治清明" },
-  { t: 444.094, end: 445.483, text: "史称明章之治" },
-  { t: 445.531, end: 446.787, text: "窦宪北击匈奴" },
-  { t: 446.787, end: 448.462, text: "在燕然山刻石记功" },
-  { t: 448.462, end: 450.346, text: "那是东汉武功的顶点" },
-  { t: 450.394, end: 451.895, text: "蔡伦改进造纸术" },
-  { t: 451.895, end: 453.181, text: "张衡造地动仪" },
-  { t: 453.181, end: 454.468, text: "都在这个朝代" },
-  { t: 454.516, end: 455.829, text: "但东汉的皇帝" },
-  { t: 455.829, end: 456.923, text: "整体偏年轻" },
-  { t: 456.971, end: 458.305, text: "和帝十岁即位" },
-  { t: 458.305, end: 459.638, text: "殇帝一百多天" },
-  { t: 459.638, end: 460.527, text: "冲帝两岁" },
-  { t: 460.527, end: 461.416, text: "质帝八岁" },
-  { t: 461.464, end: 462.513, text: "东汉的皇帝" },
-  { t: 462.513, end: 464.612, text: "很多不到三十岁就死了" },
-  { t: 464.66, end: 465.367, text: "皇帝小" },
-  { t: 465.367, end: 466.31, text: "太后临朝" },
-  { t: 466.31, end: 467.253, text: "外戚掌权" },
-  { t: 467.301, end: 468.18, text: "皇帝长大" },
-  { t: 468.18, end: 469.72, text: "靠宦官除掉外戚" },
-  { t: 469.72, end: 470.819, text: "宦官再掌权" },
-  { t: 470.867, end: 471.935, text: "外戚和宦官" },
-  { t: 471.935, end: 473.645, text: "像钟摆一样来回摆" },
-  { t: 473.693, end: 475.776, text: "中间还夹着一批士大夫" },
-  { t: 475.776, end: 477.651, text: "他们看不惯外戚宦官" },
-  { t: 477.651, end: 478.693, text: "一次次上书" },
-  { t: 478.741, end: 480.037, text: "结果就是党锢" },
-  { t: 480.037, end: 481.766, text: "读书人被打成朋党" },
-  { t: 481.766, end: 482.63, text: "不许做官" },
-  { t: 482.678, end: 484.993, text: "梁冀当了二十年跋扈将军" },
-  { t: 484.993, end: 486.886, text: "最后被宦官围在家里" },
-  { t: 486.886, end: 487.307, text: "自杀" },
-  { t: 487.355, end: 489.022, text: "桓帝灵帝公开卖官" },
-  { t: 489.022, end: 490.689, text: "三公标价一千万钱" },
-  { t: 490.737, end: 492.441, text: "一八四年黄巾起义" },
-  { t: 492.441, end: 494.144, text: "张角喊出苍天已死" },
-  { t: 494.144, end: 494.996, text: "黄天当立" },
-  { t: 495.044, end: 497.091, text: "州郡长官趁机拥兵自重" },
-  { t: 497.091, end: 498.933, text: "朝廷只好把兵权下放" },
-  { t: 498.981, end: 500.759, text: "一八九年董卓进京" },
-  { t: 500.759, end: 502.092, text: "废少帝立献帝" },
-  { t: 502.092, end: 503.425, text: "东汉名存实亡" },
-  { t: 503.473, end: 506.121, text: "一九六年曹操把献帝迎到许都" },
-  { t: 506.121, end: 507.547, text: "挟天子以令诸侯" },
-  { t: 507.595, end: 509.232, text: "二零零年官渡之战" },
-  { t: 509.232, end: 511.484, text: "曹操两万人打垮袁绍十万" },
-  { t: 511.532, end: 513.199, text: "二零八年赤壁之战" },
-  { t: 513.199, end: 514.449, text: "孙刘联军五万" },
-  { t: 514.449, end: 516.532, text: "一把火烧了曹操的水军" },
-  { t: 516.58, end: 518.474, text: "那一年周瑜三十三岁" },
-  { t: 518.474, end: 519.947, text: "诸葛亮二十七岁" },
-  { t: 519.947, end: 521.21, text: "曹操五十三岁" },
-  { t: 521.258, end: 524.139, text: "公元二二零年曹丕逼汉献帝禅让" },
-  { t: 524.139, end: 524.962, text: "东汉结束" },
-  { t: 525.01, end: 526.738, text: "曹丕称帝的第二年" },
-  { t: 526.738, end: 528.251, text: "刘备在成都称帝" },
-  { t: 528.251, end: 528.899, text: "国号汉" },
-  { t: 528.947, end: 530.587, text: "二二一年刘备伐吴" },
-  { t: 530.587, end: 533.252, text: "第二年在夷陵被陆逊火烧连营" },
-  { t: 533.252, end: 534.687, text: "退到白帝城托孤" },
-  { t: 534.735, end: 537.044, text: "二二九年孙权在建业称帝" },
-  { t: 537.044, end: 537.883, text: "三国鼎立" },
-  { t: 537.931, end: 539.848, text: "曹丕推行九品中正制" },
-  { t: 539.848, end: 540.913, text: "选官看家世" },
-  { t: 540.913, end: 542.191, text: "门阀从此坐大" },
-  { t: 542.239, end: 543.136, text: "曹魏这边" },
-  { t: 543.136, end: 546.498, text: "司马懿熬死了曹操曹丕曹叡三代人" },
-  { t: 546.546, end: 548.421, text: "二四九年高平陵之变" },
-  { t: 548.421, end: 549.879, text: "他装病骗过曹爽" },
-  { t: 549.879, end: 551.546, text: "一夜之间夺了兵权" },
-  { t: 551.594, end: 553.149, text: "二六三年魏灭蜀" },
-  { t: 553.149, end: 554.038, text: "刘禅出降" },
-  { t: 554.038, end: 554.927, text: "乐不思蜀" },
-  { t: 554.975, end: 557.66, text: "三国的故事被演义讲了几百年" },
-  { t: 557.66, end: 558.9, text: "真正的历史里" },
-  { t: 558.9, end: 560.346, text: "曹操到死没称帝" },
-  { t: 560.394, end: 562.616, text: "二六五年司马炎代魏建晋" },
-  { t: 562.664, end: 564.16, text: "二八零年晋灭吴" },
-  { t: 564.16, end: 565.442, text: "天下重新统一" },
-  { t: 565.49, end: 567.342, text: "统一只维持了十一年" },
-  { t: 567.39, end: 568.915, text: "司马炎大封宗室" },
-  { t: 568.915, end: 570.004, text: "二十七个王" },
-  { t: 570.004, end: 571.093, text: "手里都有兵" },
-  { t: 571.141, end: 572.834, text: "他自己后宫上万人" },
-  { t: 572.834, end: 574.104, text: "坐着羊车乱逛" },
-  { t: 574.104, end: 575.586, text: "羊停在哪就住哪" },
-  { t: 575.634, end: 577.115, text: "石崇和王恺斗富" },
-  { t: 577.115, end: 578.597, text: "一个用蜡当柴烧" },
-  { t: 578.597, end: 580.078, text: "一个用糖水刷锅" },
-  { t: 580.126, end: 580.774, text: "他一死" },
-  { t: 580.774, end: 582.719, text: "八王之乱打了十六年" },
-  { t: 582.767, end: 584.883, text: "三一一年刘曜攻破洛阳" },
-  { t: 584.883, end: 585.941, text: "晋怀帝被俘" },
-  { t: 585.941, end: 587.211, text: "史称永嘉之乱" },
-  { t: 587.259, end: 589.033, text: "匈奴鲜卑羯氐羌" },
-  { t: 589.033, end: 590.553, text: "五胡先后建国" },
-  { t: 590.553, end: 592.074, text: "北方打成一片" },
-  { t: 592.122, end: 593.851, text: "三一六年长安陷落" },
-  { t: 593.851, end: 594.715, text: "西晋灭亡" },
-  { t: 594.763, end: 597.263, text: "三一七年司马睿在建康称帝" },
-  { t: 597.263, end: 598.096, text: "东晋开始" },
-  { t: 598.144, end: 599.837, text: "北方士族大批南迁" },
-  { t: 599.837, end: 601.107, text: "史称衣冠南渡" },
-  { t: 601.155, end: 602.425, text: "王导一手安排" },
-  { t: 602.425, end: 604.33, text: "司马睿登基后开大会" },
-  { t: 604.33, end: 605.811, text: "拉着他同坐御床" },
-  { t: 605.811, end: 607.081, text: "王与马共天下" },
-  { t: 607.129, end: 608.011, text: "祖逖北伐" },
-  { t: 608.011, end: 608.892, text: "中流击楫" },
-  { t: 608.892, end: 610.215, text: "收复黄河以南" },
-  { t: 610.215, end: 611.758, text: "朝廷却不给后援" },
-  { t: 611.806, end: 612.864, text: "东晋的皇帝" },
-  { t: 612.864, end: 614.769, text: "很多是门阀扶上去的" },
-  { t: 614.817, end: 617.966, text: "三八三年苻坚带号称百万的大军南下" },
-  { t: 618.014, end: 618.868, text: "淝水之战" },
-  { t: 618.868, end: 620.791, text: "谢玄八万人把他打垮" },
-  { t: 620.839, end: 622.308, text: "苻坚败退回北方" },
-  { t: 622.308, end: 623.987, text: "前秦跟着四分五裂" },
-  { t: 624.035, end: 625.369, text: "北魏趁机崛起" },
-  { t: 625.369, end: 626.258, text: "统一北方" },
-  { t: 626.306, end: 627.936, text: "这一仗保住了江南" },
-  { t: 627.936, end: 630.38, text: "也保住了汉文化的半壁江山" },
-  { t: 630.428, end: 632.156, text: "四二零年刘裕代晋" },
-  { t: 632.156, end: 633.02, text: "南朝开始" },
-  { t: 633.068, end: 633.915, text: "宋齐梁陈" },
-  { t: 633.915, end: 636.031, text: "四个朝代一百六十九年" },
-  { t: 636.079, end: 637.399, text: "刘裕出身寒门" },
-  { t: 637.399, end: 638.938, text: "小时候砍柴打鱼" },
-  { t: 638.938, end: 639.598, text: "打仗猛" },
-  { t: 639.646, end: 641.137, text: "宋文帝元嘉年间" },
-  { t: 641.137, end: 642.627, text: "江南太平三十年" },
-  { t: 642.627, end: 643.905, text: "史称元嘉之治" },
-  { t: 643.953, end: 645.418, text: "但元嘉北伐失败" },
-  { t: 645.418, end: 647.512, text: "北魏太武帝打到长江边" },
-  { t: 647.512, end: 648.768, text: "史称元嘉草草" },
-  { t: 648.816, end: 650.495, text: "北边北魏统一北方" },
-  { t: 650.495, end: 651.964, text: "孝文帝迁都洛阳" },
-  { t: 652.012, end: 654.029, text: "改汉姓穿汉服说汉话" },
-  { t: 654.029, end: 656.271, text: "连皇族拓跋氏都改姓元" },
-  { t: 656.319, end: 657.201, text: "迁都那年" },
-  { t: 657.201, end: 658.744, text: "他骗群臣说南征" },
-  { t: 658.744, end: 659.626, text: "走到洛阳" },
-  { t: 659.626, end: 660.949, text: "大家不肯走了" },
-  { t: 660.997, end: 662.681, text: "北魏后期六镇兵变" },
-  { t: 662.681, end: 663.943, text: "尔朱荣进洛阳" },
-  { t: 663.943, end: 665.627, text: "把朝臣杀了个精光" },
-  { t: 665.675, end: 666.982, text: "北魏一分为二" },
-  { t: 666.982, end: 667.853, text: "东魏西魏" },
-  { t: 667.853, end: 669.378, text: "再变成北齐北周" },
-  { t: 669.426, end: 670.475, text: "南朝的齐朝" },
-  { t: 670.475, end: 672.574, text: "二十三年换了七个皇帝" },
-  { t: 672.622, end: 675.351, text: "南边梁武帝萧衍在位四十八年" },
-  { t: 675.351, end: 675.771, text: "信佛" },
-  { t: 675.819, end: 677.277, text: "四次舍身同泰寺" },
-  { t: 677.277, end: 679.152, text: "大臣凑钱把他赎回来" },
-  { t: 679.2, end: 680.91, text: "五四八年侯景之乱" },
-  { t: 680.91, end: 681.978, text: "建康被攻破" },
-  { t: 682.026, end: 683.558, text: "萧衍饿死在台城" },
-  { t: 683.558, end: 684.433, text: "八十六岁" },
-  { t: 684.481, end: 685.963, text: "南朝四百八十寺" },
-  { t: 685.963, end: 687.444, text: "多少楼台烟雨中" },
-  { t: 687.444, end: 688.926, text: "说的就是这时候" },
-  { t: 688.974, end: 690.611, text: "五八九年隋军渡江" },
-  { t: 690.611, end: 692.862, text: "陈后主带着妃子躲进枯井" },
-  { t: 692.91, end: 694.423, text: "被拉出来的时候" },
-  { t: 694.423, end: 695.503, text: "南朝结束了" },
-  { t: 695.551, end: 697.403, text: "隋朝只活了三十七年" },
-  { t: 697.451, end: 699.534, text: "五八一年杨坚代周建隋" },
-  { t: 699.534, end: 700.784, text: "五八九年灭陈" },
-  { t: 700.832, end: 702.088, text: "他创三省六部" },
-  { t: 702.088, end: 702.716, text: "开科举" },
-  { t: 702.716, end: 705.647, text: "把选官的权力从门阀手里收回来" },
-  { t: 705.695, end: 707.317, text: "开皇年间国库充实" },
-  { t: 707.317, end: 709.954, text: "粮仓的粮食吃到唐朝还没吃完" },
-  { t: 710.002, end: 711.828, text: "大运河把南北连起来" },
-  { t: 711.828, end: 714.262, text: "后来的漕运靠它吃了上千年" },
-  { t: 714.31, end: 715.629, text: "但他猜忌心重" },
-  { t: 715.629, end: 716.948, text: "废了太子杨勇" },
-  { t: 716.948, end: 717.828, text: "改立杨广" },
-  { t: 717.876, end: 719.543, text: "六零四年杨广即位" },
-  { t: 719.591, end: 720.69, text: "他修大运河" },
-  { t: 720.69, end: 722.01, text: "从余杭到涿郡" },
-  { t: 722.01, end: 723.109, text: "两千多公里" },
-  { t: 723.157, end: 724.59, text: "隋炀帝设进士科" },
-  { t: 724.59, end: 727.046, text: "科举从此成了读书人的正路" },
-  { t: 727.094, end: 727.917, text: "三征高丽" },
-  { t: 727.917, end: 730.798, text: "第一次就出动一百一十三万大军" },
-  { t: 730.846, end: 732.735, text: "一支三十万人的队伍" },
-  { t: 732.735, end: 733.994, text: "回来不到三千" },
-  { t: 734.042, end: 734.968, text: "民力耗尽" },
-  { t: 734.968, end: 735.894, text: "天下大乱" },
-  { t: 735.942, end: 738.823, text: "六一八年杨广在江都被部下勒死" },
-  { t: 738.823, end: 739.646, text: "隋朝灭亡" },
-  { t: 739.694, end: 741.043, text: "他死前照镜子" },
-  { t: 741.043, end: 741.943, text: "说好头颅" },
-  { t: 741.943, end: 742.842, text: "谁当斫之" },
-  { t: 742.89, end: 745.199, text: "六一八年李渊在长安称帝" },
-  { t: 745.199, end: 746.038, text: "唐朝开始" },
-  { t: 746.086, end: 747.886, text: "六二六年玄武门之变" },
-  { t: 747.886, end: 751.086, text: "李世民杀了哥哥李建成和弟弟李元吉" },
-  { t: 751.134, end: 752.599, text: "他在玄武门埋伏" },
-  { t: 752.599, end: 754.065, text: "一箭射死李建成" },
-  { t: 754.065, end: 755.949, text: "尉迟敬德杀了李元吉" },
-  { t: 755.997, end: 757.275, text: "他逼父亲退位" },
-  { t: 757.275, end: 759.404, text: "自己当了二十三年皇帝" },
-  { t: 759.404, end: 760.256, text: "年号贞观" },
-  { t: 760.304, end: 761.637, text: "纳谏轻徭用人" },
-  { t: 761.637, end: 764.748, text: "魏征死了他说自己少了一面镜子" },
-  { t: 764.796, end: 765.615, text: "贞观之治" },
-  { t: 765.615, end: 768.685, text: "人口从两百万户恢复到三百多万户" },
-  { t: 768.733, end: 771.881, text: "有一年全国判死刑的只有二十九个人" },
-  { t: 771.929, end: 774.059, text: "周边各族尊他为天可汗" },
-  { t: 774.059, end: 774.911, text: "玄奘西行" },
-  { t: 774.911, end: 776.189, text: "文成公主入藏" },
-  { t: 776.237, end: 778.126, text: "六四九年李世民去世" },
-  { t: 778.126, end: 779.385, text: "儿子李治即位" },
-  { t: 779.433, end: 781.35, text: "皇后武则天慢慢掌权" },
-  { t: 781.35, end: 782.627, text: "六九零年称帝" },
-  { t: 782.627, end: 783.692, text: "改国号为周" },
-  { t: 783.74, end: 786.333, text: "她是中国历史上唯一的女皇帝" },
-  { t: 786.381, end: 787.625, text: "她十四岁进宫" },
-  { t: 787.625, end: 789.077, text: "从才人做到皇后" },
-  { t: 789.077, end: 791.566, text: "又在皇后位上等了三十五年" },
-  { t: 791.614, end: 794.762, text: "十五年里她把唐朝宗室杀得七零八落" },
-  { t: 794.81, end: 796.868, text: "也把科举取士推得更广" },
-  { t: 796.868, end: 798.514, text: "寒门子弟有了出路" },
-  { t: 798.562, end: 799.604, text: "她重用酷吏" },
-  { t: 799.604, end: 801.895, text: "也重用狄仁杰这样的能臣" },
-  { t: 801.943, end: 803.686, text: "七零五年神龙政变" },
-  { t: 803.686, end: 804.775, text: "武则天退位" },
-  { t: 804.775, end: 805.647, text: "唐朝复辟" },
-  { t: 805.695, end: 807.354, text: "她那年冬天就死了" },
-  { t: 807.354, end: 808.184, text: "八十二岁" },
-  { t: 808.184, end: 810.88, text: "乾陵前那块无字碑一个字没刻" },
-  { t: 810.928, end: 813.44, text: "之后韦后太平公主先后弄权" },
-  { t: 813.44, end: 815.743, text: "直到七一二年李隆基即位" },
-  { t: 815.791, end: 818.235, text: "七一三到七四一年开元盛世" },
-  { t: 818.235, end: 819.865, text: "全国人口约八千万" },
-  { t: 819.913, end: 822.55, text: "长安是当时世界上最大的城市" },
-  { t: 822.55, end: 824.172, text: "西市里到处是胡商" },
-  { t: 824.22, end: 825.673, text: "李白杜甫王维" },
-  { t: 825.673, end: 827.368, text: "都活在这个年代" },
-  { t: 827.416, end: 829.657, text: "开元年间米价一斗十几文" },
-  { t: 829.657, end: 831.49, text: "路上掉了东西没人捡" },
-  { t: 831.538, end: 833.205, text: "但盛世底下埋着雷" },
-  { t: 833.253, end: 834.411, text: "府兵制瓦解" },
-  { t: 834.411, end: 835.105, text: "改募兵" },
-  { t: 835.153, end: 837.047, text: "节度使权力越来越大" },
-  { t: 837.047, end: 838.52, text: "边疆十大节度使" },
-  { t: 838.52, end: 839.782, text: "兵力四十九万" },
-  { t: 839.83, end: 843.358, text: "安禄山一个人就管着范阳平卢河东三" },
-  { t: 843.358, end: 843.578, text: "镇" },
-  { t: 843.578, end: 844.46, text: "十八万兵" },
-  { t: 844.508, end: 846.977, text: "七五五年安禄山在范阳起兵" },
-  { t: 846.977, end: 848.212, text: "安史之乱爆发" },
-  { t: 848.26, end: 849.609, text: "叛军一路南下" },
-  { t: 849.609, end: 851.408, text: "洛阳长安先后失守" },
-  { t: 851.456, end: 852.968, text: "玄宗逃到马嵬坡" },
-  { t: 852.968, end: 853.833, text: "禁军哗变" },
-  { t: 853.833, end: 855.345, text: "他赐死了杨贵妃" },
-  { t: 855.393, end: 857.31, text: "太子李亨在灵武即位" },
-  { t: 857.31, end: 859.652, text: "靠郭子仪李光弼苦苦支撑" },
-  { t: 859.7, end: 861.747, text: "安禄山后来被儿子杀掉" },
-  { t: 861.747, end: 863.589, text: "史思明又被儿子杀掉" },
-  { t: 863.637, end: 865.303, text: "八年之后叛乱平定" },
-  { t: 865.303, end: 866.97, text: "唐朝再也回不去了" },
-  { t: 867.018, end: 868.06, text: "安史之乱后" },
-  { t: 868.06, end: 870.352, text: "登记的户口只剩三分之一" },
-  { t: 870.4, end: 872.745, text: "藩镇割据宦官专权党争" },
-  { t: 872.745, end: 873.918, text: "一个接一个" },
-  { t: 873.966, end: 875.439, text: "皇帝由宦官拥立" },
-  { t: 875.439, end: 877.333, text: "有的皇帝想除掉宦官" },
-  { t: 877.333, end: 878.596, text: "反被宦官杀掉" },
-  { t: 878.644, end: 880.3, text: "八三五年甘露之变" },
-  { t: 880.3, end: 882.162, text: "宦官杀了几百名朝臣" },
-  { t: 882.21, end: 883.903, text: "八七五年黄巢起义" },
-  { t: 883.903, end: 885.173, text: "八八四年失败" },
-  { t: 885.221, end: 887.53, text: "九零七年朱温废掉唐哀帝" },
-  { t: 887.53, end: 888.369, text: "唐朝灭亡" },
-  { t: 888.417, end: 890.121, text: "九零七到九六零年" },
-  { t: 890.121, end: 890.973, text: "五十三年" },
-  { t: 890.973, end: 892.677, text: "中原换了五个朝代" },
-  { t: 892.725, end: 893.814, text: "十四个皇帝" },
-  { t: 893.814, end: 894.468, text: "八个姓" },
-  { t: 894.468, end: 896.428, text: "谁兵强马壮谁当皇帝" },
-  { t: 896.476, end: 897.958, text: "五代的宰相冯道" },
-  { t: 897.958, end: 899.863, text: "前后伺候过十个皇帝" },
-  { t: 899.863, end: 900.921, text: "自称长乐老" },
-  { t: 900.969, end: 902.636, text: "李存勖灭梁建后唐" },
-  { t: 902.636, end: 903.886, text: "打了十五年仗" },
-  { t: 903.886, end: 905.969, text: "当皇帝三年就死于兵变" },
-  { t: 906.017, end: 908.5, text: "石敬瑭割燕云十六州给契丹" },
-  { t: 908.5, end: 909.535, text: "当了儿皇帝" },
-  { t: 909.583, end: 910.618, text: "这片地一丢" },
-  { t: 910.618, end: 913.102, text: "中原的北大门四百年没关上" },
-  { t: 913.15, end: 914.909, text: "九五四年柴荣即位" },
-  { t: 914.909, end: 916.668, text: "整顿军队清查田亩" },
-  { t: 916.716, end: 917.766, text: "他北伐辽国" },
-  { t: 917.766, end: 919.865, text: "四十二天收复三关三州" },
-  { t: 919.913, end: 920.607, text: "柴荣说" },
-  { t: 920.607, end: 921.765, text: "给他三十年" },
-  { t: 921.765, end: 922.69, text: "十年开拓" },
-  { t: 922.69, end: 923.616, text: "十年养民" },
-  { t: 923.616, end: 924.542, text: "十年太平" },
-  { t: 924.59, end: 926.145, text: "他才做了五年半" },
-  { t: 926.145, end: 927.034, text: "就病死了" },
-  { t: 927.034, end: 927.923, text: "三十九岁" },
-  { t: 927.971, end: 928.612, text: "十国里" },
-  { t: 928.612, end: 929.894, text: "南唐李煜写词" },
-  { t: 929.894, end: 931.39, text: "后蜀孟昶修宫殿" },
-  { t: 931.39, end: 933.527, text: "都是乱世里的一点斯文" },
-  { t: 933.575, end: 935.254, text: "九五九年柴荣病逝" },
-  { t: 935.254, end: 936.723, text: "七岁的儿子即位" },
-  { t: 936.771, end: 939.13, text: "九六零年赵匡胤陈桥兵变" },
-  { t: 939.13, end: 939.987, text: "黄袍加身" },
-  { t: 939.987, end: 940.845, text: "建立宋朝" },
-  { t: 940.893, end: 942.163, text: "赵匡胤当皇帝" },
-  { t: 942.163, end: 943.856, text: "第一件事是收兵权" },
-  { t: 943.904, end: 945.746, text: "九六一年杯酒释兵权" },
-  { t: 945.746, end: 947.793, text: "将领交出兵权回家养老" },
-  { t: 947.841, end: 948.981, text: "他定下规矩" },
-  { t: 948.981, end: 950.804, text: "重文抑武强干弱枝" },
-  { t: 950.852, end: 952.13, text: "兵权归枢密院" },
-  { t: 952.13, end: 953.194, text: "统兵归三衙" },
-  { t: 953.194, end: 955.111, text: "调兵和统兵分成两套" },
-  { t: 955.159, end: 956.863, text: "地方精锐编入禁军" },
-  { t: 956.863, end: 957.715, text: "轮番戍边" },
-  { t: 957.715, end: 959.419, text: "将领带的是陌生兵" },
-  { t: 959.467, end: 961.133, text: "科举取士人数大增" },
-  { t: 961.133, end: 962.8, text: "文官地位高过武将" },
-  { t: 962.848, end: 965.456, text: "宋朝的商业和城市经济很发达" },
-  { t: 965.456, end: 967.663, text: "交子是世界上最早的纸币" },
-  { t: 967.711, end: 970.859, text: "《清明上河图》画的就是汴京的繁华" },
-  { t: 970.907, end: 972.83, text: "汴京的夜市三更才散" },
-  { t: 972.83, end: 973.685, text: "五更又开" },
-  { t: 973.733, end: 975.584, text: "宋朝养了上百万禁军" },
-  { t: 975.584, end: 977.436, text: "军费占了财政的大半" },
-  { t: 977.484, end: 978.579, text: "钱花了不少" },
-  { t: 978.579, end: 979.892, text: "仗还是打不赢" },
-  { t: 979.94, end: 982.171, text: "这套办法防住了内部叛乱" },
-  { t: 982.171, end: 984.199, text: "也让宋朝对外一直偏软" },
-  { t: 984.247, end: 986.17, text: "一零零四年辽军南下" },
-  { t: 986.17, end: 987.025, text: "澶渊之盟" },
-  { t: 987.073, end: 988.141, text: "宋真宗亲征" },
-  { t: 988.141, end: 989.851, text: "寇准把他推到城头" },
-  { t: 989.899, end: 993.039, text: "宋朝每年给辽银十万两绢二十万匹" },
-  { t: 993.039, end: 994.713, text: "换来一百多年和平" },
-  { t: 994.761, end: 996.966, text: "一零六九年王安石变法" },
-  { t: 996.966, end: 999.391, text: "青苗法募役法方田均税法" },
-  { t: 999.439, end: 1001.522, text: "想解决财政和军事问题" },
-  { t: 1001.522, end: 1002.772, text: "结果引发党争" },
-  { t: 1002.82, end: 1004.476, text: "新法旧法来回折腾" },
-  { t: 1004.476, end: 1006.339, text: "一直折腾到北宋灭亡" },
-  { t: 1006.387, end: 1008.715, text: "一一二七年金军攻破汴京" },
-  { t: 1008.715, end: 1009.985, text: "徽钦二帝被掳" },
-  { t: 1009.985, end: 1010.831, text: "北宋灭亡" },
-  { t: 1010.879, end: 1012.166, text: "史称靖康之变" },
-  { t: 1012.166, end: 1014.953, text: "后妃宗室三千多人被押往北方" },
-  { t: 1015.001, end: 1016.657, text: "北宋一百六十七年" },
-  { t: 1016.657, end: 1018.52, text: "攒下的财富全被抢空" },
-  { t: 1018.568, end: 1021.068, text: "同年赵构在南京应天府称帝" },
-  { t: 1021.068, end: 1021.901, text: "南宋开始" },
-  { t: 1021.949, end: 1023.801, text: "一一三八年定都临安" },
-  { t: 1023.849, end: 1025.754, text: "南宋的皇帝多半偏安" },
-  { t: 1025.754, end: 1026.812, text: "北伐喊得响" },
-  { t: 1026.812, end: 1028.294, text: "真打起来又议和" },
-  { t: 1028.342, end: 1030.265, text: "一一四二年岳飞被杀" },
-  { t: 1030.265, end: 1031.119, text: "宋金议和" },
-  { t: 1031.167, end: 1033.128, text: "岳飞死前留下八个字" },
-  { t: 1033.128, end: 1033.999, text: "天日昭昭" },
-  { t: 1033.999, end: 1034.871, text: "天日昭昭" },
-  { t: 1034.919, end: 1036.737, text: "一二七九年崖山海战" },
-  { t: 1036.737, end: 1039.363, text: "陆秀夫背着八岁的小皇帝跳海" },
-  { t: 1039.411, end: 1040.611, text: "南宋灭亡" },
-  { t: 1040.659, end: 1043.252, text: "一二七一年忽必烈定国号为元" },
-  { t: 1043.3, end: 1045.029, text: "一二七九年灭南宋" },
-  { t: 1045.029, end: 1045.893, text: "统一天下" },
-  { t: 1045.941, end: 1047.83, text: "成吉思汗先统一蒙古" },
-  { t: 1047.83, end: 1049.089, text: "西征打到中亚" },
-  { t: 1049.137, end: 1050.166, text: "忽必烈建元" },
-  { t: 1050.166, end: 1052.841, text: "把草原帝国改成一个中原王朝" },
-  { t: 1052.889, end: 1053.957, text: "他定都大都" },
-  { t: 1053.957, end: 1055.666, text: "也就是今天的北京" },
-  { t: 1055.714, end: 1057.607, text: "元朝把人分成四等" },
-  { t: 1057.607, end: 1059.974, text: "蒙古人色目人汉人南人" },
-  { t: 1060.022, end: 1062.105, text: "行省制度从这时候开始" },
-  { t: 1062.105, end: 1063.355, text: "一直用到今天" },
-  { t: 1063.403, end: 1064.884, text: "元曲在勾栏里唱" },
-  { t: 1064.884, end: 1067.847, text: "关汉卿马致远都是这个时代的人" },
-  { t: 1067.895, end: 1068.8, text: "九十八年" },
-  { t: 1068.8, end: 1069.932, text: "十一位皇帝" },
-  { t: 1069.98, end: 1070.892, text: "黄河泛滥" },
-  { t: 1070.892, end: 1072.031, text: "红巾军起义" },
-  { t: 1072.031, end: 1072.943, text: "天下大乱" },
-  { t: 1072.991, end: 1075.3, text: "一三六八年明军攻入大都" },
-  { t: 1075.3, end: 1076.139, text: "元朝灭亡" },
-  { t: 1076.187, end: 1077.854, text: "残余势力退回草原" },
-  { t: 1077.902, end: 1080.61, text: "一三六八年朱元璋在应天称帝" },
-  { t: 1080.61, end: 1081.235, text: "国号明" },
-  { t: 1081.283, end: 1083.506, text: "他是放牛娃和尚乞丐" },
-  { t: 1083.554, end: 1085.471, text: "二十四岁参加红巾军" },
-  { t: 1085.471, end: 1086.748, text: "四十岁当皇帝" },
-  { t: 1086.748, end: 1087.813, text: "用了十六年" },
-  { t: 1087.861, end: 1088.993, text: "他废了丞相" },
-  { t: 1088.993, end: 1089.898, text: "设锦衣卫" },
-  { t: 1089.946, end: 1091.583, text: "太监有二十四衙门" },
-  { t: 1091.583, end: 1093.835, text: "司礼监后来能替皇帝批红" },
-  { t: 1093.883, end: 1095.478, text: "杀了胡惟庸蓝玉" },
-  { t: 1095.478, end: 1096.846, text: "几万人受牵连" },
-  { t: 1096.894, end: 1098.283, text: "空印案郭桓案" },
-  { t: 1098.283, end: 1099.672, text: "又杀了几万人" },
-  { t: 1099.72, end: 1101.221, text: "他给子孙定规矩" },
-  { t: 1101.221, end: 1102.507, text: "不许宦官干政" },
-  { t: 1102.507, end: 1103.794, text: "不许再设丞相" },
-  { t: 1103.842, end: 1105.337, text: "可他死后没几年" },
-  { t: 1105.337, end: 1106.619, text: "这两条都破了" },
-  { t: 1106.667, end: 1109.26, text: "一三九九年燕王朱棣起兵靖难" },
-  { t: 1109.308, end: 1111.183, text: "一四零二年攻入南京" },
-  { t: 1111.183, end: 1112.641, text: "建文帝下落不明" },
-  { t: 1112.689, end: 1113.985, text: "朱棣迁都北京" },
-  { t: 1113.985, end: 1115.066, text: "修永乐大典" },
-  { t: 1115.066, end: 1116.578, text: "派郑和七下西洋" },
-  { t: 1116.626, end: 1118.33, text: "郑和第一次下西洋" },
-  { t: 1118.33, end: 1119.608, text: "六十二艘宝船" },
-  { t: 1119.608, end: 1120.886, text: "两万七千多人" },
-  { t: 1120.934, end: 1122.971, text: "船队最远到了非洲东岸" },
-  { t: 1123.019, end: 1124.678, text: "后来朝廷转向海禁" },
-  { t: 1124.678, end: 1125.923, text: "片板不许下海" },
-  { t: 1125.923, end: 1128.204, text: "大航海时代就这么错过了" },
-  { t: 1128.252, end: 1129.294, text: "明朝中后期" },
-  { t: 1129.294, end: 1130.96, text: "美洲白银大量流入" },
-  { t: 1130.96, end: 1133.252, text: "银子成了市面上的硬通货" },
-  { t: 1133.3, end: 1135.369, text: "一四四九年土木堡之变" },
-  { t: 1135.369, end: 1136.818, text: "英宗被瓦剌俘虏" },
-  { t: 1136.866, end: 1138.729, text: "于谦在北京另立新君" },
-  { t: 1138.729, end: 1140.385, text: "打赢了北京保卫战" },
-  { t: 1140.433, end: 1141.766, text: "后来英宗复辟" },
-  { t: 1141.766, end: 1142.655, text: "于谦被杀" },
-  { t: 1142.703, end: 1144.545, text: "一五二一年嘉靖即位" },
-  { t: 1144.545, end: 1146.592, text: "一个大礼议就吵了三年" },
-  { t: 1146.64, end: 1148.307, text: "他二十多年不上朝" },
-  { t: 1148.355, end: 1149.642, text: "他在宫里炼丹" },
-  { t: 1149.642, end: 1151.142, text: "差点被宫女勒死" },
-  { t: 1151.142, end: 1152.429, text: "史称壬寅宫变" },
-  { t: 1152.477, end: 1154.339, text: "一五七二年万历即位" },
-  { t: 1154.339, end: 1155.995, text: "前十年张居正改革" },
-  { t: 1156.043, end: 1158.32, text: "一条鞭法把赋役折成银子" },
-  { t: 1158.32, end: 1159.562, text: "国库一度充盈" },
-  { t: 1159.61, end: 1161.068, text: "后三十多年怠政" },
-  { t: 1161.068, end: 1162.943, text: "国本之争闹了十五年" },
-  { t: 1162.991, end: 1165.096, text: "一六一八年萨尔浒之战" },
-  { t: 1165.096, end: 1166.358, text: "明军四路出击" },
-  { t: 1166.358, end: 1167.621, text: "三路全军覆没" },
-  { t: 1167.669, end: 1169.574, text: "一六二零年天启即位" },
-  { t: 1169.574, end: 1170.632, text: "魏忠贤专权" },
-  { t: 1170.68, end: 1172.498, text: "一六二七年崇祯即位" },
-  { t: 1172.498, end: 1175.124, text: "十七年换了五十个内阁大学士" },
-  { t: 1175.172, end: 1177.579, text: "杀了七个总督十一个巡抚" },
-  { t: 1177.627, end: 1178.759, text: "他勤政节俭" },
-  { t: 1178.759, end: 1181.702, text: "可国库空虚党争不止天灾不断" },
-  { t: 1181.75, end: 1183.219, text: "小冰期连年大旱" },
-  { t: 1183.219, end: 1184.898, text: "陕西河南饿殍遍野" },
-  { t: 1184.946, end: 1187.402, text: "一六四四年李自成攻入北京" },
-  { t: 1187.402, end: 1188.835, text: "崇祯在煤山自缢" },
-  { t: 1188.883, end: 1190.626, text: "明朝二百七十六年" },
-  { t: 1190.626, end: 1191.715, text: "十六个皇帝" },
-  { t: 1191.715, end: 1192.586, text: "明朝灭亡" },
-  { t: 1192.634, end: 1194.486, text: "一六四四年清军入关" },
-  { t: 1194.534, end: 1196.617, text: "中原已经在李自成手里" },
-  { t: 1196.617, end: 1198.284, text: "吴三桂打开山海关" },
-  { t: 1198.284, end: 1199.534, text: "清军顺势进来" },
-  { t: 1199.582, end: 1202.038, text: "顺治是入关后的第一个皇帝" },
-  { t: 1202.038, end: 1203.471, text: "二十四岁就死了" },
-  { t: 1203.519, end: 1205.498, text: "一六六一年康熙即位" },
-  { t: 1205.498, end: 1205.938, text: "八岁" },
-  { t: 1205.938, end: 1207.038, text: "十四岁亲政" },
-  { t: 1207.086, end: 1208.382, text: "十六岁除鳌拜" },
-  { t: 1208.382, end: 1209.678, text: "二十岁平三藩" },
-  { t: 1209.678, end: 1210.974, text: "三十岁收台湾" },
-  { t: 1211.022, end: 1213.042, text: "三十六岁签尼布楚条约" },
-  { t: 1213.042, end: 1215.467, text: "把黑龙江以东的边界定下来" },
-  { t: 1215.515, end: 1217.208, text: "他三次亲征噶尔丹" },
-  { t: 1217.208, end: 1218.478, text: "把漠北收进来" },
-  { t: 1218.526, end: 1220.081, text: "他学几何学天文" },
-  { t: 1220.081, end: 1221.859, text: "让传教士进宫讲课" },
-  { t: 1221.907, end: 1222.735, text: "到他晚年" },
-  { t: 1222.735, end: 1225.426, text: "外蒙古和西藏都归了清朝管辖" },
-  { t: 1225.474, end: 1226.914, text: "他在位六十一年" },
-  { t: 1226.914, end: 1229.177, text: "是历史上在位最长的皇帝" },
-  { t: 1229.225, end: 1231.17, text: "一七二二年雍正即位" },
-  { t: 1231.17, end: 1231.818, text: "十三年" },
-  { t: 1231.866, end: 1233.37, text: "九子夺嫡的赢家" },
-  { t: 1233.37, end: 1235.088, text: "一上台就收拾兄弟" },
-  { t: 1235.088, end: 1236.162, text: "圈禁的圈禁" },
-  { t: 1236.162, end: 1237.236, text: "削籍的削籍" },
-  { t: 1237.284, end: 1240.062, text: "摊丁入亩设军机处改土归流" },
-  { t: 1240.11, end: 1241.777, text: "他批奏折批到半夜" },
-  { t: 1241.777, end: 1243.027, text: "一天写几千字" },
-  { t: 1243.027, end: 1245.11, text: "十三年就把自己熬垮了" },
-  { t: 1245.158, end: 1247.103, text: "一七三五年乾隆即位" },
-  { t: 1247.103, end: 1247.751, text: "六十年" },
-  { t: 1247.799, end: 1248.711, text: "十全武功" },
-  { t: 1248.711, end: 1249.85, text: "修四库全书" },
-  { t: 1249.85, end: 1250.762, text: "六下江南" },
-  { t: 1250.81, end: 1251.625, text: "到这时候" },
-  { t: 1251.625, end: 1254.884, text: "清朝的版图有一千三百多万平方公里" },
-  { t: 1254.932, end: 1256.837, text: "康熙雍正乾隆三朝" },
-  { t: 1256.837, end: 1258.265, text: "史称康乾盛世" },
-  { t: 1258.313, end: 1260.35, text: "清朝只留广州一口通商" },
-  { t: 1260.35, end: 1262.387, text: "由十三行垄断对外贸易" },
-  { t: 1262.435, end: 1265.062, text: "文字狱在乾隆手里也到了顶峰" },
-  { t: 1265.062, end: 1266.88, text: "一个字就能家破人亡" },
-  { t: 1266.928, end: 1269.134, text: "一七九三年英国使团来华" },
-  { t: 1269.134, end: 1271.742, text: "马戛尔尼没见到他想要的市场" },
-  { t: 1271.79, end: 1273.713, text: "一七九六年乾隆退位" },
-  { t: 1273.713, end: 1274.568, text: "嘉庆即位" },
-  { t: 1274.616, end: 1275.505, text: "乾隆晚年" },
-  { t: 1275.505, end: 1276.616, text: "白莲教起义" },
-  { t: 1276.616, end: 1277.95, text: "清朝由盛转衰" },
-  { t: 1277.998, end: 1280.229, text: "道光皇帝穿打补丁的裤子" },
-  { t: 1280.229, end: 1282.257, text: "可鸦片战争还是打输了" },
-  { t: 1282.305, end: 1284.157, text: "一八四零年鸦片战争" },
-  { t: 1284.157, end: 1286.009, text: "一八四二年南京条约" },
-  { t: 1286.057, end: 1289.542, text: "割香港岛赔两千一百万银元开五口通" },
-  { t: 1289.542, end: 1289.76, text: "商" },
-  { t: 1289.808, end: 1291.713, text: "一八五一年太平天国" },
-  { t: 1291.713, end: 1292.771, text: "打了十四年" },
-  { t: 1292.819, end: 1295.244, text: "一八五六年第二次鸦片战争" },
-  { t: 1295.244, end: 1297.264, text: "一八六零年圆明园被烧" },
-  { t: 1297.312, end: 1299.196, text: "一八六一年咸丰去世" },
-  { t: 1299.196, end: 1300.87, text: "慈禧发动辛酉政变" },
-  { t: 1300.87, end: 1302.126, text: "开始垂帘听政" },
-  { t: 1302.174, end: 1303.416, text: "此后近五十年" },
-  { t: 1303.416, end: 1305.693, text: "清朝的实际权力在她手里" },
-  { t: 1305.741, end: 1307.583, text: "洋务运动办了三十年" },
-  { t: 1307.583, end: 1309.63, text: "北洋水师号称亚洲第一" },
-  { t: 1309.678, end: 1311.562, text: "一八九四年甲午战争" },
-  { t: 1311.562, end: 1313.446, text: "一八九五年马关条约" },
-  { t: 1313.446, end: 1314.493, text: "台湾被割让" },
-  { t: 1314.541, end: 1316.425, text: "一八九八年戊戌变法" },
-  { t: 1316.425, end: 1317.89, text: "一百零三天失败" },
-  { t: 1317.89, end: 1319.355, text: "光绪被囚在瀛台" },
-  { t: 1319.403, end: 1321.262, text: "一九零零年八国联军" },
-  { t: 1321.262, end: 1323.121, text: "一九零一年辛丑条约" },
-  { t: 1323.121, end: 1324.774, text: "赔款四亿五千万两" },
-  { t: 1324.822, end: 1326.716, text: "一九零五年废除科举" },
-  { t: 1326.716, end: 1329.451, text: "一九零八年光绪慈禧先后去世" },
-  { t: 1329.499, end: 1331.388, text: "一九一一年辛亥革命" },
-  { t: 1331.388, end: 1332.648, text: "各省纷纷独立" },
-  { t: 1332.696, end: 1334.857, text: "一九一二年二月十二日" },
-  { t: 1334.857, end: 1335.721, text: "溥仪退位" },
-  { t: 1335.721, end: 1336.585, text: "清朝灭亡" },
-  { t: 1336.633, end: 1338.716, text: "清朝入关以后十位皇帝" },
-  { t: 1338.716, end: 1339.966, text: "二百六十八年" },
-  { t: 1340.014, end: 1341.546, text: "两千多年的帝制" },
-  { t: 1341.546, end: 1342.421, text: "到此结束" },
-  { t: 1342.469, end: 1345.298, text: "从公元前二二一年到一九一二年" },
-  { t: 1345.298, end: 1346.914, text: "两千一百三十三年" },
-  { t: 1346.962, end: 1348.599, text: "四百二十二位皇帝" },
-  { t: 1348.599, end: 1350.851, text: "平均下来每个人不到六年" },
-  { t: 1350.899, end: 1352.555, text: "有人坐了六十一年" },
-  { t: 1352.555, end: 1354.417, text: "有人只坐了几个时辰" },
-  { t: 1354.465, end: 1355.923, text: "有人死在龙床上" },
-  { t: 1355.923, end: 1357.382, text: "有人死在乱军里" },
-  { t: 1357.382, end: 1359.465, text: "有人死在自己儿子手里" },
-  { t: 1359.513, end: 1360.332, text: "这把椅子" },
-  { t: 1360.332, end: 1363.402, text: "坐上去的人都以为自己能坐一辈子" },
-  { t: 1363.45, end: 1364.7, text: "但历史记住的" },
-  { t: 1364.7, end: 1366.783, text: "从来不是他们坐了多久" },
-  { t: 1366.831, end: 1368.498, text: "而是他们做了什么" },
-  { t: 1368.546, end: 1370.028, text: "秦始皇统一文字" },
-  { t: 1370.028, end: 1371.509, text: "汉武帝打通西域" },
-  { t: 1371.557, end: 1373.07, text: "唐太宗开创贞观" },
-  { t: 1373.07, end: 1374.15, text: "康熙收台湾" },
-  { t: 1374.198, end: 1376.605, text: "这些事比皇位本身活得更久" },
-  { t: 1376.653, end: 1378.135, text: "四百二十二个人" },
-  { t: 1378.135, end: 1379.616, text: "一代一代传下来" },
-  { t: 1379.664, end: 1381.219, text: "传到我们这一代" },
-  { t: 1381.219, end: 1382.108, text: "皇帝没了" },
-  { t: 1382.108, end: 1382.997, text: "中国还在" },
-  { t: 1383.045, end: 1384.557, text: "四百二十二人里" },
-  { t: 1384.557, end: 1385.421, text: "被记住的" },
-  { t: 1385.421, end: 1388.23, text: "也就开国盛世亡国那么几十个" },
-  { t: 1388.278, end: 1389.133, text: "剩下的人" },
-  { t: 1389.133, end: 1391.056, text: "被压在史书的字缝里" },
-  { t: 1391.104, end: 1392.553, text: "他们争了一辈子" },
-  { t: 1392.553, end: 1394.623, text: "最后都进了同一部史书" },
-  { t: 1394.671, end: 1397.86, text: "而我们今天写的字用的省界考的试" },
-  { t: 1397.86, end: 1400.411, text: "都还是他们留下来的那一套" }
-];
-
-const CUE = {"total": 1401.011, "filmEnd": 1406.411};
-
-/* ---------------- build ---------------- */
-let tl = null;
-
-function buildStage() {
-  document.getElementById("stage").innerHTML = PaperCut.buildStage(SHOTS);
-}
-
-function buildCaptions() {
-  const wrap = document.getElementById("caption-wrap");
-  wrap.innerHTML = "";
-  CAPS.forEach((s, i) => {
-    const line = document.createElement("div");
-    line.className = "cap-line";
-    line.id = "cap-" + i;
-    const box = document.createElement("span");
-    box.className = "cap-box";
-    box.textContent = s.text;
-    line.appendChild(box);
-    wrap.appendChild(line);
-  });
-}
-
-function cameraOf(shot) {
-  const c = shot.camera || {};
-  const from = c.from || { x: 0, y: 0, scale: 1.02, rot: 0 };
-  const to = c.to || { x: 0, y: 0, scale: 1.10, rot: 0 };
-  return { from, to };
-}
-
-/* 人物：跑步的起伏与摆臂摆腿、披风、主角动作（挥刺 / 拉弓 / 举剑 / 后坐） */
-function animateLife(el, shot, t0, dur) {
-  const chars = shot.chars || [];
-  const persons = el.querySelectorAll(".pc-chars .pc-person-wrap");
-
-  persons.forEach((w, i) => {
-    const c = chars[i] || {};
-    const role = c.role || "official";
-    const pose = c.pose || "stand";
-    const dir = c.facing === "left" ? -1 : 1;
-    const moving = pose === "run" || pose === "walk";
-
-    const breath = w.querySelectorAll(".pc-breathe");
-    const armL = w.querySelectorAll(".pc-arm-l");
-    const armR = w.querySelectorAll(".pc-arm-r");
-    const legL = w.querySelectorAll(".pc-leg-l");
-    const legR = w.querySelectorAll(".pc-leg-r");
-    const capeL = w.querySelectorAll(".pc-cape-l");
-    const capeR = w.querySelectorAll(".pc-cape-r");
-
-    /* 每个人的步频与相位错开，避免多人同拍像队列 */
-    const amp = pose === "run" ? 7 : pose === "walk" ? 4 : 2.2;
-    const cycle = (pose === "run" ? .18 : pose === "walk" ? .3 : 1.2) * (1 + (i % 3) * .07);
-    const ph = .06 + i * .093;
-    const reps = Math.max(2, 2 * Math.floor(dur / (cycle * 2)));
-
-    breath.forEach((b, k) => {
-      tl.fromTo(b, { y: 0 }, { y: -amp, duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
-        t0 + ph + k * .02);
-    });
-
-    if (moving) {
-      tl.fromTo(w, { x: 0 }, { x: dir * (pose === "run" ? 26 : 14), duration: dur, ease: "sine.inOut" }, t0);
-      const swing = (pose === "run" ? 14 : 8) * (role === "soldier" ? 1.1 : 1);
-      /* 切镜即动：靠反向起步与各自步频错开，而不是延后起摆 */
-      const s0 = i % 2 ? -1 : 1;
-      [[legL, -14, 1], [legR, 14, -1]].forEach(([gs, ox, sgn]) => {
-        gs.forEach((g, k) => {
-          const base = gsap.getProperty(g, "rotation") || 0;
-          tl.fromTo(g, { rotation: base - swing * sgn * s0, svgOrigin: ox + " -44" },
-            { rotation: base + swing * sgn * s0, svgOrigin: ox + " -44", duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
-            t0 + .02 + k * .01);
-        });
-      });
-      [[armL, -19, -1], [armR, 19, 1]].forEach(([gs, ox, sgn]) => {
-        gs.forEach((g) => {
-          const base = gsap.getProperty(g, "rotation") || 0;
-          tl.fromTo(g, { rotation: base - swing * .55 * sgn * s0, svgOrigin: ox + " -130" },
-            { rotation: base + swing * .55 * sgn * s0, svgOrigin: ox + " -130", duration: cycle, ease: "sine.inOut", yoyo: true, repeat: reps },
-            t0 + .02);
-        });
-      });
-    } else {
-      armL.forEach((g) => {
-        const base = gsap.getProperty(g, "rotation") || 0;
-        tl.fromTo(g, { rotation: base }, { rotation: base + 1.3 * dir, svgOrigin: "-19 -130", duration: 1.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor(dur / 1.7)) }, t0 + .2);
-      });
-      armR.forEach((g) => {
-        const base = gsap.getProperty(g, "rotation") || 0;
-        tl.fromTo(g, { rotation: base }, { rotation: base - 1.1 * dir, svgOrigin: "19 -130", duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.floor(dur / 2.1)) }, t0 + .3);
-      });
-    }
-
-    capeL.forEach((p) => tl.fromTo(p, { scaleX: 1 }, { scaleX: 1.12, transformOrigin: "100% 30%", duration: .7, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.4)) }, t0 + .1));
-    capeR.forEach((p) => tl.fromTo(p, { scaleX: 1 }, { scaleX: 1.1, transformOrigin: "0% 30%", duration: .82, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.64)) }, t0 + .1));
-
-    /* 主角动作：按镜头设计 */
-    if (role !== "general") return;
-    if (shot.id === "r001") {
-      [[1.02], [3.06]].forEach(([tt]) => {
-        tl.to(w, { x: -12, duration: .24, ease: "power2.in" }, t0 + tt)
-          .to(w, { x: 30, duration: .14, ease: "power4.out" }, t0 + tt + .24)
-          .to(w, { x: 0, duration: .82, ease: "power2.inOut" }, t0 + tt + .38);
-        tl.fromTo("#stage", { x: 0 }, { x: 7, duration: .05, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt + .27);
-      });
-    } else if (shot.id === "r002") {
-      [.9, 2.7].forEach((tt) => {
-        tl.fromTo(w, { scale: 1 }, { scale: 1.035, duration: .2, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt);
-      });
-    } else if (shot.id === "r003") {
-      tl.fromTo(w, { y: 0, rotation: 0 }, { y: -6, rotation: -1.2, duration: 1.5, ease: "sine.out" }, t0 + .5);
-      tl.to(w, { y: 0, rotation: 0, duration: 2.6, ease: "sine.inOut" }, t0 + 2.2);
-    } else if (shot.id === "r004") {
-      tl.to(w, { x: -9, duration: 1.25, ease: "sine.out" }, t0 + .35);
-      tl.to(w, { x: 12, duration: .1, ease: "power4.out" }, t0 + 1.68);
-      tl.to(w, { x: 0, duration: .95, ease: "power2.out" }, t0 + 1.78);
-      tl.fromTo("#stage", { x: 0 }, { x: 9, duration: .055, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + 1.7);
-    } else if (shot.id === "r005") {
-      [1.15, 3.45].forEach((tt) => {
-        tl.to(w, { x: 9, duration: .07, ease: "power3.out" }, t0 + tt)
-          .to(w, { x: 0, duration: .55, ease: "power2.out" }, t0 + tt + .07);
-        tl.fromTo("#stage", { x: 0 }, { x: 10, duration: .06, yoyo: true, repeat: 1, ease: "power2.out" }, t0 + tt);
-      });
-    }
-  });
-}
-
-/* 环境：云、雾、鸟、旗、芦苇、马队、船、军阵、火/烟/雪/尘 */
-function animateEnvironment(el, shot, t0, dur) {
-  el.querySelectorAll(".pc-cloud").forEach((c, k) => {
-    tl.fromTo(c, { x: -10 - (k % 3) * 12 }, { x: 16 + (k % 3) * 14, duration: dur * 1.08, ease: "sine.inOut" }, t0);
-  });
-  el.querySelectorAll(".pc-mist").forEach((m, k) => {
-    tl.fromTo(m, { x: -34, opacity: .5 }, { x: 40, opacity: .82, duration: dur, ease: "sine.inOut" }, t0 + k * .12);
-  });
-  el.querySelectorAll(".pc-birds").forEach((b, k) => {
-    tl.fromTo(b, { x: -46, y: 10 }, { x: 78, y: -14, duration: dur, ease: "sine.inOut" }, t0 + k * .22);
-  });
-  el.querySelectorAll(".pc-banner").forEach((b, k) => {
-    const d = 2.1 + (k % 3) * .3;
-    tl.fromTo(b, { rotation: -1.3 }, { rotation: 1.3, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 4) * .18);
-  });
-  el.querySelectorAll(".pc-pennant").forEach((p, k) => {
-    const d = 1.9 + (k % 3) * .28;
-    tl.fromTo(p, { rotation: -1.1 }, { rotation: 1.1, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 4) * .22);
-  });
-  el.querySelectorAll(".pc-reeds").forEach((g, k) => {
-    const d = 1.7 + (k % 3) * .25;
-    tl.fromTo(g, { rotation: -1.2 }, { rotation: 1.2, transformOrigin: "50% 100%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / d)) }, t0 + (k % 5) * .16);
-  });
-  el.querySelectorAll(".pc-spears").forEach((s, k) => {
-    tl.fromTo(s, { rotation: -.6 }, { rotation: .6, transformOrigin: "50% 100%", duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / 2.6)) }, t0 + k * .2);
-  });
-  el.querySelectorAll(".pc-cavalry").forEach((h, k) => {
-    tl.fromTo(h, { y: 0, rotation: -1.2 }, { y: -8, rotation: 1.2, transformOrigin: "50% 100%", duration: .19, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / .38)) }, t0 + k * .05);
-    tl.fromTo(h, { x: -12 }, { x: 14, duration: dur, ease: "sine.inOut" }, t0);
-  });
-  el.querySelectorAll(".pc-junk, .pc-warship").forEach((b, k) => {
-    const d = 1.5 + k * .3;
-    tl.fromTo(b, { y: 0, rotation: -.7 }, { y: -6, rotation: .7, transformOrigin: "50% 92%", duration: d, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.round(dur / (d * 2))) }, t0 + k * .3);
-  });
-  el.querySelectorAll(".pc-army, .pc-crowd").forEach((a, k) => {
-    tl.fromTo(a, { y: 0 }, { y: -2.5, duration: .95, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 1.9)) }, t0 + k * .15);
-  });
-  el.querySelectorAll(".pc-fire").forEach((f, k) => {
-    tl.fromTo(f, { scaleY: .9, y: 3 }, { scaleY: 1.09, y: -5, duration: .46 + (k % 3) * .07, ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.ceil(dur / .5)) }, t0 + (k % 3) * .06);
-  });
-  el.querySelectorAll(".pc-smoke").forEach((s, k) => {
-    tl.fromTo(s, { x: -10 - k * 3, opacity: .5 }, { x: 20 + k * 4, opacity: .86, duration: dur, ease: "sine.inOut" }, t0 + k * .1);
-  });
-  el.querySelectorAll(".pc-snow").forEach((s) => {
-    tl.fromTo(s, { y: -32, x: -8 }, { y: 30, x: 10, duration: dur, ease: "none" }, t0);
-  });
-  el.querySelectorAll(".pc-rain").forEach((r) => {
-    tl.fromTo(r, { y: -40 }, { y: 40, duration: dur, ease: "none" }, t0);
-  });
-  el.querySelectorAll(".pc-embers").forEach((m, k) => {
-    tl.fromTo(m, { y: 28, opacity: .5 }, { y: -42, opacity: .95, duration: dur, ease: "sine.out" }, t0 + (k % 3) * .12);
-  });
-  el.querySelectorAll(".pc-dust").forEach((m, k) => {
-    tl.fromTo(m, { x: -30, opacity: .24 }, { x: 34, opacity: .5, duration: dur, ease: "sine.inOut" }, t0 + k * .1);
-  });
-  el.querySelectorAll(".pc-stars").forEach((m) => {
-    tl.fromTo(m, { opacity: .38 }, { opacity: .92, duration: Math.max(.7, dur / 2), ease: "sine.inOut", yoyo: true, repeat: Math.max(2, 2 * Math.floor(dur / 2)) }, t0);
-  });
-  /* 炮口闪光：让开炮发生在运镜落定之后 */
-  el.querySelectorAll(".pc-muzzle").forEach((m) => {
-    [1.15, 3.45].forEach((tt) => {
-      tl.fromTo(m, { scale: .18, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, duration: .11, ease: "power4.out" }, t0 + tt);
-      tl.to(m, { scale: 1.8, opacity: 0, duration: .52, ease: "power2.out" }, t0 + tt + .13);
-    });
-  });
-}
-
-/* 开场钩子：标题砸屏后 1 秒抖屏，振幅按 1.6 次方衰减到 0 */
-function hookShake(el, t0, dur, amp) {
-  const n = Math.round(dur * 30);
-  for (let k = 0; k <= n; k++) {
-    const tt = k / 30;
-    const env = Math.pow(1 - tt / dur, 1.6);
-    const dx = Math.sin(tt * 11 * 2 * Math.PI) * amp * env;
-    const dy = Math.sin(tt * 7.3 * 2 * Math.PI) * amp * .6 * env;
-    tl.set(el, { x: dx, y: dy }, t0 + tt);
-  }
-}
-
-function buildTimeline() {
-  const rootDur = parseFloat(document.getElementById("root").dataset.duration) || 0;
-  const total = Math.max(CUE.filmEnd || 0, rootDur, SHOTS.length ? SHOTS[SHOTS.length - 1].t1 + 5.4 : 5.4);
-  tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
-
-  gsap.set(".shot", { autoAlpha: 0 });
-
-  SHOTS.forEach((shot, i) => {
-    const el = document.querySelectorAll("#stage .shot")[i];
-    if (!el) return;
-    const t0 = Number(shot.t0) || 0;
-    const t1 = Number(shot.t1) || t0 + 3.5;
-    const dur = Math.max(0.4, t1 - t0);
-    const world = el.querySelector(".shot-world");
-    const cam = cameraOf(shot);
-    const ease = shot.camera && shot.camera.ease ? shot.camera.ease : "sine.inOut";
-    const hook = !!shot.hook;
-
-    tl.set(el, { autoAlpha: 1 }, t0);
-
-    /* 运镜：两段式（推进 → 收束），缩放走对数空间，速度变化不顿挫 */
-    const cf = cam.from, ct = cam.to;
-    const cs = (a, b, r) => Math.exp(Math.log(a) * (1 - r) + Math.log(b) * r);
-    const mid = {
-      x: (cf.x || 0) + ((ct.x || 0) - (cf.x || 0)) * .58,
-      y: (cf.y || 0) + ((ct.y || 0) - (cf.y || 0)) * .58,
-      scale: cs(cf.scale || 1.02, ct.scale || 1.10, .58),
-      rotation: (cf.rot || 0) + ((ct.rot || 0) - (cf.rot || 0)) * .58
-    };
-    tl.fromTo(world,
-      { x: cf.x || 0, y: cf.y || 0, scale: cf.scale || 1.02, rotation: cf.rot || 0 },
-      { x: mid.x, y: mid.y, scale: mid.scale, rotation: mid.rotation, duration: dur * .58, ease: "power1.inOut" }, t0);
-    tl.to(world,
-      { x: ct.x || 0, y: ct.y || 0, scale: ct.scale || 1.10, rotation: ct.rot || 0, duration: dur * .42, ease },
-      t0 + dur * .58);
-
-    if (hook) {
-      /* 钩子：各层从下方砸入，落定后抖屏 1 秒 */
-      [
-        [".pc-sky", -22, 1.05, 0],
-        [".pc-far", 26, 1.04, .02],
-        [".pc-mid", 64, 1.10, .04],
-        [".pc-action", 96, 1.14, .06],
-        [".pc-fore", 26, 1.04, .08]
-      ].forEach(([sel, y0, s0, delay]) => {
-        const layer = el.querySelector(sel);
-        if (!layer) return;
-        tl.fromTo(layer, { x: 0, y: y0, scale: s0, transformOrigin: "50% 82%" },
-          { x: 0, y: 0, scale: 1, duration: .52, ease: "power4.out" }, t0 + delay);
-      });
-      hookShake(el, t0, 1.0, 14);
-      tl.fromTo("#hook-flash", { opacity: 0 }, { opacity: .95, duration: .04, ease: "none" }, t0);
-      tl.to("#hook-flash", { opacity: 0, duration: .32, ease: "power2.out" }, t0 + .05);
-      tl.fromTo("#hook-ring", { opacity: 0, scale: .32 }, { opacity: .85, scale: 1, duration: .16, ease: "power4.out" }, t0 + .03);
-      tl.to("#hook-ring", { opacity: 0, scale: 1.55, duration: .44, ease: "power2.out" }, t0 + .20);
-    } else {
-      /* 手持浮动：整镜极轻微漂移，去掉三脚架感 */
-      const hs = i % 2 ? 1 : -1;
-      tl.fromTo(el, { x: 0, y: 0 }, { x: hs * 5, y: -3 - (i % 3), duration: dur, ease: "sine.inOut" }, t0);
-
-      /* 层间视差：远景慢、近景快 */
-      el.querySelectorAll(".pc-layer").forEach((layer, j) => {
-        const depth = parseFloat(layer.dataset.depth || "1");
-        const drift = (j % 2 ? 1 : -1) * (12 + depth * 22);
-        tl.fromTo(layer, { x: -drift * .55, y: -6 }, { x: drift, y: 9, duration: dur, ease: "sine.inOut" }, t0);
-      });
-    }
-
-    animateLife(el, shot, t0, dur);
-    animateEnvironment(el, shot, t0, dur);
-
-    /* 标题 */
-    const title = el.querySelector(".shot-title");
-    if (title) {
-      if (hook) {
-        tl.set(title, { xPercent: -50 }, t0);
-        tl.fromTo(title, { opacity: 0, y: 62, scale: 1.52 },
-          { opacity: 1, y: 0, scale: 1, duration: .27, ease: "power4.out" }, t0 + .02);
-        tl.fromTo(title, { scale: 1 }, { scale: 1.032, duration: .42, ease: "power2.out" }, t0 + .30);
-        tl.to(title, { scale: 1, duration: .55, ease: "sine.inOut" }, t0 + .72);
-        const kick = title.querySelector(".tc-kicker");
-        const sub = title.querySelector(".tc-sub");
-        if (kick) {
-          tl.set(kick, { opacity: 0 }, t0);
-          tl.fromTo(kick, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .32, ease: "power3.out" }, t0 + .20);
-        }
-        if (sub) {
-          tl.set(sub, { opacity: 0 }, t0);
-          tl.fromTo(sub, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .36, ease: "power3.out" }, t0 + .36);
-        }
-        tl.to(title, { opacity: 0, y: -26, duration: .38, ease: "power2.in" }, Math.max(t0 + .5, t1 - .46));
-      } else {
-        tl.fromTo(title, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, t0 + .12);
-        tl.to(title, { opacity: 0, y: -18, duration: .38, ease: "power2.in" }, Math.max(t0 + .5, t1 - .48));
-      }
-    }
-
-    /* 纸片转场：章节切换或显式声明 */
-    if (shot.wipe) {
-      tl.set("#paper-wipe", { visibility: "visible" }, Math.max(0, t0 - .22));
-      tl.fromTo("#paper-wipe", { xPercent: -105 }, { xPercent: 105, duration: .44, ease: "power2.inOut" }, Math.max(0, t0 - .22));
-      tl.set("#paper-wipe", { visibility: "hidden" }, t0 + .24);
-    }
-
-    tl.set(el, { autoAlpha: 0 }, t1);
-  });
-
-  /* 字幕 */
-  CAPS.forEach((s, i) => {
-    const el = document.getElementById("cap-" + i);
-    if (!el) return;
-    tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: .01, ease: "none" }, s.t);
-    tl.to(el, { opacity: 0, duration: .01, ease: "none" }, Math.max(s.t + .12, s.end - .04));
-  });
-
-  /* 光扫 */
-  tl.fromTo("#light-sweep", { xPercent: -22, opacity: .18 }, { xPercent: 22, opacity: .42, duration: 7, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(total / 7) }, 0);
-
-  /* 片尾 */
-  const endAt = total - 5.4;
-  if (endAt > 0) {
-    tl.to("#stage, #caption-wrap, #subtitle-veil, #vignette", { opacity: 0, duration: .7 }, endAt);
-    tl.fromTo("#endcard", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, endAt + .15);
-    tl.fromTo(".ec-seal", { opacity: 0, scale: 1.3, rotation: -16 }, { opacity: 1, scale: 1, rotation: -6, duration: .6, ease: "back.out(2)" }, endAt + .35);
-    tl.fromTo(".ec-kicker, .ec-title, .ec-sub, .ec-next, .ec-brand", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .65, stagger: .14 }, endAt + .55);
-  }
-
-  window.__timelines["china-emperors-20min"] = tl;
-}
-
-buildStage();
-buildCaptions();
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(buildTimeline).catch(buildTimeline);
-} else {
-  buildTimeline();
-}
-  </script>
-</body>
-</html>
+]

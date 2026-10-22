@@ -27,6 +27,8 @@ def main():
     ap.add_argument("--cover-4x3")
     ap.add_argument("--cover-3x4")
     ap.add_argument("--fps", type=float, default=30.0)
+    ap.add_argument("--width", type=int, default=1920)
+    ap.add_argument("--height", type=int, default=1080)
     args = ap.parse_args()
     ok = True
     report = ["# ditu 成片质检", "", "## 规格", ""]
@@ -40,7 +42,7 @@ def main():
     expected_frames = int(round(args.duration * args.fps))
     checks = [
         ("视频编码", v.get("codec_name") in ("h264", "hevc"), v.get("codec_name")),
-        ("分辨率", (v.get("width"), v.get("height")) == (1080, 1920),
+        ("分辨率", (v.get("width"), v.get("height")) == (args.width, args.height),
          "%sx%s" % (v.get("width"), v.get("height"))),
         ("帧率", v.get("avg_frame_rate") in ("30/1", "30/1"), v.get("avg_frame_rate")),
         ("时长", abs(dur - args.duration) <= 0.05, "%.3f s（目标 %.3f）" % (dur, args.duration)),
